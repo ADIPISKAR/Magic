@@ -1,4 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
+	const navigation = document.querySelector('.navigation');
+	const navigationButtons = [...document.querySelectorAll('.navigation .Button_Navigation')];
+	const activeNavigation = navigation?.querySelector('.Active_Navigation');
+
+	if (navigation && activeNavigation && navigationButtons.length) {
+		const activeNavigationPadding = Number.parseFloat(
+			window.getComputedStyle(activeNavigation).paddingLeft,
+		);
+		activeNavigation.style.setProperty('--active-navigation-padding', `${activeNavigationPadding}px`);
+
+		const moveActiveNavigation = (button) => {
+			const offset = button.offsetLeft - activeNavigation.offsetLeft - (
+				button === activeNavigation ? 0 : activeNavigationPadding
+			);
+			const buttonWidth = button === activeNavigation
+				? button.offsetWidth - activeNavigationPadding * 2
+				: button.offsetWidth;
+
+			activeNavigation.style.setProperty('--active-navigation-offset', `${offset}px`);
+			activeNavigation.style.setProperty('--active-navigation-width', `${buttonWidth}px`);
+		};
+
+		const resetActiveNavigation = () => {
+			navigation.classList.remove('is-hovering');
+			moveActiveNavigation(activeNavigation);
+		};
+
+		navigationButtons.forEach((button) => {
+			button.addEventListener('mouseenter', () => {
+				navigation.classList.add('is-hovering');
+				moveActiveNavigation(button);
+			});
+		});
+
+		navigation.addEventListener('mouseleave', resetActiveNavigation);
+		window.addEventListener('resize', () => {
+			moveActiveNavigation(navigation.matches(':hover')
+				? navigationButtons.find((button) => button.matches(':hover')) || activeNavigation
+				: activeNavigation);
+		});
+
+		resetActiveNavigation();
+	}
+
 	const cards = [...document.querySelectorAll('.hero_card')];
 
 	if (!cards.length) {

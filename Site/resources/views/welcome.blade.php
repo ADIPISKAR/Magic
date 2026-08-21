@@ -590,6 +590,21 @@
                 slidesPerView: 5,
                 spaceBetween: 16,
 
+                breakpoints: {
+                    0: {
+                        slidesPerView: 1,
+                        spaceBetween: 10,
+                    },
+                    576: {
+                        slidesPerView: 2,
+                        spaceBetween: 16,
+                    },
+                    1200: {
+                        slidesPerView: 5,
+                        spaceBetween: 16,
+                    },
+                },
+
                 pagination: {
                     el: '.my-slider .swiper-pagination',
                     clickable: true,
