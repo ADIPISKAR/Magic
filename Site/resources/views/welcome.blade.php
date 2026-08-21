@@ -43,7 +43,7 @@
                     <div class="welcome_info">
                         <div class="welcome_text">
                             <h1>Ремонт квартир <br> в Ростове-на-Дону</h1>
-                            <p>Ясность нашей позиции очевидна: укрепление и развитие внутренней <br> структуры создаёт предпосылки для направлений прогрессивного развития.</p>
+                            <p>Ясность нашей позиции очевидна: укрепление и развитие внутренней структуры создаёт предпосылки для направлений прогрессивного развития.</p>
                         </div>
 
                         <div class="welcome_button_info">
@@ -136,7 +136,7 @@
                         <div class="container">
                             <div class="row">
 
-                                <div class="col-3">
+                                <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
                                     <div class="Service_Price">
                                         <div class="d-flex flex-column gap-3">
                                             <h2>Черновой</h2>
@@ -158,7 +158,7 @@
                                     </div>       
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
                                     <div class="Service_Price">
                                         <div class="d-flex flex-column gap-3">
                                             <h2>Черновой</h2>
@@ -180,7 +180,7 @@
                                     </div>       
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
                                     <div class="Service_Price">
                                         <div class="d-flex flex-column gap-3">
                                             <h2>Черновой</h2>
@@ -202,7 +202,7 @@
                                     </div>       
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
                                     <div class="Service_Price">
                                         <div class="d-flex flex-column gap-3">
                                             <h2>Черновой</h2>
