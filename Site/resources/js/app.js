@@ -118,4 +118,63 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 
 	updatePositions();
+
+	const portfolioCards = [...document.querySelectorAll('.portfolio_card')];
+
+	portfolioCards.forEach((card) => {
+		let slideTimer;
+		let returnTimer;
+		let expandFrame;
+
+		const setBaseGeometry = () => {
+			const wrapper = card.parentElement;
+			const wrapperRect = wrapper.getBoundingClientRect();
+			const cardRect = card.getBoundingClientRect();
+
+			card.style.setProperty('--portfolio-base-left', `${cardRect.left - wrapperRect.left}px`);
+			card.style.setProperty('--portfolio-base-top', `${cardRect.top - wrapperRect.top}px`);
+			card.style.setProperty('--portfolio-base-width', `${cardRect.width}px`);
+			card.style.setProperty('--portfolio-base-height', `${cardRect.height}px`);
+			card.style.setProperty('--portfolio-expanded-top', '0px');
+			card.style.setProperty('--portfolio-expanded-left', card.dataset.half === 'left' ? '0px' : `${wrapperRect.width / 2}px`);
+			card.style.setProperty('--portfolio-expanded-width', `${wrapperRect.width / 2}px`);
+			card.style.setProperty('--portfolio-expanded-height', `${wrapperRect.height}px`);
+		};
+
+		const setSlide = (slideIndex) => {
+			const images = JSON.parse(card.dataset.images);
+			card.querySelector('.portfolio_card_image').src = images[slideIndex % images.length];
+		};
+
+		card.addEventListener('mouseenter', () => {
+			window.clearTimeout(returnTimer);
+			card.classList.remove('is-returning');
+			card.dataset.half = Number(card.style.getPropertyValue('--portfolio-column')) <= 2 ? 'left' : 'right';
+			setBaseGeometry();
+			card.classList.add('is-expanding');
+			card.getBoundingClientRect();
+			expandFrame = window.requestAnimationFrame(() => card.classList.add('is-expanded'));
+			let slideIndex = 0;
+			slideTimer = window.setInterval(() => {
+				slideIndex += 1;
+				setSlide(slideIndex);
+			}, 2200);
+		});
+
+		card.addEventListener('mouseleave', () => {
+			window.clearInterval(slideTimer);
+			window.cancelAnimationFrame(expandFrame);
+			card.classList.remove('is-expanded');
+			card.classList.add('is-returning');
+			window.clearTimeout(returnTimer);
+			returnTimer = window.setTimeout(() => {
+				card.classList.remove('is-expanding', 'is-returning');
+				card.style.removeProperty('--portfolio-base-left');
+				card.style.removeProperty('--portfolio-base-top');
+				card.style.removeProperty('--portfolio-base-width');
+				card.style.removeProperty('--portfolio-base-height');
+			}, 420);
+			window.setTimeout(() => setSlide(0), 420);
+		});
+	});
 });

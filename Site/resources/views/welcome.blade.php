@@ -118,16 +118,37 @@
                     <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
                 </div>
 
-                <div class="wrapper">
-                    <div class="box1"></div>
-                    <div class="box2"></div>
-                    <div class="box3"></div>
-                    <div class="box4"></div>
-                    <div class="box5"></div>
-                    <div class="box6"></div>
-                    <div class="box7"></div>
-                    <div class="box8"></div>
-                    <div class="box9"></div>
+                @php
+                    $portfolioImages = collect(range(1, 9))
+                        ->map(fn ($image) => asset("images/Portf/{$image}.svg"))
+                        ->values()
+                        ->all();
+                    $portfolioColumns = [1 => 1, 2 => 1, 3 => 2, 4 => 3, 5 => 4, 6 => 4, 7 => 1, 8 => 3, 9 => 4];
+                @endphp
+
+                <div class="wrapper" aria-label="Проекты портфолио">
+                    @for ($cardIndex = 1; $cardIndex <= 9; $cardIndex++)
+                        @php
+                            $imageIndex = ($cardIndex - 1) % count($portfolioImages);
+                            $cardImages = [
+                                $portfolioImages[$imageIndex],
+                                $portfolioImages[($imageIndex + 1) % count($portfolioImages)],
+                                $portfolioImages[($imageIndex + 2) % count($portfolioImages)],
+                            ];
+                        @endphp
+                        <article
+                            class="portfolio_card portfolio_card--{{ $cardIndex }}"
+                            style="--portfolio-column: {{ $portfolioColumns[$cardIndex] }};"
+                            data-images="{{ json_encode($cardImages) }}"
+                        >
+                            <img src="{{ $cardImages[0] }}" alt="Проект {{ $cardIndex }}" class="portfolio_card_image">
+                            <div class="portfolio_card_info">
+                                <span class="portfolio_card_number">{{ str_pad($cardIndex, 2, '0', STR_PAD_LEFT) }}</span>
+                                <h2>Проект {{ $cardIndex }}</h2>
+                                <p>Дизайн и ремонт интерьера с вниманием к каждой детали.</p>
+                            </div>
+                        </article>
+                    @endfor
                 </div>
             </section>
         </div>
