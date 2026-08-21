@@ -56,8 +56,29 @@
                     </div>
 
                     <div class="hero_image_container">
-                        <img src="{{ asset('images/WelcomePhoto/Wel_Photo_1.svg') }}" alt="Hero Image" class="hero_image">
-                        <img src="{{ asset('images/WelcomePhoto/Wel_Photo_2.svg') }}" alt="Hero Image" class="hero_image">
+                        <div class="hero_card">
+                            <div class="hero_card_inner">
+                                <div class="hero_card_front">
+                                    <img src="{{ asset('images/WelcomePhoto/Wel_Photo_1.svg') }}" alt="Интерьер кухни" class="hero_image">
+                                </div>
+                                <div class="hero_card_back">
+                                    <strong>Кухня-гостиная</strong>
+                                    <p>Продумали хранение, освещение и удобную рабочую зону.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hero_card">
+                            <div class="hero_card_inner">
+                                <div class="hero_card_front">
+                                    <img src="{{ asset('images/WelcomePhoto/Wel_Photo_2.svg') }}" alt="Интерьер ванной комнаты" class="hero_image">
+                                </div>
+                                <div class="hero_card_back">
+                                    <strong>Ванная комната</strong>
+                                    <p>Собрали спокойный интерьер с практичными материалами.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
