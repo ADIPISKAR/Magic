@@ -85,27 +85,26 @@
                 <div class="welcome_container_down">
                     <div class="welcome_info_down">  
                         <div class="icon_info_down">
-                            <img src="{{ asset('images/Icon/Gal.svg') }}" alt="Icon" class="icon_info">
-                            <h2>Бесплатный выезд и замер</h2>          
+                            <img src="{{ asset('images/Icon/ruletka.svg') }}" alt="Icon" class="icon_info">
+                            <h2>Замер — бесплатно</h2>          
                         </div>
-                        <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
+                        <p>Выезжаем на объект бесплатно, выполняем точный замер и заранее обсуждаем все детали ремонта.</p>
                     </div>
 
                     <div class="welcome_info_down active_welcome_info_down">
                         <div class="icon_info_down">
-                            <img src="{{ asset('images/Icon/Garant.svg') }}" alt="Icon" class="icon_info">
-                            <h2>Бесплатный выезд и замер</h2>                         
+                            <img src="{{ asset('images/Icon/smeta.svg') }}" alt="Icon" class="icon_info">
+                            <h2>Прозрачная смета</h2>                         
                         </div>
-
-                        <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
+                        <p>Подробно рассчитываем стоимость работ и материалов, чтобы итоговая цена была понятна заранее.</p>
                     </div>
 
                     <div class="welcome_info_down">
                         <div class="icon_info_down">
-                            <img src="{{ asset('images/Icon/Main.svg') }}" alt="Icon" class="icon_info">
-                            <h2>Бесплатный выезд и замер</h2>
+                            <img src="{{ asset('images/Icon/squad.svg') }}" alt="Icon" class="icon_info">
+                            <h2>Своя команда</h2>
                         </div>
-                        <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
+                        <p>Наши специалисты работают в штате компании, поэтому мы контролируем качество каждого этапа ремонта.</p>
                     </div>
             </section>
         </div>

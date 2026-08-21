@@ -43,6 +43,39 @@ document.addEventListener('DOMContentLoaded', () => {
 		resetActiveNavigation();
 	}
 
+	const serviceSwitch = document.querySelector('.service_switch');
+	const serviceSwitchButtons = [...document.querySelectorAll('.service_switch .switch_btn')];
+	const activeSwitch = serviceSwitch?.querySelector('.enable_switch');
+
+	if (serviceSwitch && activeSwitch && serviceSwitchButtons.length) {
+		const moveActiveSwitch = (button) => {
+			const offset = button.offsetLeft - activeSwitch.offsetLeft;
+			serviceSwitch.style.setProperty('--active-switch-offset', `${offset}px`);
+			serviceSwitch.style.setProperty('--active-switch-width', `${button.offsetWidth}px`);
+		};
+
+		const resetActiveSwitch = () => {
+			serviceSwitch.classList.remove('is-hovering');
+			moveActiveSwitch(activeSwitch);
+		};
+
+		serviceSwitchButtons.forEach((button) => {
+			button.addEventListener('mouseenter', () => {
+				serviceSwitch.classList.add('is-hovering');
+				moveActiveSwitch(button);
+			});
+		});
+
+		serviceSwitch.addEventListener('mouseleave', resetActiveSwitch);
+		window.addEventListener('resize', () => {
+			moveActiveSwitch(serviceSwitch.matches(':hover')
+				? serviceSwitchButtons.find((button) => button.matches(':hover')) || activeSwitch
+				: activeSwitch);
+		});
+
+		resetActiveSwitch();
+	}
+
 	const cards = [...document.querySelectorAll('.hero_card')];
 
 	if (!cards.length) {
@@ -125,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		let slideTimer;
 		let returnTimer;
 		let expandFrame;
+		const mobileQuery = window.matchMedia('(max-width: 768px)');
 
 		const setBaseGeometry = () => {
 			const wrapper = card.parentElement;
@@ -147,6 +181,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		};
 
 		card.addEventListener('mouseenter', () => {
+			if (mobileQuery.matches) {
+				return;
+			}
+
 			window.clearTimeout(returnTimer);
 			card.classList.remove('is-returning');
 			card.dataset.half = Number(card.style.getPropertyValue('--portfolio-column')) <= 2 ? 'left' : 'right';
@@ -162,6 +200,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 
 		card.addEventListener('mouseleave', () => {
+			if (mobileQuery.matches) {
+				return;
+			}
+
 			window.clearInterval(slideTimer);
 			window.cancelAnimationFrame(expandFrame);
 			card.classList.remove('is-expanded');
@@ -174,6 +216,29 @@ document.addEventListener('DOMContentLoaded', () => {
 				card.style.removeProperty('--portfolio-base-width');
 				card.style.removeProperty('--portfolio-base-height');
 			}, 420);
+			window.setTimeout(() => setSlide(0), 420);
+		});
+
+		card.addEventListener('click', () => {
+			if (!mobileQuery.matches) {
+				return;
+			}
+
+			window.clearTimeout(returnTimer);
+			window.clearInterval(slideTimer);
+			window.cancelAnimationFrame(expandFrame);
+			card.classList.remove('is-expanding', 'is-returning', 'is-expanded');
+			card.classList.toggle('is-mobile-expanded');
+
+			if (card.classList.contains('is-mobile-expanded')) {
+				let slideIndex = 0;
+				slideTimer = window.setInterval(() => {
+					slideIndex += 1;
+					setSlide(slideIndex);
+				}, 2200);
+				return;
+			}
+
 			window.setTimeout(() => setSlide(0), 420);
 		});
 	});
