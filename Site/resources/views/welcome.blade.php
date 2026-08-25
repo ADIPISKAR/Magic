@@ -480,7 +480,7 @@
                 <div class="request_modal_content">
                     <h2 id="request-modal-title">Обсудим ваш проект</h2>
                     <p>Расскажите о квартире — бесплатно оценим объём работ, сориентируем по стоимости и предложим оптимальный вариант ремонта.</p>
-                    <form class="request_modal_form">
+                    <form class="request_modal_form" data-lead-form>
                         <label>
                             <span class="sr-only">Ваше имя</span>
                             <input type="text" name="name" placeholder="Введите имя" autocomplete="name" required>
@@ -490,6 +490,7 @@
                             <input type="tel" name="phone" placeholder="8-932-234-33-29" autocomplete="tel" required>
                         </label>
                         <button class="button but_black" type="submit">Получить консультацию</button>
+                        <p class="request_modal_status" role="status" aria-live="polite"></p>
                     </form>
                 </div>
             </div>

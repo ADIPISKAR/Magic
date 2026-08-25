@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const requestModal = document.querySelector('.request_modal');
 	const modalOpenButtons = [...document.querySelectorAll('[data-modal-open]')];
 	const modalCloseButtons = [...document.querySelectorAll('[data-modal-close]')];
+	const leadForm = document.querySelector('[data-lead-form]');
 
 	if (requestModal && modalOpenButtons.length) {
 		const openModal = () => {
@@ -21,6 +22,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		modalOpenButtons.forEach((button) => button.addEventListener('click', openModal));
 		modalCloseButtons.forEach((button) => button.addEventListener('click', closeModal));
+		leadForm?.addEventListener('submit', async (event) => {
+			event.preventDefault();
+			const submitButton = leadForm.querySelector('button[type="submit"]');
+			const status = leadForm.querySelector('.request_modal_status');
+			const formData = new FormData(leadForm);
+
+			submitButton.disabled = true;
+			status.textContent = 'Отправляем заявку...';
+
+			try {
+				const response = await fetch('/api/leads', {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(Object.fromEntries(formData.entries())),
+				});
+				const result = await response.json();
+
+				if (!response.ok) {
+					throw new Error(response.status === 422
+						? 'Проверьте имя и номер телефона.'
+						: (result.message || 'Не удалось отправить заявку.'));
+				}
+
+				status.textContent = 'Заявка отправлена. Мы скоро свяжемся с вами.';
+				leadForm.reset();
+				window.setTimeout(closeModal, 1600);
+			} catch (error) {
+				status.textContent = error.message;
+			} finally {
+				submitButton.disabled = false;
+			}
+		});
 		document.addEventListener('keydown', (event) => {
 			if (event.key === 'Escape' && requestModal.classList.contains('is-open')) {
 				closeModal();

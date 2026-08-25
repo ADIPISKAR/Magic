@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'telegram_bot' => [
+        'url' => env('BOT_API_URL'),
+        'secret' => env('BOT_API_SECRET'),
+    ],
+
 ];

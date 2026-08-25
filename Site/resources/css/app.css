@@ -256,6 +256,17 @@ section{
     font: inherit;
 }
 
+.request_modal_form .button:disabled{
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.request_modal_status{
+    min-height: 20px;
+    color: #6b6b6b;
+    font-size: 14px;
+}
+
 body.modal-is-open{
     overflow: hidden;
 }
