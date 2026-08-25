@@ -48,6 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const activeSwitch = serviceSwitch?.querySelector('.enable_switch');
 
 	if (serviceSwitch && activeSwitch && serviceSwitchButtons.length) {
+		let selectedSwitch = activeSwitch;
+
 		const moveActiveSwitch = (button) => {
 			const offset = button.offsetLeft - activeSwitch.offsetLeft;
 			serviceSwitch.style.setProperty('--active-switch-offset', `${offset}px`);
@@ -56,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		const resetActiveSwitch = () => {
 			serviceSwitch.classList.remove('is-hovering');
-			moveActiveSwitch(activeSwitch);
+			moveActiveSwitch(selectedSwitch);
 		};
 
 		serviceSwitchButtons.forEach((button) => {
@@ -70,10 +72,60 @@ document.addEventListener('DOMContentLoaded', () => {
 		window.addEventListener('resize', () => {
 			moveActiveSwitch(serviceSwitch.matches(':hover')
 				? serviceSwitchButtons.find((button) => button.matches(':hover')) || activeSwitch
-				: activeSwitch);
+				: selectedSwitch);
 		});
 
 		resetActiveSwitch();
+		activeSwitch.classList.add('is-selected');
+
+		const servicePriceCards = [...document.querySelectorAll('.Service_Price')];
+		const servicePrice = document.querySelector('.service_price');
+		const newServiceContent = servicePriceCards.map((card) => ({
+			title: card.querySelector('h2').textContent,
+			description: card.querySelector('.service_card_tags > p').textContent,
+			tags: [...card.querySelectorAll('.service_card_tags .bord_block')].map((tag) => tag.textContent),
+			price: card.querySelector('.price p').textContent,
+		}));
+
+		const switchServiceMode = (button) => {
+			const isSecondary = button.dataset.serviceMode === 'secondary';
+
+			servicePriceCards.forEach((card, index) => {
+				const content = isSecondary
+					? {
+						title: card.dataset.secondaryTitle,
+						description: card.dataset.secondaryDescription,
+						tags: card.dataset.secondaryTags.split('|'),
+						price: card.dataset.secondaryPrice,
+					}
+					: newServiceContent[index];
+
+				card.querySelector('h2').textContent = content.title;
+				card.querySelector('.service_card_tags > p').textContent = content.description;
+				card.querySelector('.price p').textContent = content.price;
+				card.querySelectorAll('.service_card_tags .bord_block').forEach((tag, index) => {
+					tag.textContent = content.tags[index];
+				});
+			});
+
+			servicePrice.classList.remove('is-changing');
+			window.requestAnimationFrame(() => servicePrice.classList.add('is-changing'));
+
+			serviceSwitchButtons.forEach((switchButton) => switchButton.classList.remove('is-selected'));
+			button.classList.add('is-selected');
+			selectedSwitch = button;
+			moveActiveSwitch(button);
+		};
+
+		serviceSwitchButtons.forEach((button) => {
+			button.addEventListener('click', () => switchServiceMode(button));
+			button.addEventListener('keydown', (event) => {
+				if (event.key === 'Enter' || event.key === ' ') {
+					event.preventDefault();
+					switchServiceMode(button);
+				}
+			});
+		});
 	}
 
 	const cards = [...document.querySelectorAll('.hero_card')];

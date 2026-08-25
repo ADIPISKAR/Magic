@@ -48,7 +48,7 @@
 
                         <div class="welcome_button_info">
                             <div class="button but_black">
-                                <p>Заказать ремонт</p>
+                                <p>Оставить заявку</p>
                             </div>
 
                             <p>смотреть портфолио</p>
@@ -224,12 +224,12 @@
 
                 <div class="service_main">
                     <div class="service_switch">
-                        <div class="switch_btn enable_switch">
+                        <div class="switch_btn enable_switch is-selected" data-service-mode="new" role="button" tabindex="0">
                             <img src="{{ asset('images/Icon/Hammer.svg') }}" alt="Hero Image" class="">
                             <p>Новостройка</p>
                         </div>
 
-                        <div class="switch_btn">
+                        <div class="switch_btn" data-service-mode="secondary" role="button" tabindex="0">
                             <img src="{{ asset('images/Icon/Hammer.svg') }}" alt="Hero Image" class="">
                             <p>Вторичка</p>
                         </div>
@@ -240,11 +240,11 @@
                             <div class="row">
 
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
-                                    <div class="Service_Price">
+                                    <div class="Service_Price" data-secondary-title="Косметический" data-secondary-description="Освежили интерьер без перепланировки: обновили поверхности, свет и напольное покрытие." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽10,000">
                                         <div class="d-flex flex-column gap-3">
                                             <h2>Черновой</h2>
 
-                                            <div class="d-flex flex-column gap-2">
+                                            <div class="service_card_tags d-flex flex-column gap-2">
                                                 <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
                                                 <div class="bord_block">Штукатурные работы</div>
                                                 <div class="bord_block">Малярные работы</div>
@@ -255,18 +255,18 @@
                                             <div class="price"><p>₽5,000</p><span>/ метр</span></div>
 
                                             <div class="button but_white">
-                                                <p>Заказать ремонт</p>
+                                                <p>Оставить заявку</p>
                                             </div>
                                         </div>
                                     </div>       
                                 </div>
 
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
-                                    <div class="Service_Price">
+                                    <div class="Service_Price" data-secondary-title="Капитальный" data-secondary-description="Полностью обновили квартиру: заменили коммуникации, выполнили выравнивание стен и чистовую отделку." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽14,000">
                                         <div class="d-flex flex-column gap-3">
                                             <h2>Эконом</h2>
 
-                                            <div class="d-flex flex-column gap-2">
+                                            <div class="service_card_tags d-flex flex-column gap-2">
                                                 <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
                                                 <div class="bord_block">Штукатурные работы</div>
                                                 <div class="bord_block">Малярные работы</div>
@@ -277,18 +277,18 @@
                                             <div class="price"><p>₽12,000</p><span>/ метр</span></div>
 
                                             <div class="button but_white">
-                                                <p>Заказать ремонт</p>
+                                                <p>Оставить заявку</p>
                                             </div>
                                         </div>
                                     </div>       
                                 </div>
 
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
-                                    <div class="Service_Price">
+                                    <div class="Service_Price" data-secondary-title="Евроремонт" data-secondary-description="Выполнили ремонт квартиры под ключ с качественной отделкой, новой электрикой и практичными материалами." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽18,000">
                                         <div class="d-flex flex-column gap-3">
                                             <h2>Евроремонт</h2>
 
-                                            <div class="d-flex flex-column gap-2">
+                                            <div class="service_card_tags d-flex flex-column gap-2">
                                                 <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
                                                 <div class="bord_block">Штукатурные работы</div>
                                                 <div class="bord_block">Малярные работы</div>
@@ -299,18 +299,18 @@
                                             <div class="price"><p>₽16,000</p><span>/ метр</span></div>
 
                                             <div class="button but_white">
-                                                <p>Заказать ремонт</p>
+                                                <p>Оставить заявку</p>
                                             </div>
                                         </div>
                                     </div>       
                                 </div>
 
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
-                                    <div class="Service_Price">
+                                    <div class="Service_Price" data-secondary-title="Дизайнерский" data-secondary-description="Создали индивидуальный интерьер с авторской отделкой, продуманным освещением и выразительными деталями." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽22,000">
                                         <div class="d-flex flex-column gap-3">
                                             <h2>Дизайнерский</h2>
 
-                                            <div class="d-flex flex-column gap-2">
+                                            <div class="service_card_tags d-flex flex-column gap-2">
                                                 <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
                                                 <div class="bord_block">Штукатурные работы</div>
                                                 <div class="bord_block">Малярные работы</div>
@@ -321,7 +321,7 @@
                                             <div class="price"><p>₽20,000</p><span>/ метр</span></div>
 
                                             <div class="button but_white">
-                                                <p>Заказать ремонт</p>
+                                                <p>Оставить заявку</p>
                                             </div>
                                         </div>
                                     </div>       
