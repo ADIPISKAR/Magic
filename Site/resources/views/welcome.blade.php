@@ -169,7 +169,7 @@
 
                         <div class="switch_btn">
                             <img src="{{ asset('images/Icon/Hammer.svg') }}" alt="Hero Image" class="">
-                            <p>Новостройка</p>
+                            <p>Вторичка</p>
                         </div>
                     </div>
 
@@ -202,7 +202,7 @@
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
                                     <div class="Service_Price">
                                         <div class="d-flex flex-column gap-3">
-                                            <h2>Черновой</h2>
+                                            <h2>Эконом</h2>
 
                                             <div class="d-flex flex-column gap-2">
                                                 <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
@@ -212,7 +212,7 @@
                                         </div>
 
                                         <div class="d-flex flex-column gap-2">
-                                            <div class="price"><p>₽5,000</p><span>/ метр</span></div>
+                                            <div class="price"><p>₽12,000</p><span>/ метр</span></div>
 
                                             <div class="button but_white">
                                                 <p>Заказать ремонт</p>
@@ -224,7 +224,7 @@
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
                                     <div class="Service_Price">
                                         <div class="d-flex flex-column gap-3">
-                                            <h2>Черновой</h2>
+                                            <h2>Евроремонт</h2>
 
                                             <div class="d-flex flex-column gap-2">
                                                 <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
@@ -234,7 +234,7 @@
                                         </div>
 
                                         <div class="d-flex flex-column gap-2">
-                                            <div class="price"><p>₽5,000</p><span>/ метр</span></div>
+                                            <div class="price"><p>₽16,000</p><span>/ метр</span></div>
 
                                             <div class="button but_white">
                                                 <p>Заказать ремонт</p>
@@ -246,7 +246,7 @@
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
                                     <div class="Service_Price">
                                         <div class="d-flex flex-column gap-3">
-                                            <h2>Черновой</h2>
+                                            <h2>Дизайнерский</h2>
 
                                             <div class="d-flex flex-column gap-2">
                                                 <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
@@ -256,7 +256,7 @@
                                         </div>
 
                                         <div class="d-flex flex-column gap-2">
-                                            <div class="price"><p>₽5,000</p><span>/ метр</span></div>
+                                            <div class="price"><p>₽20,000</p><span>/ метр</span></div>
 
                                             <div class="button but_white">
                                                 <p>Заказать ремонт</p>
