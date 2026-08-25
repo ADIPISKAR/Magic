@@ -4,7 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>Ремонт квартир под ключ в Ростове-на-Дону | Магия</title>
+        <meta name="description" content="Ремонт квартир под ключ в Ростове-на-Дону. Бесплатный замер, прозрачная смета, ремонт новостроек и вторичного жилья от профессиональной команды.">
+        <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -19,20 +21,20 @@
             <img src="{{ asset('images/logo.svg') }}" alt="Logo" class="logo">
             
             <div class="navigation">
-                <div class="Button_Navigation">
+                <a class="Button_Navigation" href="https://t.me/SergeyWright" target="_blank" rel="noopener noreferrer">
                     <img src="{{ asset('images/Icon/Telegram.svg') }}" alt="" class="icon_nav">
                     <p class="navigation_text">Telegram</p>
-                </div>
+                </a>
 
                 <div class="Button_Navigation Active_Navigation">
                     <img src="{{ asset('images/Icon/Main.svg') }}" alt="" class="icon_nav">
                     <p class="navigation_text">Главная</p>
                 </div>
 
-                <div class="Button_Navigation">
+                <a class="Button_Navigation" href="https://max.ru/u/f9LHodD0cOLsSlygVBBUbU_rAlEqsEcBA1bKp0CmWJsn8wMz3aiuwcm9lss" target="_blank" rel="noopener noreferrer">
                     <img src="{{ asset('images/Icon/Max.svg') }}" alt="" class="iconnav">
                     <p class="navigation_text">Max</p>
-                </div>
+                </a>
             </div>
         </header>
 
@@ -43,7 +45,7 @@
                     <div class="welcome_info">
                         <div class="welcome_text">
                             <h1>Ремонт квартир <br> в Ростове-на-Дону</h1>
-                            <p>Ясность нашей позиции очевидна: укрепление и развитие внутренней структуры создаёт предпосылки для направлений прогрессивного развития.</p>
+                            <p>Выполняем ремонт квартир под ключ в Ростове-на-Дону — от бесплатного замера и сметы до чистовой отделки и сдачи готового объекта.</p>
                         </div>
 
                         <div class="welcome_button_info">
@@ -51,7 +53,7 @@
                                 <p>Оставить заявку</p>
                             </div>
 
-                            <p>смотреть портфолио</p>
+                            <a href="#portfolio">смотреть портфолио</a>
                         </div>
                     </div>
 
@@ -112,7 +114,7 @@
                             <img src="{{ asset('images/Icon/ruletka.svg') }}" alt="Icon" class="icon_info">
                             <h2>Замер — бесплатно</h2>          
                         </div>
-                        <p>Выезжаем на объект бесплатно, выполняем точный замер и заранее обсуждаем все детали ремонта.</p>
+                        <p>Бесплатно выезжаем на объект в Ростове-на-Дону, выполняем замер и обсуждаем задачи ремонта до начала работ.</p>
                     </div>
 
                     <div class="welcome_info_down active_welcome_info_down">
@@ -120,7 +122,7 @@
                             <img src="{{ asset('images/Icon/smeta.svg') }}" alt="Icon" class="icon_info">
                             <h2>Прозрачная смета</h2>                         
                         </div>
-                        <p>Подробно рассчитываем стоимость работ и материалов, чтобы итоговая цена была понятна заранее.</p>
+                        <p>Составляем подробную смету по работам и материалам, чтобы стоимость ремонта квартиры была понятна до подписания договора.</p>
                     </div>
 
                     <div class="welcome_info_down">
@@ -128,17 +130,17 @@
                             <img src="{{ asset('images/Icon/squad.svg') }}" alt="Icon" class="icon_info">
                             <h2>Своя команда</h2>
                         </div>
-                        <p>Наши специалисты работают в штате компании, поэтому мы контролируем качество каждого этапа ремонта.</p>
+                        <p>Собственная команда специалистов ведет объект от черновых работ до чистовой отделки и контролирует качество на каждом этапе.</p>
                     </div>
             </section>
         </div>
 
         <!-- Портфолио -->
-        <div class="portfolio">
+        <div class="portfolio" id="portfolio">
             <section class="portfolio_container">
                 <div class="Main_text_center">
                     <h1>Портфолио</h1>
-                    <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
+                    <p>Показываем примеры ремонта квартир в Ростове-на-Дону: кухни, санузлы, спальни и комплексная отделка под ключ.</p>
                 </div>
 
                 @php
@@ -219,7 +221,7 @@
             <section class="service_container">
                 <div class="Main_text_left">
                     <h1>Наши услуги</h1>
-                    <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
+                    <p>Подбираем формат ремонта под задачу: отделка квартиры в новостройке с нуля, ремонт вторичного жилья или комплексное обновление интерьера.</p>
                 </div>
 
                 <div class="service_main">
@@ -240,12 +242,12 @@
                             <div class="row">
 
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
-                                    <div class="Service_Price" data-secondary-title="Косметический" data-secondary-description="Освежили интерьер без перепланировки: обновили поверхности, свет и напольное покрытие." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽10,000">
+                                    <div class="Service_Price" data-secondary-title="Косметический" data-secondary-description="Косметический ремонт вторичной квартиры без перепланировки: обновили поверхности, освещение и напольное покрытие." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽10,000">
                                         <div class="d-flex flex-column gap-3">
                                             <h2>Черновой</h2>
 
                                             <div class="service_card_tags d-flex flex-column gap-2">
-                                                <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
+                                                <p>Базовая отделка квартиры в новостройке с подготовкой стен, пола и инженерных систем к чистовым работам.</p>
                                                 <div class="bord_block">Штукатурные работы</div>
                                                 <div class="bord_block">Малярные работы</div>
                                             </div>
@@ -262,12 +264,12 @@
                                 </div>
 
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
-                                    <div class="Service_Price" data-secondary-title="Капитальный" data-secondary-description="Полностью обновили квартиру: заменили коммуникации, выполнили выравнивание стен и чистовую отделку." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽14,000">
+                                    <div class="Service_Price" data-secondary-title="Капитальный" data-secondary-description="Капитально обновляем вторичное жильё: меняем коммуникации, выравниваем стены и выполняем чистовую отделку." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽14,000">
                                         <div class="d-flex flex-column gap-3">
                                             <h2>Эконом</h2>
 
                                             <div class="service_card_tags d-flex flex-column gap-2">
-                                                <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
+                                                <p>Рациональный ремонт квартиры с подготовкой поверхностей и практичной чистовой отделкой без лишних расходов.</p>
                                                 <div class="bord_block">Штукатурные работы</div>
                                                 <div class="bord_block">Малярные работы</div>
                                             </div>
@@ -284,12 +286,12 @@
                                 </div>
 
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
-                                    <div class="Service_Price" data-secondary-title="Евроремонт" data-secondary-description="Выполнили ремонт квартиры под ключ с качественной отделкой, новой электрикой и практичными материалами." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽18,000">
+                                    <div class="Service_Price" data-secondary-title="Евроремонт" data-secondary-description="Ремонт вторичной квартиры под ключ с обновлением электрики, подготовкой стен и качественной чистовой отделкой." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽18,000">
                                         <div class="d-flex flex-column gap-3">
                                             <h2>Евроремонт</h2>
 
                                             <div class="service_card_tags d-flex flex-column gap-2">
-                                                <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
+                                                <p>Комплексный ремонт квартиры под ключ с обновлением инженерных систем и качественной отделкой помещений.</p>
                                                 <div class="bord_block">Штукатурные работы</div>
                                                 <div class="bord_block">Малярные работы</div>
                                             </div>
@@ -306,12 +308,12 @@
                                 </div>
 
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
-                                    <div class="Service_Price" data-secondary-title="Дизайнерский" data-secondary-description="Создали индивидуальный интерьер с авторской отделкой, продуманным освещением и выразительными деталями." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽22,000">
+                                    <div class="Service_Price" data-secondary-title="Дизайнерский" data-secondary-description="Создаем индивидуальный интерьер вторичной квартиры с дизайн-проектом, продуманным светом и выразительной отделкой." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽22,000">
                                         <div class="d-flex flex-column gap-3">
                                             <h2>Дизайнерский</h2>
 
                                             <div class="service_card_tags d-flex flex-column gap-2">
-                                                <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
+                                                <p>Индивидуальный ремонт с учетом планировки, дизайн-проекта, выбранных материалов и требований к интерьеру.</p>
                                                 <div class="bord_block">Штукатурные работы</div>
                                                 <div class="bord_block">Малярные работы</div>
                                             </div>
@@ -338,7 +340,7 @@
             <section class="feedback_container">
                 <div class="Main_text_center">
                     <h1>Наши отзывы</h1>
-                    <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
+                    <p>Стоимость ремонта квартиры зависит от площади, состояния помещений, объема инженерных работ и выбранных материалов. Показываем состав работ в подробной смете.</p>
                 </div>
 
                 <div class="swiper my-slider">
@@ -346,74 +348,74 @@
 
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/1.svg') }}" alt="Hero Image" class="feedback_icon">
-                                <p>Игорь Матвиенко</p>
+                                <img src="{{ asset('images/feedback/1w.jpg') }}" alt="Ольга, клиентка компании" class="feedback_icon">
+                                <p>Ольга</p>
                             </div>
 
-                            <p>Долго искали компанию, которой можно доверить ремонт всей квартиры. Здесь сделали всё идеально: работа аккуратная, материалы качественные, сроки соблюдены. Рекомендуем!</p>
+                            <p>Заказала комплексный ремонт квартиры в Ростове-на-Дону. Получила понятную смету, аккуратную работу и готовый интерьер точно в согласованные сроки.</p>
                         </div>
 
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/2.svg') }}" alt="Hero Image" class="feedback_icon">
-                                <p>Игорь Матвиенко</p>
+                                <img src="{{ asset('images/feedback/1m.jpg') }}" alt="Максим, клиент компании" class="feedback_icon">
+                                <p>Максим</p>
                             </div>
 
-                            <p>Долго искали компанию, которой можно доверить ремонт всей квартиры. Здесь сделали всё идеально: работа аккуратная, материалы качественные, сроки соблюдены. Рекомендуем!</p>
+                            <p>Заказал ремонт кухни-гостиной под ключ: команда помогла с выбором материалов, организовала работы и оставила после себя чистый объект.</p>
                         </div>
                         
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/3.svg') }}" alt="Hero Image" class="feedback_icon">
-                                <p>Игорь Матвиенко</p>
+                                <img src="{{ asset('images/feedback/2w.jpg') }}" alt="Екатерина, клиентка компании" class="feedback_icon">
+                                <p>Екатерина</p>
                             </div>
 
-                            <p>Долго искали компанию, которой можно доверить ремонт всей квартиры. Здесь сделали всё идеально: работа аккуратная, материалы качественные, сроки соблюдены. Рекомендуем!</p>
+                            <p>Обратилась за ремонтом ванной комнаты. Специалисты качественно выполнили гидроизоляцию, плиточные и сантехнические работы, я осталась довольна результатом.</p>
                         </div>
 
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/4.svg') }}" alt="Hero Image" class="feedback_icon">
-                                <p>Игорь Матвиенко</p>
+                                <img src="{{ asset('images/feedback/2m.jpg') }}" alt="Андрей, клиент компании" class="feedback_icon">
+                                <p>Андрей</p>
                             </div>
 
-                            <p>Долго искали компанию, которой можно доверить ремонт всей квартиры. Здесь сделали всё идеально: работа аккуратная, материалы качественные, сроки соблюдены. Рекомендуем!</p>
+                            <p>Заказал ремонт квартиры в новостройке. Все прошло организованно: от черновой отделки и электрики до финишных покрытий и установки дверей.</p>
                         </div>
 
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/5.svg') }}" alt="Hero Image" class="feedback_icon">
-                                <p>Игорь Матвиенко</p>
+                                <img src="{{ asset('images/feedback/3w.jpg') }}" alt="Марина, клиентка компании" class="feedback_icon">
+                                <p>Марина</p>
                             </div>
 
-                            <p>Долго искали компанию, которой можно доверить ремонт всей квартиры. Здесь сделали всё идеально: работа аккуратная, материалы качественные, сроки соблюдены. Рекомендуем!</p>
+                            <p>Мне понравился подход к дизайнерскому ремонту спальни: учли мои пожелания, продумали освещение и помогли подобрать отделочные материалы.</p>
                         </div>
 
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/1.svg') }}" alt="Hero Image" class="feedback_icon">
-                                <p>Игорь Матвиенко</p>
+                                <img src="{{ asset('images/feedback/3m.jpg') }}" alt="Дмитрий, клиент компании" class="feedback_icon">
+                                <p>Дмитрий</p>
                             </div>
 
-                            <p>Долго искали компанию, которой можно доверить ремонт всей квартиры. Здесь сделали всё идеально: работа аккуратная, материалы качественные, сроки соблюдены. Рекомендуем!</p>
+                            <p>Заказал капитальный ремонт вторичной квартиры. Все этапы и стоимость заранее обсудили, специалисты поддерживали порядок на объекте.</p>
                         </div>
 
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/2.svg') }}" alt="Hero Image" class="feedback_icon">
-                                <p>Игорь Матвиенко</p>
+                                <img src="{{ asset('images/feedback/4m.jpg') }}" alt="Сергей, клиент компании" class="feedback_icon">
+                                <p>Сергей</p>
                             </div>
 
-                            <p>Долго искали компанию, которой можно доверить ремонт всей квартиры. Здесь сделали всё идеально: работа аккуратная, материалы качественные, сроки соблюдены. Рекомендуем!</p>
+                            <p>Бесплатный замер и подробная смета помогли быстро принять решение о ремонте. Работы выполнили последовательно, без неожиданных платежей.</p>
                         </div>
 
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/3.svg') }}" alt="Hero Image" class="feedback_icon">
-                                <p>Игорь Матвиенко</p>
+                                <img src="{{ asset('images/feedback/5m.jpg') }}" alt="Алексей, клиент компании" class="feedback_icon">
+                                <p>Алексей</p>
                             </div>
 
-                            <p>Долго искали компанию, которой можно доверить ремонт всей квартиры. Здесь сделали всё идеально: работа аккуратная, материалы качественные, сроки соблюдены. Рекомендуем!</p>
+                            <p>Заказал ремонт квартиры под ключ в Ростове-на-Дону. Получил профессиональную команду, прозрачные условия и аккуратную чистовую отделку.</p>
                         </div>
                     </div>
                 
@@ -430,7 +432,7 @@
                 <div class="container_main_text">
                     <div class="Main_text_left">
                         <h1>Фиксированная смета в договоре</h1>
-                        <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
+                        <p>В смете собраны основные работы для ремонта квартиры: демонтаж, стены, электрика, сантехника, отопление, полы, плитка и чистовая отделка.</p>
                     </div>
 
                     <div class="estimate_second_text">
@@ -462,7 +464,7 @@
                 <div class="estimate_after">
                     <div>
                         <p>Как используется смета</p>
-                        <p>Это пример структуры нашей рабочей сметы. Точная стоимость зависит от площади объекта, состояния помещения и выбранных материалов.</p>
+                        <p>Итоговая цена ремонта формируется по площади объекта, состоянию квартиры, перечню работ и выбранным материалам. Все позиции фиксируем в смете.</p>
                     </div>
 
                     <a class="button but_black" href="{{ asset('СМЕТА ШАБЛОН.pdf') }}" download="Смета-на-ремонт.pdf">
@@ -501,25 +503,25 @@
             <section class="container_step_work">
                 <div class="Main_text_left">
                     <h1>Этапы работ</h1>
-                    <p>Актуальные позиции отделочных, сантехнических, электромонтажных и других видов работ с ориентировочными расценками.</p>
+                    <p>Организуем ремонт квартиры под ключ по понятному плану: от замера и подготовки сметы до контроля работ и передачи готового объекта.</p>
                 </div>
 
                 <div class="step_work_main">
                     <div class="wrapper_2">
                         <div class="box1_2">
                             <div class="box_main_text">
-                                <p>Без предоплаты</p>
+                                <p>Без полной предоплаты</p>
                                 <div class="numeric">01</div>
                             </div>
                             
                             <p>
-                                Не требуем полной предоплаты за ремонт. Условия оплаты прозрачны и заранее согласовываются с клиентом — вы платите поэтапно только за фактически выполненные и принятые работы.Не требуем полной предоплаты за ремонт. Условия оплаты прозрачны и заранее согласовываются с клиентом — вы платите поэтапно только за фактически выполненные и принятые работы.Не требуем полной предоплаты за ремонт. Условия оплаты прозрачны и заранее согласовываются с клиентом — вы платите поэтапно только за фактически выполненные и принятые работы.
+                                Выполняем ремонт квартиры под ключ в Ростове-на-Дону без полной предоплаты. Сначала согласовываем состав работ, материалы, сроки и подробную смету, а затем ведем объект поэтапно — от демонтажа и черновой отделки до чистовой отделки и сдачи готовой квартиры. Вы оплачиваете только фактически выполненные и принятые работы, поэтому бюджет ремонта остается прозрачным на каждом этапе.
                             </p>
                         </div>
 
                         <div class="box2_2">
                             <div class="box_main_text">
-                                <p>Без предоплаты</p>
+                                <p>Бесплатный замер</p>
                                 <div class="numeric">02</div>
                             </div>
                             
@@ -530,7 +532,7 @@
 
                         <div class="box3_2">
                             <div class="box_main_text">
-                                <p>Без предоплаты</p>
+                                <p>Дизайн-проект</p>
                                 <div class="numeric">03</div>
                             </div>
                             
@@ -541,7 +543,7 @@
 
                         <div class="box4_2">
                             <div class="box_main_text">
-                                <p>Без предоплаты</p>
+                                <p>Прозрачная смета</p>
                                 <div class="numeric">04</div>
                             </div>
                             
@@ -552,7 +554,7 @@
 
                         <div class="box5_2">
                             <div class="box_main_text">
-                                <p>Без предоплаты</p>
+                                <p>Договор и сроки</p>
                                 <div class="numeric">05</div>
                             </div>
                             
@@ -563,7 +565,7 @@
 
                         <div class="box6_2">
                             <div class="box_main_text">
-                                <p>Без предоплаты</p>
+                                <p>Контроль качества</p>
                                 <div class="numeric">06</div>
                             </div>
                             
@@ -590,7 +592,7 @@
                 ></iframe>
 
                 <div class="footer">
-                    <img src="http://127.0.0.1:8000/images/logo.svg" alt="Logo" class="logo">
+                    <img src="{{ asset('images/logo.svg') }}" alt="Logo" class="logo">
 
                     <div>
                         <p>Информация на сайте носит информационный характер и не является публичной офертой, определяемой положениями статьи 437 ГК РФ.</p>

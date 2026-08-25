@@ -16,6 +16,10 @@
 
 /* Общие стили */
 
+* {
+    user-select: none;
+}
+
 body { 
     display: flex;
     flex-direction: column;
@@ -443,11 +447,13 @@ body.modal-is-open{
 }
 
 .welcome_text,
-.welcome_button_info > p {
+.welcome_button_info > p,
+.welcome_button_info > a {
     color: #6B6B6B;
 }
 
-.welcome_button_info > p {
+.welcome_button_info > p,
+.welcome_button_info > a {
     color: #6B6B6B;
 
     cursor: pointer;
