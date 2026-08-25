@@ -1,3 +1,5 @@
+import './estimate.js';
+
 document.addEventListener('DOMContentLoaded', () => {
 	const requestModal = document.querySelector('.request_modal');
 	const modalOpenButtons = [...document.querySelectorAll('[data-modal-open]')];

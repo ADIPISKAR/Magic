@@ -434,37 +434,16 @@
                     </div>
 
                     <div class="estimate_second_text">
-                        <div class="button but_black">
+                        <a class="button but_black" href="{{ asset('СМЕТА ШАБЛОН.pdf') }}" download="Смета-на-ремонт.pdf">
                             <img src="{{ asset('images/Icon/download.svg') }}" alt="Hero Image" class="">
                             <p>Скачать полную смету PDF</p>
-                        </div>
+                        </a>
 
                         <p>PDF содержит полный перечень работ и пример оформления нашей сметы.</p>
                     </div>
                 </div>
 
-                <div class="estimate_catalog">
-                    <div class="bord_block bord_block_active">Отделочные работы</div>
-                    <div class="bord_block">Штукатурные работы</div>
-                    <div class="bord_block">Малярные работы</div>
-                    <div class="bord_block">Отопительные работы</div>
-                    <div class="bord_block">Стяжка пола</div>
-                    <div class="bord_block">Плиточные работы</div>
-                    <div class="bord_block">Напольные покрытия</div>
-                    <div class="bord_block">Сантехнические работы</div>
-                    <div class="bord_block">Электромонтажные работы</div>
-                    <div class="bord_block">Демонтаж</div>
-                    <div class="bord_block">Отделочные работы</div>
-                    <div class="bord_block">Штукатурные работы</div>
-                    <div class="bord_block">Малярные работы</div>
-                    <div class="bord_block">Отопительные работы</div>
-                    <div class="bord_block">Стяжка пола</div>
-                    <div class="bord_block">Плиточные работы</div>
-                    <div class="bord_block">Напольные покрытия</div>
-                    <div class="bord_block">Сантехнические работы</div>
-                    <div class="bord_block">Электромонтажные работы</div>
-                    <div class="bord_block">Демонтаж</div>
-                </div>
+                <div class="estimate_catalog" aria-label="Категории работ"></div>
 
                 <div class="table_wrapper">
                     <table class="estimate_table">
@@ -476,85 +455,7 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <tr>
-                                <td>Демонтаж старого покрытия</td>
-                                <td>м²</td>
-                                <td>350 ₽</td>
-                            </tr>
-
-                            <tr>
-                                <td>Штукатурка стен</td>
-                                <td>м²</td>
-                                <td>650 ₽</td>
-                            </tr>
-
-                            <tr class="active_column">
-                                <td>Укладка плитки</td>
-                                <td>м²</td>
-                                <td>1 200 ₽</td>
-                            </tr>
-
-                            <tr>
-                                <td>Укладка плитки</td>
-                                <td>м²</td>
-                                <td>1 200 ₽</td>
-                            </tr>
-
-                            <tr>
-                                <td>Укладка плитки</td>
-                                <td>м²</td>
-                                <td>1 200 ₽</td>
-                            </tr>
-
-                            <tr>
-                                <td>Укладка плитки</td>
-                                <td>м²</td>
-                                <td>1 200 ₽</td>
-                            </tr>
-
-                            <tr>
-                                <td>Укладка плитки</td>
-                                <td>м²</td>
-                                <td>1 200 ₽</td>
-                            </tr>
-
-                            <tr>
-                                <td>Укладка плитки</td>
-                                <td>м²</td>
-                                <td>1 200 ₽</td>
-                            </tr>
-
-                            <tr>
-                                <td>Укладка плитки</td>
-                                <td>м²</td>
-                                <td>1 200 ₽</td>
-                            </tr>
-
-                            <tr>
-                                <td>Укладка плитки</td>
-                                <td>м²</td>
-                                <td>1 200 ₽</td>
-                            </tr>
-
-                            <tr>
-                                <td>Укладка плитки</td>
-                                <td>м²</td>
-                                <td>1 200 ₽</td>
-                            </tr>
-
-                            <tr>
-                                <td>Укладка плитки</td>
-                                <td>м²</td>
-                                <td>1 200 ₽</td>
-                            </tr>
-
-                            <tr>
-                                <td>Укладка плитки</td>
-                                <td>м²</td>
-                                <td>1 200 ₽</td>
-                            </tr>
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
 
@@ -564,9 +465,9 @@
                         <p>Это пример структуры нашей рабочей сметы. Точная стоимость зависит от площади объекта, состояния помещения и выбранных материалов.</p>
                     </div>
 
-                    <div class="button but_black">
+                    <a class="button but_black" href="{{ asset('СМЕТА ШАБЛОН.pdf') }}" download="Смета-на-ремонт.pdf">
                         <p>Скачать PDF-смету</p>
-                    </div>
+                    </a>
                 </div>
             </section>
         </div>   
