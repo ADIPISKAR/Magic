@@ -47,7 +47,7 @@
                         </div>
 
                         <div class="welcome_button_info">
-                            <div class="button but_black">
+                            <div class="button but_black" data-modal-open>
                                 <p>Оставить заявку</p>
                             </div>
 
@@ -254,7 +254,7 @@
                                         <div class="d-flex flex-column gap-2">
                                             <div class="price"><p>₽5,000</p><span>/ метр</span></div>
 
-                                            <div class="button but_white">
+                                            <div class="button but_white" data-modal-open>
                                                 <p>Оставить заявку</p>
                                             </div>
                                         </div>
@@ -276,7 +276,7 @@
                                         <div class="d-flex flex-column gap-2">
                                             <div class="price"><p>₽12,000</p><span>/ метр</span></div>
 
-                                            <div class="button but_white">
+                                            <div class="button but_white" data-modal-open>
                                                 <p>Оставить заявку</p>
                                             </div>
                                         </div>
@@ -298,7 +298,7 @@
                                         <div class="d-flex flex-column gap-2">
                                             <div class="price"><p>₽16,000</p><span>/ метр</span></div>
 
-                                            <div class="button but_white">
+                                            <div class="button but_white" data-modal-open>
                                                 <p>Оставить заявку</p>
                                             </div>
                                         </div>
@@ -320,7 +320,7 @@
                                         <div class="d-flex flex-column gap-2">
                                             <div class="price"><p>₽20,000</p><span>/ метр</span></div>
 
-                                            <div class="button but_white">
+                                            <div class="button but_white" data-modal-open>
                                                 <p>Оставить заявку</p>
                                             </div>
                                         </div>
@@ -571,6 +571,29 @@
             </section>
         </div>   
 
+        <div class="request_modal" aria-hidden="true">
+            <div class="request_modal_overlay" data-modal-close></div>
+            <div class="request_modal_dialog" role="dialog" aria-modal="true" aria-labelledby="request-modal-title">
+                <button class="request_modal_close" type="button" aria-label="Закрыть окно" data-modal-close>&times;</button>
+                <img src="{{ asset('images/WelcomePhoto/Wel_Photo_1.svg') }}" alt="Современный интерьер квартиры" class="request_modal_image">
+                <div class="request_modal_content">
+                    <h2 id="request-modal-title">Обсудим ваш проект</h2>
+                    <p>Расскажите о квартире — бесплатно оценим объём работ, сориентируем по стоимости и предложим оптимальный вариант ремонта.</p>
+                    <form class="request_modal_form">
+                        <label>
+                            <span class="sr-only">Ваше имя</span>
+                            <input type="text" name="name" placeholder="Введите имя" autocomplete="name" required>
+                        </label>
+                        <label>
+                            <span class="sr-only">Номер телефона</span>
+                            <input type="tel" name="phone" placeholder="8-932-234-33-29" autocomplete="tel" required>
+                        </label>
+                        <button class="button but_black" type="submit">Получить консультацию</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <!-- Этапы работ -->
          <div class="step_work">
             <section class="container_step_work">
@@ -654,7 +677,15 @@
         <!-- Карта / Футер -->
         <div class="map">
             <section class="map_container">
-                <div class="map_image"></div>
+                <iframe
+                    class="map_frame"
+                    src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=29377814826"
+                    width="560"
+                    height="400"
+                    frameborder="0"
+                    allowfullscreen="true"
+                    title="Мы на карте"
+                ></iframe>
 
                 <div class="footer">
                     <img src="http://127.0.0.1:8000/images/logo.svg" alt="Logo" class="logo">

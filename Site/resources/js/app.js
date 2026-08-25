@@ -1,4 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
+	const requestModal = document.querySelector('.request_modal');
+	const modalOpenButtons = [...document.querySelectorAll('[data-modal-open]')];
+	const modalCloseButtons = [...document.querySelectorAll('[data-modal-close]')];
+
+	if (requestModal && modalOpenButtons.length) {
+		const openModal = () => {
+			requestModal.classList.add('is-open');
+			requestModal.setAttribute('aria-hidden', 'false');
+			document.body.classList.add('modal-is-open');
+			requestModal.querySelector('input')?.focus();
+		};
+
+		const closeModal = () => {
+			requestModal.classList.remove('is-open');
+			requestModal.setAttribute('aria-hidden', 'true');
+			document.body.classList.remove('modal-is-open');
+		};
+
+		modalOpenButtons.forEach((button) => button.addEventListener('click', openModal));
+		modalCloseButtons.forEach((button) => button.addEventListener('click', closeModal));
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && requestModal.classList.contains('is-open')) {
+				closeModal();
+			}
+		});
+	}
+
 	const navigation = document.querySelector('.navigation');
 	const navigationButtons = [...document.querySelectorAll('.navigation .Button_Navigation')];
 	const activeNavigation = navigation?.querySelector('.Active_Navigation');
