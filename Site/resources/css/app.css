@@ -418,6 +418,12 @@ section{
     transform: translate(195px, 45px) rotate(14deg) scale(0.76);
 }
 
+.hero_card[data-position="2"],
+.hero_card[data-position="3"]{
+    opacity: 0;
+    visibility: hidden;
+}
+
 .hero_card:not([data-position="0"]),
 .hero_card.is-leaving{
     pointer-events: none;
