@@ -1726,6 +1726,13 @@ tr > td:last-child{
 
 }
 
+@media(max-width: 607px){
+
+    .estimate_table td {
+            padding: 20px 10px;
+    }
+}
+
 @media(max-width: 575px){
     .request_modal{
         padding: 12px;
@@ -1888,6 +1895,12 @@ tr > td:last-child{
     .Main_text_left > h1 {
         font-size: 39px;
         line-height: 37px;
+    }
+}
+
+@media(max-width: 441px){
+    tbody tr td:last-child {
+        white-space: nowrap;
     }
 }
 
