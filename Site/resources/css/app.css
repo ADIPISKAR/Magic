@@ -639,6 +639,8 @@ body.modal-is-open{
 }
 
 .icon_info_down > img{
+    width: auto;
+    height: auto;
     max-height: 30px;
 }
 /* Слайд Welcome */
