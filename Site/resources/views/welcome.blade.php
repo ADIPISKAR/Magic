@@ -6,15 +6,15 @@
 
         <title>Ремонт квартир под ключ в Ростове-на-Дону | Магия</title>
         <meta name="description" content="Ремонт квартир под ключ в Ростове-на-Дону. Бесплатный замер, прозрачная смета, ремонт новостроек и вторичного жилья от профессиональной команды.">
-        <link rel="canonical" href="{{ url('/') }}">
+        <link rel="canonical" href="{{ config('seo.canonical_url') }}/">
 
         <meta property="og:type" content="website">
         <meta property="og:locale" content="ru_RU">
         <meta property="og:site_name" content="Магия">
         <meta property="og:title" content="Ремонт квартир под ключ в Ростове-на-Дону | Магия">
         <meta property="og:description" content="Бесплатный замер, прозрачная смета и ремонт квартир под ключ в Ростове-на-Дону от профессиональной команды.">
-        <meta property="og:url" content="{{ url('/') }}">
-        <meta property="og:image" content="{{ asset('images/WelcomePhoto/Wel_Photo_1.webp') }}">
+        <meta property="og:url" content="{{ config('seo.canonical_url') }}/">
+        <meta property="og:image" content="{{ config('seo.canonical_url') }}/images/WelcomePhoto/Wel_Photo_1.webp">
         <meta property="og:image:alt" content="Ремонт квартиры под ключ в Ростове-на-Дону">
 
         <script type="application/ld+json">
@@ -22,9 +22,9 @@
             "@@context": "https://schema.org",
             "@@type": "HomeAndConstructionBusiness",
             "name": "Магия",
-            "url": "{{ url('/') }}",
-            "logo": "{{ asset('images/logo.svg') }}",
-            "image": "{{ asset('images/WelcomePhoto/Wel_Photo_1.webp') }}",
+            "url": "{{ config('seo.canonical_url') }}/",
+            "logo": "{{ config('seo.canonical_url') }}/images/logo.svg",
+            "image": "{{ config('seo.canonical_url') }}/images/WelcomePhoto/Wel_Photo_1.webp",
             "description": "Ремонт квартир под ключ в Ростове-на-Дону: бесплатный замер, прозрачная смета, ремонт новостроек и вторичного жилья.",
             "areaServed": {
                 "@@type": "City",

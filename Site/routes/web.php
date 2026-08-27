@@ -7,7 +7,7 @@ Route::get('/sitemap.xml', function () {
 });
 
 Route::get('/robots.txt', function () {
-    return response("User-agent: *\nDisallow:\nSitemap: " . url('/sitemap.xml') . "\n")
+    return response("User-agent: *\nDisallow:\nSitemap: ".config('seo.canonical_url')."/sitemap.xml\n")
         ->header('Content-Type', 'text/plain');
 });
 
