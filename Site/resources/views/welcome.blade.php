@@ -6,6 +6,63 @@
 
         <title>Ремонт квартир под ключ в Ростове-на-Дону | Магия</title>
         <meta name="description" content="Ремонт квартир под ключ в Ростове-на-Дону. Бесплатный замер, прозрачная смета, ремонт новостроек и вторичного жилья от профессиональной команды.">
+        <link rel="canonical" href="{{ url('/') }}">
+
+        <meta property="og:type" content="website">
+        <meta property="og:locale" content="ru_RU">
+        <meta property="og:site_name" content="Магия">
+        <meta property="og:title" content="Ремонт квартир под ключ в Ростове-на-Дону | Магия">
+        <meta property="og:description" content="Бесплатный замер, прозрачная смета и ремонт квартир под ключ в Ростове-на-Дону от профессиональной команды.">
+        <meta property="og:url" content="{{ url('/') }}">
+        <meta property="og:image" content="{{ asset('images/WelcomePhoto/Wel_Photo_1.svg') }}">
+        <meta property="og:image:alt" content="Ремонт квартиры под ключ в Ростове-на-Дону">
+
+        <script type="application/ld+json">
+        {
+            "@@context": "https://schema.org",
+            "@@type": "HomeAndConstructionBusiness",
+            "name": "Магия",
+            "url": "{{ url('/') }}",
+            "logo": "{{ asset('images/logo.svg') }}",
+            "image": "{{ asset('images/WelcomePhoto/Wel_Photo_1.svg') }}",
+            "description": "Ремонт квартир под ключ в Ростове-на-Дону: бесплатный замер, прозрачная смета, ремонт новостроек и вторичного жилья.",
+            "areaServed": {
+                "@@type": "City",
+                "name": "Ростов-на-Дону"
+            },
+            "sameAs": [
+                "https://t.me/SergeyWright",
+                "https://max.ru/u/f9LHodD0cOLsSlygVBBUbU_rAlEqsEcBA1bKp0CmWJsn8wMz3aiuwcm9lss"
+            ],
+            "hasOfferCatalog": {
+                "@@type": "OfferCatalog",
+                "name": "Услуги по ремонту квартир",
+                "itemListElement": [
+                    {
+                        "@@type": "Offer",
+                        "itemOffered": {
+                            "@@type": "Service",
+                            "name": "Ремонт квартир в новостройках"
+                        }
+                    },
+                    {
+                        "@@type": "Offer",
+                        "itemOffered": {
+                            "@@type": "Service",
+                            "name": "Ремонт квартир во вторичном жилье"
+                        }
+                    },
+                    {
+                        "@@type": "Offer",
+                        "itemOffered": {
+                            "@@type": "Service",
+                            "name": "Дизайнерский ремонт квартир"
+                        }
+                    }
+                ]
+            }
+        }
+        </script>
         <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -31,7 +88,7 @@
         <noscript><div><img src="https://mc.yandex.ru/watch/111942996" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
         <!-- Хейдер -->
         <header class="header">
-            <img src="{{ asset('images/logo.svg') }}" alt="Logo" class="logo">
+            <img src="{{ asset('images/logo.svg') }}" alt="Магия — ремонт квартир в Ростове-на-Дону" class="logo">
             
             <div class="navigation">
                 <a class="Button_Navigation" href="https://t.me/SergeyWright" target="_blank" rel="noopener noreferrer">
@@ -74,7 +131,7 @@
                         <div class="hero_card">
                             <div class="hero_card_inner">
                                 <div class="hero_card_front">
-                                    <img src="{{ asset('images/WelcomePhoto/Wel_Photo_1.svg') }}" alt="Интерьер кухни" class="hero_image">
+                                    <img src="{{ asset('images/WelcomePhoto/Wel_Photo_1.svg') }}" alt="Ремонт квартир под ключ в Ростове-на-Дону — интерьер кухни-гостиной" class="hero_image">
                                 </div>
                                 <div class="hero_card_back">
                                     <strong>Ремонт кухни-гостиной</strong>
@@ -86,7 +143,7 @@
                         <div class="hero_card">
                             <div class="hero_card_inner">
                                 <div class="hero_card_front">
-                                    <img src="{{ asset('images/WelcomePhoto/Wel_Photo_2.svg') }}" alt="Интерьер ванной комнаты" class="hero_image">
+                                    <img src="{{ asset('images/WelcomePhoto/Wel_Photo_2.svg') }}" alt="Ремонт ванной комнаты под ключ — готовый интерьер" class="hero_image">
                                 </div>
                                 <div class="hero_card_back">
                                     <strong>Ремонт ванной комнаты</strong>
@@ -98,7 +155,7 @@
                         <div class="hero_card">
                             <div class="hero_card_inner">
                                 <div class="hero_card_front">
-                                    <img src="{{ asset('images/Portf/3.svg') }}" alt="Современный ремонт квартиры" class="hero_image">
+                                    <img src="{{ asset('images/Portf/3.svg') }}" alt="Современный ремонт квартиры — готовый интерьер" class="hero_image">
                                 </div>
                                 <div class="hero_card_back">
                                     <strong>Ремонт квартиры под ключ</strong>
@@ -110,7 +167,7 @@
                         <div class="hero_card">
                             <div class="hero_card_inner">
                                 <div class="hero_card_front">
-                                    <img src="{{ asset('images/Portf/4.svg') }}" alt="Дизайнерский ремонт спальни" class="hero_image">
+                                    <img src="{{ asset('images/Portf/4.svg') }}" alt="Дизайнерский ремонт спальни — готовый интерьер" class="hero_image">
                                 </div>
                                 <div class="hero_card_back">
                                     <strong>Дизайнерский ремонт спальни</strong>
@@ -124,7 +181,7 @@
                 <div class="welcome_container_down">
                     <div class="welcome_info_down">  
                         <div class="icon_info_down">
-                            <img src="{{ asset('images/Icon/ruletka.svg') }}" alt="Icon" class="icon_info">
+                            <img src="{{ asset('images/Icon/ruletka.svg') }}" alt="" class="icon_info">
                             <h2>Замер — бесплатно</h2>          
                         </div>
                         <p>Бесплатно выезжаем на объект в Ростове-на-Дону, выполняем замер и обсуждаем задачи ремонта до начала работ.</p>
@@ -132,7 +189,7 @@
 
                     <div class="welcome_info_down active_welcome_info_down">
                         <div class="icon_info_down">
-                            <img src="{{ asset('images/Icon/smeta.svg') }}" alt="Icon" class="icon_info">
+                            <img src="{{ asset('images/Icon/smeta.svg') }}" alt="" class="icon_info">
                             <h2>Прозрачная смета</h2>                         
                         </div>
                         <p>Составляем подробную смету по работам и материалам, чтобы стоимость ремонта квартиры была понятна до подписания договора.</p>
@@ -140,7 +197,7 @@
 
                     <div class="welcome_info_down">
                         <div class="icon_info_down">
-                            <img src="{{ asset('images/Icon/squad.svg') }}" alt="Icon" class="icon_info">
+                            <img src="{{ asset('images/Icon/squad.svg') }}" alt="" class="icon_info">
                             <h2>Своя команда</h2>
                         </div>
                         <p>Собственная команда специалистов ведет объект от черновых работ до чистовой отделки и контролирует качество на каждом этапе.</p>
@@ -152,7 +209,7 @@
         <div class="portfolio" id="portfolio">
             <section class="portfolio_container">
                 <div class="Main_text_center">
-                    <h1>Портфолио</h1>
+                    <h2 class="seo-section-heading">Портфолио</h2>
                     <p>Показываем примеры ремонта квартир в Ростове-на-Дону: кухни, санузлы, спальни и комплексная отделка под ключ.</p>
                 </div>
 
@@ -217,10 +274,10 @@
                             style="--portfolio-column: {{ $portfolioColumns[$cardIndex] }};"
                             data-images="{{ json_encode($cardImages) }}"
                         >
-                            <img src="{{ $cardImages[0] }}" alt="{{ $portfolioProjects[$cardIndex]['title'] }}" class="portfolio_card_image">
+                            <img src="{{ $cardImages[0] }}" alt="Фото проекта: {{ $portfolioProjects[$cardIndex]['title'] }}" class="portfolio_card_image">
                             <div class="portfolio_card_info">
                                 <span class="portfolio_card_number">{{ str_pad($cardIndex, 2, '0', STR_PAD_LEFT) }}</span>
-                                <h2>{{ $portfolioProjects[$cardIndex]['title'] }}</h2>
+                                <h3>{{ $portfolioProjects[$cardIndex]['title'] }}</h3>
                                 <p>{{ $portfolioProjects[$cardIndex]['description'] }}</p>
                             </div>
                         </article>
@@ -233,19 +290,19 @@
         <div class="service">
             <section class="service_container">
                 <div class="Main_text_left">
-                    <h1>Наши услуги</h1>
+                    <h2 class="seo-section-heading">Наши услуги<span class="sr-only">: ремонт квартир под ключ в Ростове-на-Дону</span></h2>
                     <p>Подбираем формат ремонта под задачу: отделка квартиры в новостройке с нуля, ремонт вторичного жилья или комплексное обновление интерьера.</p>
                 </div>
 
                 <div class="service_main">
                     <div class="service_switch">
                         <div class="switch_btn enable_switch is-selected" data-service-mode="new" role="button" tabindex="0">
-                            <img src="{{ asset('images/Icon/Hammer.svg') }}" alt="Hero Image" class="">
+                            <img src="{{ asset('images/Icon/Hammer.svg') }}" alt="" class="">
                             <p>Новостройка</p>
                         </div>
 
                         <div class="switch_btn" data-service-mode="secondary" role="button" tabindex="0">
-                            <img src="{{ asset('images/Icon/Hammer.svg') }}" alt="Hero Image" class="">
+                            <img src="{{ asset('images/Icon/Hammer.svg') }}" alt="" class="">
                             <p>Вторичка</p>
                         </div>
                     </div>
@@ -257,7 +314,7 @@
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
                                     <div class="Service_Price" data-secondary-title="Косметический" data-secondary-description="Косметический ремонт вторичной квартиры без перепланировки: обновили поверхности, освещение и напольное покрытие." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽10,000">
                                         <div class="d-flex flex-column gap-3">
-                                            <h2>Черновой</h2>
+                                            <h3>Черновой</h3>
 
                                             <div class="service_card_tags d-flex flex-column gap-2">
                                                 <p>Базовая отделка квартиры в новостройке с подготовкой стен, пола и инженерных систем к чистовым работам.</p>
@@ -279,7 +336,7 @@
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
                                     <div class="Service_Price" data-secondary-title="Капитальный" data-secondary-description="Капитально обновляем вторичное жильё: меняем коммуникации, выравниваем стены и выполняем чистовую отделку." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽14,000">
                                         <div class="d-flex flex-column gap-3">
-                                            <h2>Эконом</h2>
+                                            <h3>Эконом</h3>
 
                                             <div class="service_card_tags d-flex flex-column gap-2">
                                                 <p>Рациональный ремонт квартиры с подготовкой поверхностей и практичной чистовой отделкой без лишних расходов.</p>
@@ -301,7 +358,7 @@
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
                                     <div class="Service_Price" data-secondary-title="Евроремонт" data-secondary-description="Ремонт вторичной квартиры под ключ с обновлением электрики, подготовкой стен и качественной чистовой отделкой." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽18,000">
                                         <div class="d-flex flex-column gap-3">
-                                            <h2>Евроремонт</h2>
+                                            <h3>Евроремонт</h3>
 
                                             <div class="service_card_tags d-flex flex-column gap-2">
                                                 <p>Комплексный ремонт квартиры под ключ с обновлением инженерных систем и качественной отделкой помещений.</p>
@@ -323,7 +380,7 @@
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
                                     <div class="Service_Price" data-secondary-title="Дизайнерский" data-secondary-description="Создаем индивидуальный интерьер вторичной квартиры с дизайн-проектом, продуманным светом и выразительной отделкой." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽22,000">
                                         <div class="d-flex flex-column gap-3">
-                                            <h2>Дизайнерский</h2>
+                                            <h3>Дизайнерский</h3>
 
                                             <div class="service_card_tags d-flex flex-column gap-2">
                                                 <p>Индивидуальный ремонт с учетом планировки, дизайн-проекта, выбранных материалов и требований к интерьеру.</p>
@@ -352,7 +409,7 @@
         <div class="feedback">
             <section class="feedback_container">
                 <div class="Main_text_center">
-                    <h1>Наши отзывы</h1>
+                    <h2 class="seo-section-heading">Наши отзывы</h2>
                     <p>Стоимость ремонта квартиры зависит от площади, состояния помещений, объема инженерных работ и выбранных материалов. Показываем состав работ в подробной смете.</p>
                 </div>
 
@@ -444,13 +501,13 @@
             <section class="estimate_container">
                 <div class="container_main_text">
                     <div class="Main_text_left">
-                        <h1>Фиксированная смета в договоре</h1>
+                        <h2 class="seo-section-heading">Фиксированная смета в договоре</h2>
                         <p>В смете собраны основные работы для ремонта квартиры: демонтаж, стены, электрика, сантехника, отопление, полы, плитка и чистовая отделка.</p>
                     </div>
 
                     <div class="estimate_second_text">
                         <a class="button but_black" href="{{ asset('СМЕТА ШАБЛОН.pdf') }}" download="Смета-на-ремонт.pdf">
-                            <img src="{{ asset('images/Icon/download.svg') }}" alt="Hero Image" class="">
+                            <img src="{{ asset('images/Icon/download.svg') }}" alt="" class="">
                             <p>Скачать полную смету PDF</p>
                         </a>
 
@@ -515,7 +572,7 @@
          <div class="step_work">
             <section class="container_step_work">
                 <div class="Main_text_left">
-                    <h1>Этапы работ</h1>
+                    <h2 class="seo-section-heading">Этапы работ</h2>
                     <p>Организуем ремонт квартиры под ключ по понятному плану: от замера и подготовки сметы до контроля работ и передачи готового объекта.</p>
                 </div>
 
@@ -605,7 +662,7 @@
                 ></iframe>
 
                 <div class="footer">
-                    <img src="{{ asset('images/logo.svg') }}" alt="Logo" class="logo">
+                    <img src="{{ asset('images/logo.svg') }}" alt="Магия — ремонт квартир в Ростове-на-Дону" class="logo">
 
                     <div>
                         <p>Информация на сайте носит информационный характер и не является публичной офертой, определяемой положениями статьи 437 ГК РФ.</p>

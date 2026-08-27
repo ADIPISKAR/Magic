@@ -43,14 +43,19 @@ ul{
     margin: 0;
 }
 
-h1{
+h1,
+h2.seo-section-heading{
     font-family: 'Fira Sans', sans-serif;
     font-size: 64px;
+    font-weight: 500;
     line-height: 55px;
     color: black;
+    margin-top: 0;
+    margin-bottom: .5rem;
 }
 
-h2{
+h2,
+h3{
     font-size: 21px;
     font-weight: 700;
     margin: 0px;
@@ -768,7 +773,7 @@ body.modal-is-open{
     transform: translateY(0);
 }
 
-.portfolio_card_info h2 {
+.portfolio_card_info h3 {
     font-size: clamp(22px, 3vw, 42px);
 }
 
@@ -1354,7 +1359,8 @@ tr > td:last-child{
 }
 
 @media(max-width: 1365px){
-     h1 {
+     h1,
+     h2.seo-section-heading {
         font-size: 55px;
     }
 
@@ -1409,7 +1415,8 @@ tr > td:last-child{
         height: 360px;
     }
 
-    h1 {
+    h1,
+    h2.seo-section-heading {
         font-size: 50px;
         line-height: 50px;
     }
@@ -1462,7 +1469,8 @@ tr > td:last-child{
         justify-content: center;
     }
 
-    .Main_text_left > h1{
+    .Main_text_left > h1,
+    .Main_text_left > h2.seo-section-heading{
         font-size: 47px;
         line-height: 41px;
     }
@@ -1772,7 +1780,8 @@ tr > td:last-child{
         margin-top: 20px;
     }
 
-    h2 {
+    h2,
+    h3 {
         font-size: 30px;
     }
 }
@@ -1860,7 +1869,7 @@ tr > td:last-child{
         align-items: center;
     }
 
-    .Service_Price h2 + div{
+    .Service_Price h3 + div{
         align-items: center;
 
         gap: 20px !important;
@@ -1892,7 +1901,8 @@ tr > td:last-child{
         font-size: 15px;
     }
 
-    .Main_text_left > h1 {
+    .Main_text_left > h1,
+    .Main_text_left > h2.seo-section-heading {
         font-size: 39px;
         line-height: 37px;
     }
@@ -1926,7 +1936,8 @@ tr > td:last-child{
         padding-bottom: 0px;
     }
 
-    h1 {
+    h1,
+    h2.seo-section-heading {
         text-align: center;
     }
 
@@ -1952,7 +1963,8 @@ tr > td:last-child{
         align-items: center;
     }
 
-    .Main_text_left > h1 {
+    .Main_text_left > h1,
+    .Main_text_left > h2.seo-section-heading {
         text-align: center;
     }
 
@@ -1987,7 +1999,8 @@ tr > td:last-child{
         padding: 20px 10px;
     }
 
-    .Main_text_left > h1 {
+    .Main_text_left > h1,
+    .Main_text_left > h2.seo-section-heading {
         font-size: 33px;
     }
 
