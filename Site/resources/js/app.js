@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const servicePriceCards = [...document.querySelectorAll('.Service_Price')];
 		const servicePrice = document.querySelector('.service_price');
 		const newServiceContent = servicePriceCards.map((card) => ({
-			title: card.querySelector('h2').textContent,
+			title: card.querySelector('h3').textContent,
 			description: card.querySelector('.service_card_tags > p').textContent,
 			tags: [...card.querySelectorAll('.service_card_tags .bord_block')].map((tag) => tag.textContent),
 			price: card.querySelector('.price p').textContent,
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					}
 					: newServiceContent[index];
 
-				card.querySelector('h2').textContent = content.title;
+				card.querySelector('h3').textContent = content.title;
 				card.querySelector('.service_card_tags > p').textContent = content.description;
 				card.querySelector('.price p').textContent = content.price;
 				card.querySelectorAll('.service_card_tags .bord_block').forEach((tag, index) => {
