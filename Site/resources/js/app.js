@@ -49,6 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 
 				status.textContent = 'Заявка отправлена. Мы скоро свяжемся с вами.';
+				if (typeof window.ym === 'function') {
+					window.ym(111942996, 'reachGoal', 'lead_submit_success');
+				}
 				leadForm.reset();
 				window.setTimeout(closeModal, 1600);
 			} catch (error) {
