@@ -28,7 +28,20 @@ class SeoTest extends TestCase
         $this->get('https://magiarnd.ru/')
             ->assertOk()
             ->assertSee('<link rel="canonical" href="https://magiarnd.ru/">', false)
-            ->assertSee('<meta property="og:url" content="https://magiarnd.ru/">', false);
+            ->assertSee('<meta property="og:url" content="https://magiarnd.ru/">', false)
+            ->assertSee('Ремонт квартир под ключ в Ростове-на-Дону — от 5 000 ₽/м² | Магия', false)
+            ->assertSee('"priceRange": "от 5 000 ₽/м²"', false);
+    }
+
+    public function test_homepage_has_clear_section_navigation(): void
+    {
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('href="#portfolio"', false)
+            ->assertSee('href="#services"', false)
+            ->assertSee('href="#reviews"', false)
+            ->assertSee('href="#work-steps"', false)
+            ->assertSee('href="#contacts"', false);
     }
 
     public function test_robots_and_sitemap_use_the_canonical_host(): void

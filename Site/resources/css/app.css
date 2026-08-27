@@ -15,6 +15,10 @@
 
 /* Общие стили */
 
+html {
+    scroll-behavior: smooth;
+}
+
 * {
     user-select: none;
 }
@@ -407,6 +411,31 @@ body.modal-is-open{
 .navigation.is-hovering .Button_Navigation:hover{
     z-index: 2;
     color: white;
+}
+
+.section_navigation{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    gap: 8px 22px;
+}
+
+.section_navigation a{
+    padding: 3px 0;
+    border-bottom: 1px solid transparent;
+
+    color: #5B5B5B;
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: color 180ms ease, border-color 180ms ease;
+}
+
+.section_navigation a:hover,
+.section_navigation a:focus-visible{
+    border-color: #000000;
+    color: #000000;
 }
 
 /* Шапка */
@@ -1635,12 +1664,12 @@ tr > td:last-child{
         max-width: 80%;
     }
 
-    .welcome_info_down {
+    /* .welcome_info_down {
         align-items: flex-start;
-    }
+    } */
 
     .welcome_container_down > div > p{
-        text-align: left;
+        text-align: center;
         -webkit-line-clamp: 12;
     }
 
@@ -1946,6 +1975,14 @@ tr > td:last-child{
         background-color: white;
 
         gap: 30px;
+    }
+
+    .section_navigation{
+        gap: 6px 16px;
+    }
+
+    .section_navigation a{
+        font-size: 12px;
     }
 
     .Button_Navigation:nth-child(2) {

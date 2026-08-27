@@ -4,15 +4,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Ремонт квартир под ключ в Ростове-на-Дону | Магия</title>
-        <meta name="description" content="Ремонт квартир под ключ в Ростове-на-Дону. Бесплатный замер, прозрачная смета, ремонт новостроек и вторичного жилья от профессиональной команды.">
+        <title>Ремонт квартир под ключ в Ростове-на-Дону — от 5 000 ₽/м² | Магия</title>
+        <meta name="description" content="Ремонт новостроек и вторичного жилья в Ростове-на-Дону. Бесплатный замер, фиксированная смета и поэтапная оплата. Цены от 5 000 ₽/м², примеры работ.">
         <link rel="canonical" href="{{ config('seo.canonical_url') }}/">
 
         <meta property="og:type" content="website">
         <meta property="og:locale" content="ru_RU">
         <meta property="og:site_name" content="Магия">
-        <meta property="og:title" content="Ремонт квартир под ключ в Ростове-на-Дону | Магия">
-        <meta property="og:description" content="Бесплатный замер, прозрачная смета и ремонт квартир под ключ в Ростове-на-Дону от профессиональной команды.">
+        <meta property="og:title" content="Ремонт квартир под ключ в Ростове-на-Дону — от 5 000 ₽/м² | Магия">
+        <meta property="og:description" content="Ремонт новостроек и вторичного жилья: бесплатный замер, фиксированная смета, поэтапная оплата и цены от 5 000 ₽/м².">
         <meta property="og:url" content="{{ config('seo.canonical_url') }}/">
         <meta property="og:image" content="{{ config('seo.canonical_url') }}/images/WelcomePhoto/Wel_Photo_1.webp">
         <meta property="og:image:alt" content="Ремонт квартиры под ключ в Ростове-на-Дону">
@@ -25,7 +25,8 @@
             "url": "{{ config('seo.canonical_url') }}/",
             "logo": "{{ config('seo.canonical_url') }}/images/logo.svg",
             "image": "{{ config('seo.canonical_url') }}/images/WelcomePhoto/Wel_Photo_1.webp",
-            "description": "Ремонт квартир под ключ в Ростове-на-Дону: бесплатный замер, прозрачная смета, ремонт новостроек и вторичного жилья.",
+            "description": "Ремонт квартир под ключ в Ростове-на-Дону: бесплатный замер, фиксированная смета, поэтапная оплата, ремонт новостроек и вторичного жилья.",
+            "priceRange": "от 5 000 ₽/м²",
             "areaServed": {
                 "@@type": "City",
                 "name": "Ростов-на-Дону"
@@ -88,7 +89,7 @@
     </head>
 
 
-    <body>
+    <body id="top">
         <noscript><div><img src="https://mc.yandex.ru/watch/111942996" width="1" height="1" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
         <!-- Хейдер -->
         <header class="header">
@@ -110,6 +111,14 @@
                     <p class="navigation_text">Max</p>
                 </a>
             </div>
+
+            <nav class="section_navigation" aria-label="Разделы сайта">
+                <a href="#portfolio">Портфолио</a>
+                <a href="#services">Услуги и цены</a>
+                <a href="#reviews">Отзывы</a>
+                <a href="#work-steps">Этапы работ</a>
+                <a href="#contacts">Контакты</a>
+            </nav>
         </header>
 
         <!-- Представления -->
@@ -302,7 +311,7 @@
         </div>
 
         <!-- Наши услуги -->
-        <div class="service">
+        <div class="service" id="services">
             <section class="service_container">
                 <div class="Main_text_left">
                     <h2 class="seo-section-heading">Наши услуги<span class="sr-only">: ремонт квартир под ключ в Ростове-на-Дону</span></h2>
@@ -421,7 +430,7 @@
         </div>
 
         <!-- Обратная связь -->
-        <div class="feedback">
+        <div class="feedback" id="reviews">
             <section class="feedback_container">
                 <div class="Main_text_center">
                     <h2 class="seo-section-heading">Наши отзывы</h2>
@@ -584,7 +593,7 @@
         </div>
 
         <!-- Этапы работ -->
-         <div class="step_work">
+         <div class="step_work" id="work-steps">
             <section class="container_step_work">
                 <div class="Main_text_left">
                     <h2 class="seo-section-heading">Этапы работ</h2>
@@ -664,7 +673,7 @@
          </div>
 
         <!-- Карта / Футер -->
-        <div class="map">
+        <div class="map" id="contacts">
             <section class="map_container">
                 <iframe
                     class="map_frame"
