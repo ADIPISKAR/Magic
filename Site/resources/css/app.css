@@ -632,7 +632,7 @@ body.modal-is-open{
 
 .icon_info_down{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
 
     gap: 10px;
