@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="ru">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +14,7 @@
         <meta property="og:title" content="Ремонт квартир под ключ в Ростове-на-Дону | Магия">
         <meta property="og:description" content="Бесплатный замер, прозрачная смета и ремонт квартир под ключ в Ростове-на-Дону от профессиональной команды.">
         <meta property="og:url" content="{{ url('/') }}">
-        <meta property="og:image" content="{{ asset('images/WelcomePhoto/Wel_Photo_1.svg') }}">
+        <meta property="og:image" content="{{ asset('images/WelcomePhoto/Wel_Photo_1.webp') }}">
         <meta property="og:image:alt" content="Ремонт квартиры под ключ в Ростове-на-Дону">
 
         <script type="application/ld+json">
@@ -24,7 +24,7 @@
             "name": "Магия",
             "url": "{{ url('/') }}",
             "logo": "{{ asset('images/logo.svg') }}",
-            "image": "{{ asset('images/WelcomePhoto/Wel_Photo_1.svg') }}",
+            "image": "{{ asset('images/WelcomePhoto/Wel_Photo_1.webp') }}",
             "description": "Ремонт квартир под ключ в Ростове-на-Дону: бесплатный замер, прозрачная смета, ремонт новостроек и вторичного жилья.",
             "areaServed": {
                 "@@type": "City",
@@ -65,10 +65,14 @@
         </script>
         <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
 
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript">
@@ -85,31 +89,31 @@
 
 
     <body>
-        <noscript><div><img src="https://mc.yandex.ru/watch/111942996" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <noscript><div><img src="https://mc.yandex.ru/watch/111942996" width="1" height="1" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
         <!-- Хейдер -->
         <header class="header">
-            <img src="{{ asset('images/logo.svg') }}" alt="Магия — ремонт квартир в Ростове-на-Дону" class="logo">
+            <img src="{{ asset('images/logo.svg') }}" width="189" height="46" alt="Магия — ремонт квартир в Ростове-на-Дону" class="logo">
             
             <div class="navigation">
                 <a class="Button_Navigation" href="https://t.me/SergeyWright" target="_blank" rel="noopener noreferrer">
-                    <img src="{{ asset('images/Icon/Telegram.svg') }}" alt="" class="icon_nav">
+                    <img src="{{ asset('images/Icon/Telegram.svg') }}" width="28" height="28" alt="" class="icon_nav">
                     <p class="navigation_text">Telegram</p>
                 </a>
 
                 <div class="Button_Navigation Active_Navigation">
-                    <img src="{{ asset('images/Icon/Main.svg') }}" alt="" class="icon_nav">
+                    <img src="{{ asset('images/Icon/Main.svg') }}" width="19" height="19" alt="" class="icon_nav">
                     <p class="navigation_text">Главная</p>
                 </div>
 
                 <a class="Button_Navigation" href="https://max.ru/u/f9LHodD0cOLsSlygVBBUbU_rAlEqsEcBA1bKp0CmWJsn8wMz3aiuwcm9lss" target="_blank" rel="noopener noreferrer">
-                    <img src="{{ asset('images/Icon/Max.svg') }}" alt="" class="iconnav">
+                    <img src="{{ asset('images/Icon/Max.svg') }}" width="25" height="25" alt="" class="iconnav">
                     <p class="navigation_text">Max</p>
                 </a>
             </div>
         </header>
 
         <!-- Представления -->
-        <div class="main">
+        <main class="main">
             <section class="welcome_container">
                 <div class="welcome_container_top">
                     <div class="welcome_info">
@@ -131,7 +135,7 @@
                         <div class="hero_card">
                             <div class="hero_card_inner">
                                 <div class="hero_card_front">
-                                    <img src="{{ asset('images/WelcomePhoto/Wel_Photo_1.svg') }}" alt="Ремонт квартир под ключ в Ростове-на-Дону — интерьер кухни-гостиной" class="hero_image">
+                                    <img src="{{ asset('images/WelcomePhoto/Wel_Photo_1.webp') }}" width="370" height="493" fetchpriority="high" decoding="async" alt="Ремонт квартир под ключ в Ростове-на-Дону — интерьер кухни-гостиной" class="hero_image">
                                 </div>
                                 <div class="hero_card_back">
                                     <strong>Ремонт кухни-гостиной</strong>
@@ -143,7 +147,7 @@
                         <div class="hero_card">
                             <div class="hero_card_inner">
                                 <div class="hero_card_front">
-                                    <img src="{{ asset('images/WelcomePhoto/Wel_Photo_2.svg') }}" alt="Ремонт ванной комнаты под ключ — готовый интерьер" class="hero_image">
+                                    <img src="{{ asset('images/WelcomePhoto/Wel_Photo_2.webp') }}" width="369" height="492" loading="lazy" decoding="async" alt="Ремонт ванной комнаты под ключ — готовый интерьер" class="hero_image">
                                 </div>
                                 <div class="hero_card_back">
                                     <strong>Ремонт ванной комнаты</strong>
@@ -155,7 +159,7 @@
                         <div class="hero_card">
                             <div class="hero_card_inner">
                                 <div class="hero_card_front">
-                                    <img src="{{ asset('images/Portf/3.svg') }}" alt="Современный ремонт квартиры — готовый интерьер" class="hero_image">
+                                    <img src="{{ asset('images/Portf/3.webp') }}" width="406" height="565" loading="lazy" decoding="async" alt="Современный ремонт квартиры — готовый интерьер" class="hero_image">
                                 </div>
                                 <div class="hero_card_back">
                                     <strong>Ремонт квартиры под ключ</strong>
@@ -167,7 +171,7 @@
                         <div class="hero_card">
                             <div class="hero_card_inner">
                                 <div class="hero_card_front">
-                                    <img src="{{ asset('images/Portf/4.svg') }}" alt="Дизайнерский ремонт спальни — готовый интерьер" class="hero_image">
+                                    <img src="{{ asset('images/Portf/4.webp') }}" width="475" height="565" loading="lazy" decoding="async" alt="Дизайнерский ремонт спальни — готовый интерьер" class="hero_image">
                                 </div>
                                 <div class="hero_card_back">
                                     <strong>Дизайнерский ремонт спальни</strong>
@@ -181,7 +185,7 @@
                 <div class="welcome_container_down">
                     <div class="welcome_info_down">  
                         <div class="icon_info_down">
-                            <img src="{{ asset('images/Icon/ruletka.svg') }}" alt="" class="icon_info">
+                            <img src="{{ asset('images/Icon/ruletka.svg') }}" width="442" height="442" alt="" class="icon_info">
                             <h2>Замер — бесплатно</h2>          
                         </div>
                         <p>Бесплатно выезжаем на объект в Ростове-на-Дону, выполняем замер и обсуждаем задачи ремонта до начала работ.</p>
@@ -189,7 +193,7 @@
 
                     <div class="welcome_info_down active_welcome_info_down">
                         <div class="icon_info_down">
-                            <img src="{{ asset('images/Icon/smeta.svg') }}" alt="" class="icon_info">
+                            <img src="{{ asset('images/Icon/smeta.svg') }}" width="474" height="512" alt="" class="icon_info">
                             <h2>Прозрачная смета</h2>                         
                         </div>
                         <p>Составляем подробную смету по работам и материалам, чтобы стоимость ремонта квартиры была понятна до подписания договора.</p>
@@ -197,13 +201,13 @@
 
                     <div class="welcome_info_down">
                         <div class="icon_info_down">
-                            <img src="{{ asset('images/Icon/squad.svg') }}" alt="" class="icon_info">
+                            <img src="{{ asset('images/Icon/squad.svg') }}" width="512" height="512" alt="" class="icon_info">
                             <h2>Своя команда</h2>
                         </div>
                         <p>Собственная команда специалистов ведет объект от черновых работ до чистовой отделки и контролирует качество на каждом этапе.</p>
                     </div>
             </section>
-        </div>
+        </main>
 
         <!-- Портфолио -->
         <div class="portfolio" id="portfolio">
@@ -215,9 +219,20 @@
 
                 @php
                     $portfolioImages = collect(range(1, 9))
-                        ->map(fn ($image) => asset("images/Portf/{$image}.svg"))
+                        ->map(fn ($image) => asset("images/Portf/{$image}." . ($image === 6 ? 'svg' : 'webp')))
                         ->values()
                         ->all();
+                    $portfolioImageDimensions = [
+                        1 => [456, 555],
+                        2 => [456, 555],
+                        3 => [406, 565],
+                        4 => [475, 565],
+                        5 => [638, 683],
+                        6 => [960, 1280],
+                        7 => [486, 564],
+                        8 => [486, 555],
+                        9 => [486, 555],
+                    ];
                     $portfolioColumns = [1 => 1, 2 => 1, 3 => 2, 4 => 3, 5 => 4, 6 => 4, 7 => 1, 8 => 3, 9 => 4];
                     $portfolioProjects = [
                         1 => [
@@ -274,7 +289,7 @@
                             style="--portfolio-column: {{ $portfolioColumns[$cardIndex] }};"
                             data-images="{{ json_encode($cardImages) }}"
                         >
-                            <img src="{{ $cardImages[0] }}" alt="Фото проекта: {{ $portfolioProjects[$cardIndex]['title'] }}" class="portfolio_card_image">
+                            <img src="{{ $cardImages[0] }}" width="{{ $portfolioImageDimensions[$cardIndex][0] }}" height="{{ $portfolioImageDimensions[$cardIndex][1] }}" loading="lazy" decoding="async" alt="Фото проекта: {{ $portfolioProjects[$cardIndex]['title'] }}" class="portfolio_card_image">
                             <div class="portfolio_card_info">
                                 <span class="portfolio_card_number">{{ str_pad($cardIndex, 2, '0', STR_PAD_LEFT) }}</span>
                                 <h3>{{ $portfolioProjects[$cardIndex]['title'] }}</h3>
@@ -297,12 +312,12 @@
                 <div class="service_main">
                     <div class="service_switch">
                         <div class="switch_btn enable_switch is-selected" data-service-mode="new" role="button" tabindex="0">
-                            <img src="{{ asset('images/Icon/Hammer.svg') }}" alt="" class="">
+                            <img src="{{ asset('images/Icon/Hammer.svg') }}" width="24" height="22" alt="" class="">
                             <p>Новостройка</p>
                         </div>
 
                         <div class="switch_btn" data-service-mode="secondary" role="button" tabindex="0">
-                            <img src="{{ asset('images/Icon/Hammer.svg') }}" alt="" class="">
+                            <img src="{{ asset('images/Icon/Hammer.svg') }}" width="24" height="22" alt="" class="">
                             <p>Вторичка</p>
                         </div>
                     </div>
@@ -418,7 +433,7 @@
 
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/1w.jpg') }}" alt="Ольга, клиентка компании" class="feedback_icon">
+                                <img src="{{ asset('images/feedback/1w.webp') }}" width="100" height="100" loading="lazy" decoding="async" alt="Ольга, клиентка компании" class="feedback_icon">
                                 <p>Ольга</p>
                             </div>
 
@@ -427,7 +442,7 @@
 
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/1m.jpg') }}" alt="Максим, клиент компании" class="feedback_icon">
+                                <img src="{{ asset('images/feedback/1m.webp') }}" width="96" height="100" loading="lazy" decoding="async" alt="Максим, клиент компании" class="feedback_icon">
                                 <p>Максим</p>
                             </div>
 
@@ -436,7 +451,7 @@
                         
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/2w.jpg') }}" alt="Екатерина, клиентка компании" class="feedback_icon">
+                                <img src="{{ asset('images/feedback/2w.webp') }}" width="100" height="100" loading="lazy" decoding="async" alt="Екатерина, клиентка компании" class="feedback_icon">
                                 <p>Екатерина</p>
                             </div>
 
@@ -445,7 +460,7 @@
 
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/2m.jpg') }}" alt="Андрей, клиент компании" class="feedback_icon">
+                                <img src="{{ asset('images/feedback/2m.webp') }}" width="96" height="100" loading="lazy" decoding="async" alt="Андрей, клиент компании" class="feedback_icon">
                                 <p>Андрей</p>
                             </div>
 
@@ -454,7 +469,7 @@
 
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/3w.jpg') }}" alt="Марина, клиентка компании" class="feedback_icon">
+                                <img src="{{ asset('images/feedback/3w.webp') }}" width="96" height="100" loading="lazy" decoding="async" alt="Марина, клиентка компании" class="feedback_icon">
                                 <p>Марина</p>
                             </div>
 
@@ -463,7 +478,7 @@
 
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/3m.jpg') }}" alt="Дмитрий, клиент компании" class="feedback_icon">
+                                <img src="{{ asset('images/feedback/3m.webp') }}" width="96" height="100" loading="lazy" decoding="async" alt="Дмитрий, клиент компании" class="feedback_icon">
                                 <p>Дмитрий</p>
                             </div>
 
@@ -472,7 +487,7 @@
 
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/4m.jpg') }}" alt="Сергей, клиент компании" class="feedback_icon">
+                                <img src="{{ asset('images/feedback/4m.webp') }}" width="96" height="100" loading="lazy" decoding="async" alt="Сергей, клиент компании" class="feedback_icon">
                                 <p>Сергей</p>
                             </div>
 
@@ -481,7 +496,7 @@
 
                         <div class="swiper-slide">
                             <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/5m.jpg') }}" alt="Алексей, клиент компании" class="feedback_icon">
+                                <img src="{{ asset('images/feedback/5m.webp') }}" width="96" height="100" loading="lazy" decoding="async" alt="Алексей, клиент компании" class="feedback_icon">
                                 <p>Алексей</p>
                             </div>
 
@@ -507,7 +522,7 @@
 
                     <div class="estimate_second_text">
                         <a class="button but_black" href="{{ asset('СМЕТА ШАБЛОН.pdf') }}" download="Смета-на-ремонт.pdf">
-                            <img src="{{ asset('images/Icon/download.svg') }}" alt="" class="">
+                            <img src="{{ asset('images/Icon/download.svg') }}" width="16" height="16" alt="" class="">
                             <p>Скачать полную смету PDF</p>
                         </a>
 
@@ -548,7 +563,7 @@
             <div class="request_modal_overlay" data-modal-close></div>
             <div class="request_modal_dialog" role="dialog" aria-modal="true" aria-labelledby="request-modal-title">
                 <button class="request_modal_close" type="button" aria-label="Закрыть окно" data-modal-close>&times;</button>
-                <img src="{{ asset('images/WelcomePhoto/Wel_Photo_1.svg') }}" alt="Современный интерьер квартиры" class="request_modal_image">
+                <img src="{{ asset('images/WelcomePhoto/Wel_Photo_1.webp') }}" width="370" height="493" loading="lazy" decoding="async" alt="Современный интерьер квартиры" class="request_modal_image">
                 <div class="request_modal_content">
                     <h2 id="request-modal-title">Обсудим ваш проект</h2>
                     <p>Расскажите о квартире — бесплатно оценим объём работ, сориентируем по стоимости и предложим оптимальный вариант ремонта.</p>
@@ -656,13 +671,14 @@
                     src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=29377814826"
                     width="560"
                     height="400"
+                    loading="lazy"
                     frameborder="0"
                     allowfullscreen="true"
                     title="Мы на карте"
                 ></iframe>
 
                 <div class="footer">
-                    <img src="{{ asset('images/logo.svg') }}" alt="Магия — ремонт квартир в Ростове-на-Дону" class="logo">
+                    <img src="{{ asset('images/logo.svg') }}" width="189" height="46" loading="lazy" decoding="async" alt="Магия — ремонт квартир в Ростове-на-Дону" class="logo">
 
                     <div>
                         <p>Информация на сайте носит информационный характер и не является публичной офертой, определяемой положениями статьи 437 ГК РФ.</p>
@@ -673,29 +689,31 @@
         </div>
 
         <script>
-            const swiper = new Swiper('.my-slider', {
-                slidesPerView: 5,
-                spaceBetween: 16,
+            window.addEventListener('DOMContentLoaded', () => {
+                new Swiper('.my-slider', {
+                    slidesPerView: 5,
+                    spaceBetween: 16,
 
-                breakpoints: {
-                    0: {
-                        slidesPerView: 1,
-                        spaceBetween: 10,
+                    breakpoints: {
+                        0: {
+                            slidesPerView: 1,
+                            spaceBetween: 10,
+                        },
+                        576: {
+                            slidesPerView: 2,
+                            spaceBetween: 16,
+                        },
+                        1200: {
+                            slidesPerView: 5,
+                            spaceBetween: 16,
+                        },
                     },
-                    576: {
-                        slidesPerView: 2,
-                        spaceBetween: 16,
-                    },
-                    1200: {
-                        slidesPerView: 5,
-                        spaceBetween: 16,
-                    },
-                },
 
-                pagination: {
-                    el: '.my-slider .swiper-pagination',
-                    clickable: true,
-                },
+                    pagination: {
+                        el: '.my-slider .swiper-pagination',
+                        clickable: true,
+                    },
+                });
             });
         </script>
     </body>
