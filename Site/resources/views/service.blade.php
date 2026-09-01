@@ -1,5 +1,7 @@
 @php
     $canonical = config('seo.canonical_url').'/'.$slug;
+    $experience = config("service_content.{$slug}");
+    $faqItems = array_merge($page['faq'], $experience['faq'] ?? []);
     $business = [
         '@type' => 'HomeAndConstructionBusiness', '@id' => config('seo.canonical_url').'/#business',
         'name' => 'Магия', 'url' => config('seo.canonical_url').'/',
@@ -9,7 +11,7 @@
             'addressLocality' => config('seo.city'), 'postalCode' => config('seo.postal_code'), 'addressCountry' => 'RU'],
         'areaServed' => ['@type' => 'City', 'name' => config('seo.city')],
     ];
-    $schema = ['@context' => 'https://schema.org', '@graph' => [
+    $schemaGraph = [
         $business,
         ['@type' => 'Service', '@id' => $canonical.'#service', 'name' => $page['heading'],
             'description' => $page['description'], 'url' => $canonical,
@@ -18,7 +20,19 @@
             ['@type' => 'ListItem', 'position' => 1, 'name' => 'Главная', 'item' => config('seo.canonical_url').'/'],
             ['@type' => 'ListItem', 'position' => 2, 'name' => $page['name'], 'item' => $canonical],
         ]],
-    ]];
+    ];
+    if ($faqItems) {
+        $schemaGraph[] = [
+            '@type' => 'FAQPage',
+            '@id' => $canonical.'#faq',
+            'mainEntity' => array_map(fn ($faq) => [
+                '@type' => 'Question',
+                'name' => $faq['question'],
+                'acceptedAnswer' => ['@type' => 'Answer', 'text' => $faq['answer']],
+            ], $faqItems),
+        ];
+    }
+    $schema = ['@context' => 'https://schema.org', '@graph' => $schemaGraph];
 @endphp
 <!DOCTYPE html>
 <html lang="ru">
@@ -42,11 +56,11 @@
     @include('partials.metrika')
 </head>
 <body class="service-page">
-    <noscript><div><img src="https://mc.yandex.ru/watch/111942996" width="1" height="1" style="position:absolute;left:-9999px" alt=""></div></noscript>
     <header class="service_header">
         <a href="{{ route('home', [], false) }}" aria-label="Магия — главная"><img src="{{ asset('images/logo.svg') }}" width="189" height="46" alt="Магия" class="logo"></a>
         <nav aria-label="Основная навигация">
-            <a href="/#portfolio">Портфолио</a>
+            <a href="#planner">Ваш сценарий</a>
+            <a href="#works">Состав работ</a>
             <a href="#prices">Стоимость</a>
             <a href="#contacts">Контакты</a>
         </nav>
@@ -61,14 +75,107 @@
                 <p class="service_lead">{{ $page['lead'] }}</p>
                 <div class="service_hero_actions">
                     <button type="button" class="button but_black" data-modal-open>Получить смету</button>
-                    <a href="#works">Что входит в ремонт ↓</a>
+                    <a href="#planner">Подобрать сценарий ↓</a>
                 </div>
                 <p class="service_small">Бесплатный замер · Подробная смета · Поэтапная оплата</p>
             </div>
-            <figure>
-                <img src="{{ asset($page['image']) }}" width="638" height="683" alt="{{ $page['image_alt'] }}" fetchpriority="high" decoding="async">
-                <figcaption><a href="/#portfolio">Из портфолио «Магии» — посмотреть работы ↗</a></figcaption>
-            </figure>
+            <div class="hero_image_container service_hero_slider" data-hero-stack aria-label="Проекты по услуге «{{ $page['name'] }}»">
+                <span class="service_hero_slider_count" aria-hidden="true">{{ count($experience['hero_slides']) }} проекта</span>
+                @foreach ($experience['hero_slides'] as $slide)
+                    <button type="button" class="hero_card" aria-label="{{ $slide['title'] }} — показать описание" aria-pressed="false">
+                        <span class="hero_card_inner">
+                            <span class="hero_card_front">
+                                <img
+                                    src="{{ asset($slide['image']) }}"
+                                    width="475"
+                                    height="565"
+                                    @if ($loop->first) fetchpriority="high" @else loading="lazy" @endif
+                                    decoding="async"
+                                    alt="{{ $slide['alt'] }}"
+                                    class="hero_image"
+                                >
+                            </span>
+                            <span class="hero_card_back">
+                                <span class="hero_card_back_top">
+                                    <span class="hero_card_badge">Проект {{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }} / {{ str_pad((string) $loop->count, 2, '0', STR_PAD_LEFT) }}</span>
+                                    <span class="hero_card_brand">Магия</span>
+                                </span>
+                                <span class="hero_card_back_body">
+                                    <span class="hero_card_back_rule" aria-hidden="true"></span>
+                                    <strong>{{ $slide['title'] }}</strong>
+                                    <span class="hero_card_text">{{ $slide['text'] }}</span>
+                                </span>
+                                <span class="hero_card_back_action">
+                                    <span>Нажмите ещё раз</span>
+                                    <span aria-hidden="true">↗</span>
+                                </span>
+                            </span>
+                        </span>
+                    </button>
+                @endforeach
+                <p class="service_hero_slider_hint">Наведите на проект или нажмите, чтобы узнать детали</p>
+            </div>
+        </section>
+        <section class="service_planner" id="planner" aria-labelledby="planner-title" data-service-planner>
+            <div class="service_section_intro">
+                <div>
+                    <p class="service_eyebrow">Интерактивный помощник</p>
+                    <h2 id="planner-title">{{ $experience['planner_heading'] }}</h2>
+                </div>
+                <p>{{ $experience['planner_intro'] }}</p>
+            </div>
+            <div class="service_planner_shell">
+                <div class="service_scenario_tabs" role="tablist" aria-label="{{ $experience['planner_label'] }}">
+                    @foreach ($experience['scenarios'] as $scenario)
+                        <button
+                            type="button"
+                            role="tab"
+                            id="scenario-tab-{{ $loop->index }}"
+                            aria-controls="scenario-panel-{{ $loop->index }}"
+                            aria-selected="{{ $loop->first ? 'true' : 'false' }}"
+                            tabindex="{{ $loop->first ? '0' : '-1' }}"
+                            data-service-scenario
+                        >
+                            <span>0{{ $loop->iteration }}</span>
+                            {{ $scenario['label'] }}
+                        </button>
+                    @endforeach
+                </div>
+                <div class="service_scenario_panels">
+                    @foreach ($experience['scenarios'] as $scenario)
+                        <article
+                            id="scenario-panel-{{ $loop->index }}"
+                            role="tabpanel"
+                            aria-labelledby="scenario-tab-{{ $loop->index }}"
+                            data-service-scenario-panel
+                            @if (! $loop->first) hidden @endif
+                        >
+                            <div class="service_scenario_copy">
+                                <p class="service_eyebrow">Ваш маршрут</p>
+                                <h3>{{ $scenario['title'] }}</h3>
+                                <p>{{ $scenario['summary'] }}</p>
+                                <button
+                                    type="button"
+                                    class="button but_black"
+                                    data-modal-open
+                                    data-lead-context="{{ $scenario['lead_context'] }}"
+                                    data-lead-message="{{ $scenario['lead_message'] }}"
+                                    data-lead-source="{{ $page['name'] }} — сценарий «{{ $scenario['label'] }}»"
+                                >Обсудить этот сценарий</button>
+                            </div>
+                            <div class="service_scenario_points">
+                                <h4>На замере проверим</h4>
+                                <ul>
+                                    @foreach ($scenario['points'] as $point)
+                                        <li><span aria-hidden="true">✓</span>{{ $point }}</li>
+                                    @endforeach
+                                </ul>
+                                <p class="service_scenario_callout"><strong>Обратите внимание.</strong> {{ $scenario['callout'] }}</p>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+            </div>
         </section>
         <section class="service_work_section" id="works">
             <div class="service_section_intro"><h2>{{ $page['intro_heading'] }}</h2><p>{{ $page['intro'] }}</p></div>
@@ -76,6 +183,47 @@
                 @foreach ($page['works'] as $work)
                     <article><span class="service_number">0{{ $loop->iteration }}</span><h3>{{ $work['title'] }}</h3><p>{{ $work['text'] }}</p></article>
                 @endforeach
+            </div>
+        </section>
+        <section class="service_stages" id="stages" aria-labelledby="stages-title">
+            <div class="service_section_intro">
+                <h2 id="stages-title">{{ $experience['stages_heading'] }}</h2>
+                <p>{{ $experience['stages_intro'] }}</p>
+            </div>
+            <ol class="service_stage_list">
+                @foreach ($experience['stages'] as $stage)
+                    <li>
+                        <span class="service_stage_number">0{{ $loop->iteration }}</span>
+                        <h3>{{ $stage['title'] }}</h3>
+                        <p>{{ $stage['text'] }}</p>
+                    </li>
+                @endforeach
+            </ol>
+        </section>
+        <section class="service_checklist" aria-labelledby="checklist-title" data-service-checklist>
+            <div class="service_checklist_copy">
+                <p class="service_eyebrow">Подготовка без спешки</p>
+                <h2 id="checklist-title">{{ $experience['checklist_heading'] }}</h2>
+                <p>{{ $experience['checklist_intro'] }}</p>
+                <button type="button" class="service_checklist_reset" data-service-checklist-reset>Сбросить отметки</button>
+            </div>
+            <div class="service_checklist_card">
+                <div class="service_checklist_progress">
+                    <span>Готовность к замеру</span>
+                    <strong data-service-checklist-status>0 из {{ count($experience['checklist']) }}</strong>
+                </div>
+                <div class="service_checklist_bar" aria-hidden="true"><span data-service-checklist-bar></span></div>
+                <fieldset>
+                    <legend class="sr-only">Отметьте подготовленные материалы</legend>
+                    @foreach ($experience['checklist'] as $item)
+                        <label>
+                            <input type="checkbox" data-service-check-item>
+                            <span aria-hidden="true"></span>
+                            <em>{{ $item }}</em>
+                        </label>
+                    @endforeach
+                </fieldset>
+                <p class="service_checklist_hint" aria-live="polite" data-service-checklist-hint>Начните с любого пункта — всё остальное обсудим на замере.</p>
             </div>
         </section>
         <section class="service_cost" id="prices">
@@ -95,14 +243,15 @@
         </section>
         <section class="service_faq" aria-labelledby="faq-title">
             <h2 id="faq-title">До начала ремонта</h2>
-            @foreach ($page['faq'] as $faq)
+            @foreach ($faqItems as $faq)
                 <details><summary>{{ $faq['question'] }}</summary><p>{{ $faq['answer'] }}</p></details>
             @endforeach
         </section>
         <section class="service_related"><h2>Другие направления ремонта</h2>@include('partials.service-links')</section>
         <div id="contacts">@include('partials.contacts')</div>
     </main>
-    <footer class="service_footer"><a href="/">Магия — ремонт квартир в Ростове-на-Дону</a><span>2026</span></footer>
+    @include('partials.legal-footer')
     @include('partials.lead-modal')
+    @include('partials.cookie-consent')
 </body>
 </html>

@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::view('/privacy', 'legal.privacy')->name('privacy');
+Route::view('/personal-data-consent', 'legal.consent')->name('personal-data-consent');
+
 Route::get('/{service}', function (string $service) {
     $page = config("seo_pages.{$service}");
     abort_unless(is_array($page), 404);

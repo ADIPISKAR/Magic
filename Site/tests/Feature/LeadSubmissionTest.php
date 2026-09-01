@@ -21,10 +21,18 @@ class LeadSubmissionTest extends TestCase
             'source' => 'Калькулятор стоимости',
         ];
 
-        $this->postJson('/api/leads', $payload)->assertStatus(202);
+        $this->postJson('/api/leads', [...$payload, 'privacy_consent' => '1'])->assertStatus(202);
 
         Http::assertSent(fn (Request $request) => $request->url() === 'https://bot.test/api/leads'
             && $request->hasHeader('X-Bot-Api-Secret', 'test-secret')
             && $request->data() === $payload);
+    }
+
+    public function test_lead_is_rejected_without_personal_data_consent(): void
+    {
+        $this->postJson('/api/leads', [
+            'name' => 'Иван',
+            'phone' => '+7 900 000-00-00',
+        ])->assertUnprocessable()->assertJsonValidationErrors('privacy_consent');
     }
 }

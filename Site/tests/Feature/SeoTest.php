@@ -38,11 +38,38 @@ class SeoTest extends TestCase
     {
         $this->get('/')
             ->assertOk()
+            ->assertSee('class="service_header home_header"', false)
+            ->assertSee('data-mobile-header', false)
+            ->assertSee('data-mobile-menu-toggle', false)
+            ->assertSee('id="mobile-home-menu"', false)
             ->assertSee('href="#portfolio"', false)
             ->assertSee('href="#services"', false)
             ->assertSee('href="#reviews"', false)
             ->assertSee('href="#work-steps"', false)
-            ->assertSee('href="#contacts"', false);
+            ->assertSee('href="#contacts"', false)
+            ->assertSee('href="https://t.me/SergeyWright"', false)
+            ->assertSee('href="https://max.ru/', false)
+            ->assertSee('class="request_modal_submit"', false)
+            ->assertSee('Удобнее написать?')
+            ->assertSee('data-exit-modal', false)
+            ->assertSee('Получить скидку 10%')
+            ->assertSee('Exit-intent — скидка на дизайн-проект')
+            ->assertSee('name="privacy_consent"', false)
+            ->assertSee('Политика обработки персональных данных')
+            ->assertSee('ИНН '.config('seo.operator_inn'))
+            ->assertSee('href="tel:'.config('seo.phone').'"', false);
+    }
+
+    public function test_legal_pages_identify_the_operator_and_explain_consent(): void
+    {
+        foreach (['/privacy', '/personal-data-consent'] as $path) {
+            $this->get($path)
+                ->assertOk()
+                ->assertSee(config('seo.operator_name'))
+                ->assertSee(config('seo.operator_inn'))
+                ->assertSee(config('seo.street_address'))
+                ->assertSee('noindex,follow', false);
+        }
     }
 
     public function test_homepage_calculator_uses_published_rates(): void
@@ -74,17 +101,34 @@ class SeoTest extends TestCase
     {
         $titles = [];
         foreach (config('seo_pages') as $slug => $page) {
+            $experience = config("service_content.{$slug}");
             $response = $this->get('/'.$slug.'?utm_source=test');
             $response->assertOk()
                 ->assertSee('<link rel="canonical" href="https://magiarnd.ru/'.$slug.'">', false)
                 ->assertSee($page['heading'])
+                ->assertSee('data-hero-stack', false)
+                ->assertSee('data-service-planner', false)
+                ->assertSee('data-service-checklist', false)
+                ->assertSee($experience['planner_heading'])
+                ->assertSee($experience['stages_heading'])
                 ->assertSee('data-lead-form', false)
                 ->assertSee('tel:'.config('seo.phone'), false);
+            foreach ($experience['hero_slides'] as $slide) {
+                $this->assertStringStartsWith('images/Portf/', $slide['image']);
+                $this->assertFileExists(public_path($slide['image']));
+                $response->assertSee($slide['image'], false)->assertSee($slide['title']);
+            }
+            foreach ($experience['scenarios'] as $scenario) {
+                $response->assertSee($scenario['label'])->assertSee($scenario['title']);
+            }
             $this->assertSame(1, preg_match_all('/<h1[ >]/', $response->getContent()));
             preg_match('/<script type="application\/ld\+json">(.*?)<\/script>/s', $response->getContent(), $match);
             $schema = json_decode($match[1], true, flags: JSON_THROW_ON_ERROR);
             $this->assertSame('Service', $schema['@graph'][1]['@type']);
             $this->assertSame('https://magiarnd.ru/'.$slug, $schema['@graph'][1]['url']);
+            $faqSchema = collect($schema['@graph'])->firstWhere('@type', 'FAQPage');
+            $this->assertNotNull($faqSchema);
+            $this->assertCount(count($page['faq']) + count($experience['faq']), $faqSchema['mainEntity']);
             $titles[] = $page['title'];
         }
         $this->assertCount(count($titles), array_unique($titles));

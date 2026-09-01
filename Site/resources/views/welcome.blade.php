@@ -88,36 +88,63 @@
     </head>
 
 
-    <body id="top">
-        <noscript><div><img src="https://mc.yandex.ru/watch/111942996" width="1" height="1" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <body id="top" class="home-page">
         <!-- Хейдер -->
-        <header class="header">
-            <img src="{{ asset('images/logo.svg') }}" width="189" height="46" alt="Магия — ремонт квартир в Ростове-на-Дону" class="logo">
-            
-            <div class="navigation">
-                <a class="Button_Navigation" href="https://t.me/SergeyWright" target="_blank" rel="noopener noreferrer">
-                    <img src="{{ asset('images/Icon/Telegram.svg') }}" width="28" height="28" alt="" class="icon_nav">
-                    <p class="navigation_text">Telegram</p>
-                </a>
-
-                <div class="Button_Navigation Active_Navigation">
-                    <img src="{{ asset('images/Icon/Main.svg') }}" width="19" height="19" alt="" class="icon_nav">
-                    <p class="navigation_text">Главная</p>
-                </div>
-
-                <a class="Button_Navigation" href="https://max.ru/u/f9LHodD0cOLsSlygVBBUbU_rAlEqsEcBA1bKp0CmWJsn8wMz3aiuwcm9lss" target="_blank" rel="noopener noreferrer">
-                    <img src="{{ asset('images/Icon/Max.svg') }}" width="25" height="25" alt="" class="iconnav">
-                    <p class="navigation_text">Max</p>
-                </a>
-            </div>
-
-            <nav class="section_navigation" aria-label="Разделы сайта">
+        <header class="service_header home_header">
+            <a href="#top" aria-label="Магия — главная">
+                <img src="{{ asset('images/logo.svg') }}" width="189" height="46" alt="Магия — ремонт квартир в Ростове-на-Дону" class="logo">
+            </a>
+            <nav aria-label="Разделы сайта">
                 <a href="#portfolio">Портфолио</a>
                 <a href="#services">Услуги и цены</a>
                 <a href="#reviews">Отзывы</a>
                 <a href="#work-steps">Этапы работ</a>
                 <a href="#contacts">Контакты</a>
             </nav>
+            <div class="home_header_contacts" aria-label="Контакты и социальные сети">
+                <a class="home_header_social" href="https://t.me/SergeyWright" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram">
+                    <img src="{{ asset('images/Icon/Telegram.svg') }}" width="24" height="24" alt="">
+                </a>
+                <a class="home_header_social" href="https://max.ru/u/f9LHodD0cOLsSlygVBBUbU_rAlEqsEcBA1bKp0CmWJsn8wMz3aiuwcm9lss" target="_blank" rel="noopener noreferrer" aria-label="Написать в Max">
+                    <img src="{{ asset('images/Icon/Max.svg') }}" width="22" height="22" alt="">
+                </a>
+                <a class="home_header_phone" href="tel:{{ config('seo.phone') }}">{{ config('seo.phone_display') }}</a>
+            </div>
+        </header>
+
+        <header class="mobile_header" data-mobile-header>
+            <div class="mobile_header_bar">
+                <a href="#top" aria-label="Магия — главная">
+                    <img src="{{ asset('images/logo.svg') }}" width="189" height="46" alt="Магия — ремонт квартир в Ростове-на-Дону" class="mobile_header_logo">
+                </a>
+                <div class="mobile_header_quick" aria-label="Быстрые контакты">
+                    <a class="mobile_header_social" href="https://t.me/SergeyWright" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram">
+                        <img src="{{ asset('images/Icon/Telegram.svg') }}" width="24" height="24" alt="">
+                    </a>
+                    <a class="mobile_header_social" href="https://max.ru/u/f9LHodD0cOLsSlygVBBUbU_rAlEqsEcBA1bKp0CmWJsn8wMz3aiuwcm9lss" target="_blank" rel="noopener noreferrer" aria-label="Написать в Max">
+                        <img src="{{ asset('images/Icon/Max.svg') }}" width="22" height="22" alt="">
+                    </a>
+                    <button class="mobile_header_toggle" type="button" aria-expanded="false" aria-controls="mobile-home-menu" aria-label="Открыть меню" data-mobile-menu-toggle>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile_header_panel" id="mobile-home-menu" aria-hidden="true" data-mobile-menu>
+                <div class="mobile_header_panel_inner">
+                    <nav aria-label="Мобильная навигация">
+                        <a href="#portfolio">Портфолио</a>
+                        <a href="#services">Услуги и цены</a>
+                        <a href="#reviews">Отзывы</a>
+                        <a href="#work-steps">Этапы работ</a>
+                        <a href="#contacts">Контакты</a>
+                    </nav>
+                    <div class="mobile_header_contact">
+                        <span>Обсудить ремонт</span>
+                        <a href="tel:{{ config('seo.phone') }}">{{ config('seo.phone_display') }}</a>
+                    </div>
+                </div>
+            </div>
         </header>
 
         <!-- Представления -->
@@ -608,27 +635,32 @@
         <div class="map" id="contacts">
             @include('partials.contacts')
             <section class="map_container">
-                <iframe
-                    class="map_frame"
-                    src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=29377814826"
-                    width="560"
-                    height="400"
-                    loading="lazy"
-                    frameborder="0"
-                    allowfullscreen="true"
-                    title="Мы на карте"
-                ></iframe>
-
-                <div class="footer">
-                    <img src="{{ asset('images/logo.svg') }}" width="189" height="46" loading="lazy" decoding="async" alt="Магия — ремонт квартир в Ростове-на-Дону" class="logo">
-
-                    <div>
-                        <p>Информация на сайте носит информационный характер и не является публичной офертой, определяемой положениями статьи 437 ГК РФ.</p>
-                        <p>2026</p>
+                <div class="map_embed" data-cookie-embed>
+                    <iframe
+                        class="map_frame"
+                        data-cookie-src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=29377814826"
+                        width="560"
+                        height="400"
+                        loading="lazy"
+                        frameborder="0"
+                        allowfullscreen="true"
+                        title="Мы на карте"
+                    ></iframe>
+                    <div class="map_embed_placeholder">
+                        <span>Карта Яндекса</span>
+                        <p>Для показа интерактивной карты нужно разрешить загрузку сервисов Яндекса.</p>
+                        <div>
+                            <button type="button" data-cookie-accept>Разрешить и показать карту</button>
+                            <a href="{{ config('seo.maps_url') }}" target="_blank" rel="noopener noreferrer">Открыть на Яндекс Картах ↗</a>
+                        </div>
                     </div>
                 </div>
+
+                @include('partials.legal-footer')
             </section>
         </div>
+
+        @include('partials.cookie-consent')
 
         <script>
             window.addEventListener('DOMContentLoaded', () => {

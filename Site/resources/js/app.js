@@ -1,5 +1,9 @@
 import './calculator.js';
 import './estimate.js';
+import './service-experience.js';
+import './mobile-header.js';
+import './exit-intent.js';
+import './cookie-consent.js';
 
 document.addEventListener('DOMContentLoaded', () => {
 	const trackGoal = (goal) => {
@@ -20,25 +24,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	if (requestModal && modalOpenButtons.length) {
 		const defaultLeadContext = document.querySelector('[data-lead-context]')?.textContent;
+		let modalOpener = null;
 		const openModal = (button) => {
+			modalOpener = button;
 			if (!button.matches('[data-calculator-lead]')) {
 				const context = document.querySelector('[data-lead-context]');
 				const message = document.querySelector('[data-lead-message]');
 				const source = document.querySelector('[data-lead-source]');
-				if (context) context.textContent = defaultLeadContext;
-				if (message) message.value = '';
-				if (source) source.value = 'Форма сайта';
+				if (context) context.textContent = button.dataset.leadContext || defaultLeadContext;
+				if (message) message.value = button.dataset.leadMessage || '';
+				if (source) source.value = button.dataset.leadSource || 'Форма сайта';
 			}
 			requestModal.classList.add('is-open');
 			requestModal.setAttribute('aria-hidden', 'false');
 			document.body.classList.add('modal-is-open');
-			requestModal.querySelector('input')?.focus();
+			requestModal.querySelector('input[name="name"]')?.focus();
 		};
 
 		const closeModal = () => {
 			requestModal.classList.remove('is-open');
 			requestModal.setAttribute('aria-hidden', 'true');
 			document.body.classList.remove('modal-is-open');
+			modalOpener?.focus();
 		};
 
 		modalOpenButtons.forEach((button) => button.addEventListener('click', () => openModal(button)));

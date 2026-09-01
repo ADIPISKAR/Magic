@@ -18,7 +18,10 @@ final class LeadController extends Controller
             'phone' => ['required', 'string', 'max:40'],
             'message' => ['nullable', 'string', 'max:1000'],
             'source' => ['nullable', 'string', 'max:100'],
+            'privacy_consent' => ['accepted'],
         ]);
+
+        unset($validated['privacy_consent']);
 
         $botUrl = rtrim((string) config('services.telegram_bot.url'), '/');
         $secret = (string) config('services.telegram_bot.secret');

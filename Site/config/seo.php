@@ -14,5 +14,11 @@ return [
     'postal_code' => '344006',
     'city' => 'Ростов-на-Дону',
     'maps_url' => 'https://yandex.ru/maps/org/magiya/29377814826/',
+    'operator_name' => 'Райт Сергей Станиславович',
+    'operator_inn' => '771376976857',
+    'operator_status' => 'Самозанятый, плательщик налога на профессиональный доход',
+    'operator_region' => 'Ростовская область',
+    'operator_activity' => 'Ремонт квартир, дизайн',
+    'contact_email' => env('PUBLIC_CONTACT_EMAIL'),
     'google_site_verification' => '9QjxoE4Ov-scAYEmS3oMIzR8NGySSXQze6AUJpLCVhI',
 ];
