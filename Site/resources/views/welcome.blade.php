@@ -6,6 +6,7 @@
 
         <title>Ремонт квартир под ключ в Ростове-на-Дону — от 5 000 ₽/м² | Магия</title>
         <meta name="description" content="Ремонт новостроек и вторичного жилья в Ростове-на-Дону. Бесплатный замер, фиксированная смета и поэтапная оплата. Цены от 5 000 ₽/м², примеры работ.">
+        <meta name="google-site-verification" content="{{ config('seo.google_site_verification') }}">
         <link rel="canonical" href="{{ config('seo.canonical_url') }}/">
 
         <meta property="og:type" content="website">
@@ -22,6 +23,14 @@
             "@@context": "https://schema.org",
             "@@type": "HomeAndConstructionBusiness",
             "name": "Магия",
+            "telephone": "{{ config('seo.phone') }}",
+            "address": {
+                "@@type": "PostalAddress",
+                "streetAddress": "{{ config('seo.street_address') }}",
+                "addressLocality": "{{ config('seo.city') }}",
+                "postalCode": "{{ config('seo.postal_code') }}",
+                "addressCountry": "RU"
+            },
             "url": "{{ config('seo.canonical_url') }}/",
             "logo": "{{ config('seo.canonical_url') }}/images/logo.svg",
             "image": "{{ config('seo.canonical_url') }}/images/WelcomePhoto/Wel_Photo_1.webp",
@@ -75,17 +84,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
 
-        <!-- Yandex.Metrika counter -->
-        <script type="text/javascript">
-            (function(m,e,t,r,i,k,a){
-                m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-                m[i].l=1*new Date();
-                for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-                k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-            })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111942996', 'ym');
-
-            ym(111942996, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-        </script>
+        @include('partials.metrika')
     </head>
 
 
@@ -140,54 +139,8 @@
                         </div>
                     </div>
 
-                    <div class="hero_image_container">
-                        <div class="hero_card">
-                            <div class="hero_card_inner">
-                                <div class="hero_card_front">
-                                    <img src="{{ asset('images/WelcomePhoto/Wel_Photo_1.webp') }}" width="370" height="493" fetchpriority="high" decoding="async" alt="Ремонт квартир под ключ в Ростове-на-Дону — интерьер кухни-гостиной" class="hero_image">
-                                </div>
-                                <div class="hero_card_back">
-                                    <strong>Ремонт кухни-гостиной</strong>
-                                    <p>Ремонт кухни-гостиной под ключ в Ростове-на-Дону: продумали хранение, освещение и удобную рабочую зону.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="hero_card">
-                            <div class="hero_card_inner">
-                                <div class="hero_card_front">
-                                    <img src="{{ asset('images/WelcomePhoto/Wel_Photo_2.webp') }}" width="369" height="492" loading="lazy" decoding="async" alt="Ремонт ванной комнаты под ключ — готовый интерьер" class="hero_image">
-                                </div>
-                                <div class="hero_card_back">
-                                    <strong>Ремонт ванной комнаты</strong>
-                                    <p>Ремонт ванной комнаты под ключ в Ростове-на-Дону: гидроизоляция, плитка, сантехника и установка оборудования.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="hero_card">
-                            <div class="hero_card_inner">
-                                <div class="hero_card_front">
-                                    <img src="{{ asset('images/Portf/3.webp') }}" width="406" height="565" loading="lazy" decoding="async" alt="Современный ремонт квартиры — готовый интерьер" class="hero_image">
-                                </div>
-                                <div class="hero_card_back">
-                                    <strong>Ремонт квартиры под ключ</strong>
-                                    <p>Комплексная отделка квартиры в Ростове-на-Дону: электрика, стены, пол и финишные материалы.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="hero_card">
-                            <div class="hero_card_inner">
-                                <div class="hero_card_front">
-                                    <img src="{{ asset('images/Portf/4.webp') }}" width="475" height="565" loading="lazy" decoding="async" alt="Дизайнерский ремонт спальни — готовый интерьер" class="hero_image">
-                                </div>
-                                <div class="hero_card_back">
-                                    <strong>Дизайнерский ремонт спальни</strong>
-                                    <p>Создали уютную спальню с декоративной отделкой стен, продуманным светом и встроенным хранением.</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="hero_calculator_container">
+                        @include('partials.repair-calculator')
                     </div>
                 </div>
                 
@@ -319,6 +272,7 @@
                 </div>
 
                 <div class="service_main">
+                    @include('partials.service-links')
                     <div class="service_switch">
                         <div class="switch_btn enable_switch is-selected" data-service-mode="new" role="button" tabindex="0">
                             <img src="{{ asset('images/Icon/Hammer.svg') }}" width="24" height="22" alt="" class="">
@@ -568,29 +522,7 @@
             </section>
         </div>   
 
-        <div class="request_modal" aria-hidden="true">
-            <div class="request_modal_overlay" data-modal-close></div>
-            <div class="request_modal_dialog" role="dialog" aria-modal="true" aria-labelledby="request-modal-title">
-                <button class="request_modal_close" type="button" aria-label="Закрыть окно" data-modal-close>&times;</button>
-                <img src="{{ asset('images/WelcomePhoto/Wel_Photo_1.webp') }}" width="370" height="493" loading="lazy" decoding="async" alt="Современный интерьер квартиры" class="request_modal_image">
-                <div class="request_modal_content">
-                    <h2 id="request-modal-title">Обсудим ваш проект</h2>
-                    <p>Расскажите о квартире — бесплатно оценим объём работ, сориентируем по стоимости и предложим оптимальный вариант ремонта.</p>
-                    <form class="request_modal_form" data-lead-form>
-                        <label>
-                            <span class="sr-only">Ваше имя</span>
-                            <input type="text" name="name" placeholder="Введите имя" autocomplete="name" required>
-                        </label>
-                        <label>
-                            <span class="sr-only">Номер телефона</span>
-                            <input type="tel" name="phone" placeholder="8-932-234-33-29" autocomplete="tel" required>
-                        </label>
-                        <button class="button but_black" type="submit">Получить консультацию</button>
-                        <p class="request_modal_status" role="status" aria-live="polite"></p>
-                    </form>
-                </div>
-            </div>
-        </div>
+        @include('partials.lead-modal')
 
         <!-- Этапы работ -->
          <div class="step_work" id="work-steps">
@@ -674,6 +606,7 @@
 
         <!-- Карта / Футер -->
         <div class="map" id="contacts">
+            @include('partials.contacts')
             <section class="map_container">
                 <iframe
                     class="map_frame"

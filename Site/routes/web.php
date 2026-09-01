@@ -13,4 +13,12 @@ Route::get('/robots.txt', function () {
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+Route::get('/{service}', function (string $service) {
+    $page = config("seo_pages.{$service}");
+    abort_unless(is_array($page), 404);
+
+    return view('service', ['page' => $page, 'slug' => $service]);
+})->where('service', implode('|', array_map(fn ($slug) => preg_quote($slug, '/'), array_keys(config('seo_pages')))))
+    ->name('service');

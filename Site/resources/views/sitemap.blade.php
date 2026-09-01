@@ -2,7 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>{{ config('seo.canonical_url') }}/</loc>
-        <changefreq>monthly</changefreq>
-        <priority>1.0</priority>
+        <lastmod>{{ config('seo.home_lastmod') }}</lastmod>
     </url>
+    @foreach (config('seo_pages') as $slug => $page)
+    <url>
+        <loc>{{ config('seo.canonical_url') }}/{{ $slug }}</loc>
+        <lastmod>{{ $page['updated_at'] }}</lastmod>
+    </url>
+    @endforeach
 </urlset>

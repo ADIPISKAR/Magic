@@ -1,13 +1,34 @@
+import './calculator.js';
 import './estimate.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+	const trackGoal = (goal) => {
+		if (typeof window.ym === 'function') {
+			window.ym(111942996, 'reachGoal', goal, { page: window.location.pathname });
+		}
+	};
+	document.querySelectorAll('a[href^="tel:"], a[href^="https://t.me/"], a[href^="https://max.ru/"]').forEach((link) => {
+		link.addEventListener('click', () => {
+			const goal = link.href.startsWith('tel:') ? 'contact_phone' : link.hostname === 't.me' ? 'contact_telegram' : 'contact_max';
+			trackGoal(goal);
+		});
+	});
 	const requestModal = document.querySelector('.request_modal');
 	const modalOpenButtons = [...document.querySelectorAll('[data-modal-open]')];
 	const modalCloseButtons = [...document.querySelectorAll('[data-modal-close]')];
 	const leadForm = document.querySelector('[data-lead-form]');
 
 	if (requestModal && modalOpenButtons.length) {
-		const openModal = () => {
+		const defaultLeadContext = document.querySelector('[data-lead-context]')?.textContent;
+		const openModal = (button) => {
+			if (!button.matches('[data-calculator-lead]')) {
+				const context = document.querySelector('[data-lead-context]');
+				const message = document.querySelector('[data-lead-message]');
+				const source = document.querySelector('[data-lead-source]');
+				if (context) context.textContent = defaultLeadContext;
+				if (message) message.value = '';
+				if (source) source.value = 'Форма сайта';
+			}
 			requestModal.classList.add('is-open');
 			requestModal.setAttribute('aria-hidden', 'false');
 			document.body.classList.add('modal-is-open');
@@ -20,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			document.body.classList.remove('modal-is-open');
 		};
 
-		modalOpenButtons.forEach((button) => button.addEventListener('click', openModal));
+		modalOpenButtons.forEach((button) => button.addEventListener('click', () => openModal(button)));
 		modalCloseButtons.forEach((button) => button.addEventListener('click', closeModal));
 		leadForm?.addEventListener('submit', async (event) => {
 			event.preventDefault();
@@ -49,9 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 
 				status.textContent = 'Заявка отправлена. Мы скоро свяжемся с вами.';
-				if (typeof window.ym === 'function') {
-					window.ym(111942996, 'reachGoal', 'lead_submit_success');
-				}
+				trackGoal('lead_submit_success');
 				leadForm.reset();
 				window.setTimeout(closeModal, 1600);
 			} catch (error) {
@@ -195,82 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 		});
 	}
-
-	const cards = [...document.querySelectorAll('.hero_card')];
-
-	if (!cards.length) {
-		return;
-	}
-
-	let queue = cards;
-	let isAnimating = false;
-
-	const updatePositions = () => {
-		queue.forEach((card, position) => {
-			card.dataset.position = position;
-		});
-	};
-
-	const moveToNextCard = (card) => {
-		if (isAnimating || card.dataset.position !== '0') {
-			return;
-		}
-
-		isAnimating = true;
-		card.classList.remove('is-hover-flipped', 'is-click-flipped');
-		card.classList.remove('is-flipped');
-		card.classList.add('is-leaving');
-
-		window.setTimeout(() => {
-			queue = [...queue.slice(1), queue[0]];
-			card.classList.remove('is-leaving');
-			updatePositions();
-
-			window.setTimeout(() => {
-				isAnimating = false;
-			}, 650);
-		}, 650);
-	};
-
-	cards.forEach((card) => {
-		card.addEventListener('mouseenter', () => {
-			if (!isAnimating && card.dataset.position === '0' && !card.classList.contains('is-click-flipped')) {
-				card.classList.add('is-hover-flipped');
-				card.classList.add('is-flipped');
-			}
-		});
-
-		card.addEventListener('mouseleave', () => {
-			card.classList.remove('is-hover-flipped');
-
-			if (!card.classList.contains('is-click-flipped') && card.classList.contains('is-flipped')) {
-				moveToNextCard(card);
-			}
-		});
-
-		card.addEventListener('click', (event) => {
-			event.stopPropagation();
-
-			if (isAnimating || card.dataset.position !== '0') {
-				return;
-			}
-
-			if (card.classList.contains('is-click-flipped')) {
-				moveToNextCard(card);
-				return;
-			}
-
-			if (card.classList.toggle('is-click-flipped')) {
-				card.classList.remove('is-hover-flipped');
-				card.classList.add('is-flipped');
-				return;
-			}
-
-			card.classList.remove('is-flipped');
-		});
-	});
-
-	updatePositions();
 
 	const portfolioCards = [...document.querySelectorAll('.portfolio_card')];
 

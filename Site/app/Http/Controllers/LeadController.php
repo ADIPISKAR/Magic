@@ -16,6 +16,8 @@ final class LeadController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:100'],
             'phone' => ['required', 'string', 'max:40'],
+            'message' => ['nullable', 'string', 'max:1000'],
+            'source' => ['nullable', 'string', 'max:100'],
         ]);
 
         $botUrl = rtrim((string) config('services.telegram_bot.url'), '/');

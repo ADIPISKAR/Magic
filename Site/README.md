@@ -57,6 +57,9 @@ npm run build
 - `resources/css/app.css` — стили интерфейса;
 - `routes/` — веб- и API-маршруты;
 - `tests/` — автоматические тесты.
+- `config/seo_pages.php` — контент и даты обновления страниц услуг;
+- `info/scripts/README.md` — настройка и запуск SEO-аудита и отчётов GSC;
+- `info/MAGIC-SEO-PLAN.md` — карта запросов, проверенные данные и шаги публикации.
 
 ## Безопасность
 

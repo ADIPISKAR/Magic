@@ -28,6 +28,7 @@ class SeoTest extends TestCase
         $this->get('https://magiarnd.ru/')
             ->assertOk()
             ->assertSee('<link rel="canonical" href="https://magiarnd.ru/">', false)
+            ->assertSee('<meta name="google-site-verification" content="9QjxoE4Ov-scAYEmS3oMIzR8NGySSXQze6AUJpLCVhI">', false)
             ->assertSee('<meta property="og:url" content="https://magiarnd.ru/">', false)
             ->assertSee('Ремонт квартир под ключ в Ростове-на-Дону — от 5 000 ₽/м² | Магия', false)
             ->assertSee('"priceRange": "от 5 000 ₽/м²"', false);
@@ -44,6 +45,20 @@ class SeoTest extends TestCase
             ->assertSee('href="#contacts"', false);
     }
 
+    public function test_homepage_calculator_uses_published_rates(): void
+    {
+        $response = $this->get('/');
+
+        $response->assertOk()
+            ->assertSee('data-repair-calculator', false)
+            ->assertSee('data-calculator-area', false)
+            ->assertSee('Точная смета')
+            ->assertSee('12 000 ₽/м²');
+
+        $this->assertSame(5000, config('calculator.properties.new.plans.0.rate'));
+        $this->assertSame(22000, config('calculator.properties.secondary.plans.3.rate'));
+    }
+
     public function test_robots_and_sitemap_use_the_canonical_host(): void
     {
         $this->get('/robots.txt')
@@ -53,5 +68,45 @@ class SeoTest extends TestCase
         $this->get('/sitemap.xml')
             ->assertOk()
             ->assertSee('<loc>https://magiarnd.ru/</loc>', false);
+    }
+
+    public function test_service_pages_have_distinct_metadata_and_canonical_urls(): void
+    {
+        $titles = [];
+        foreach (config('seo_pages') as $slug => $page) {
+            $response = $this->get('/'.$slug.'?utm_source=test');
+            $response->assertOk()
+                ->assertSee('<link rel="canonical" href="https://magiarnd.ru/'.$slug.'">', false)
+                ->assertSee($page['heading'])
+                ->assertSee('data-lead-form', false)
+                ->assertSee('tel:'.config('seo.phone'), false);
+            $this->assertSame(1, preg_match_all('/<h1[ >]/', $response->getContent()));
+            preg_match('/<script type="application\/ld\+json">(.*?)<\/script>/s', $response->getContent(), $match);
+            $schema = json_decode($match[1], true, flags: JSON_THROW_ON_ERROR);
+            $this->assertSame('Service', $schema['@graph'][1]['@type']);
+            $this->assertSame('https://magiarnd.ru/'.$slug, $schema['@graph'][1]['url']);
+            $titles[] = $page['title'];
+        }
+        $this->assertCount(count($titles), array_unique($titles));
+    }
+
+    public function test_all_service_pages_are_linked_and_listed_in_the_sitemap(): void
+    {
+        $home = $this->get('/');
+        $sitemap = $this->get('/sitemap.xml');
+        foreach (config('seo_pages') as $slug => $page) {
+            $home->assertSee('href="/'.$slug.'"', false);
+            $sitemap->assertSee('<loc>https://magiarnd.ru/'.$slug.'</loc>', false)
+                ->assertSee('<lastmod>'.$page['updated_at'].'</lastmod>', false);
+        }
+        $this->get('/not-a-service')->assertNotFound();
+    }
+
+    public function test_sitemap_dates_do_not_change_without_a_content_update(): void
+    {
+        $before = $this->get('/sitemap.xml')->getContent();
+        $this->travel(20)->days();
+        $this->assertSame($before, $this->get('/sitemap.xml')->getContent());
+        $this->travelBack();
     }
 }

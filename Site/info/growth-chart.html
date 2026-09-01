@@ -1,0 +1,296 @@
+<meta charset="utf-8">
+<title>Органика digital-models</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --bg:#f6f2ea; --surface:#fffdf8; --surface-2:#f1ebdf;
+  --ink:#221d15; --muted:#726852; --faint:#9a8f78;
+  --line:#e7dfce; --hair:#efe8da;
+  --gold:#b9760a; --gold-soft:#c77f0a; --gold-fill:rgba(199,127,10,.14);
+  --teal:#0e6a71; --teal-fill:rgba(14,106,113,.13);
+  --good:#2f7d42; --good-bg:rgba(47,125,66,.12);
+  --shadow:0 1px 2px rgba(40,30,10,.05),0 8px 30px rgba(40,30,10,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#141109; --surface:#1d180f; --surface-2:#252015;
+    --ink:#f3eee2; --muted:#a79b83; --faint:#7c725d;
+    --line:#332c1d; --hair:#282216;
+    --gold:#f5b024; --gold-soft:#f5b024; --gold-fill:rgba(245,176,36,.14);
+    --teal:#3fb8c1; --teal-fill:rgba(63,184,193,.13);
+    --good:#63c17d; --good-bg:rgba(99,193,125,.14);
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 40px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141109; --surface:#1d180f; --surface-2:#252015;
+  --ink:#f3eee2; --muted:#a79b83; --faint:#7c725d;
+  --line:#332c1d; --hair:#282216;
+  --gold:#f5b024; --gold-soft:#f5b024; --gold-fill:rgba(245,176,36,.14);
+  --teal:#3fb8c1; --teal-fill:rgba(63,184,193,.13);
+  --good:#63c17d; --good-bg:rgba(99,193,125,.14);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 40px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,sans-serif;
+  font-size:16px; line-height:1.55; letter-spacing:-.005em;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px; margin:0 auto; padding:clamp(28px,5vw,64px) clamp(18px,4vw,40px) 72px}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* ---- header ---- */
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:12px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--gold);
+  display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--gold);display:inline-block}
+.eyebrow .rng{color:var(--faint)}
+h1{
+  font-family:"Archivo",sans-serif; font-weight:800; letter-spacing:-.02em;
+  font-size:clamp(34px,6.2vw,60px); line-height:1.02; text-wrap:balance;
+  margin:.32em 0 .18em;
+}
+h1 em{font-style:normal; color:var(--gold)}
+.lede{max-width:60ch; color:var(--muted); font-size:clamp(15px,2.2vw,17px); margin:0}
+
+/* ---- stat tiles ---- */
+.stats{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
+  margin:34px 0 8px;
+}
+.tile{
+  background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  padding:16px 16px 15px; box-shadow:var(--shadow); min-width:0;
+}
+.tile .k{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--muted);
+}
+.tile .v{
+  font-family:"Archivo",sans-serif; font-weight:700; letter-spacing:-.02em;
+  font-size:clamp(24px,3.4vw,33px); line-height:1.05; margin-top:9px;
+  display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;
+}
+.tile .v .from{color:var(--faint); font-size:.62em; font-weight:600}
+.tile .v .arw{color:var(--faint); font-size:.6em}
+.tile .sub{margin-top:8px; font-size:12.5px; color:var(--muted)}
+.chip{
+  display:inline-flex; align-items:center; gap:5px; font-family:"IBM Plex Mono",monospace;
+  font-weight:600; font-size:12px; color:var(--good); background:var(--good-bg);
+  padding:2px 8px; border-radius:999px;
+}
+.tile.pg .v{font-family:"IBM Plex Mono",monospace; font-size:15px; font-weight:600; word-break:break-all}
+
+/* ---- chart cards ---- */
+.card{
+  background:var(--surface); border:1px solid var(--line); border-radius:16px;
+  padding:20px clamp(14px,2.4vw,24px) 14px; box-shadow:var(--shadow); margin-top:16px;
+}
+.card-h{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:2px}
+.card-h .t{font-family:"Archivo",sans-serif; font-weight:700; font-size:17px; letter-spacing:-.01em}
+.card-h .now{font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--muted)}
+.card-h .now b{color:var(--ink); font-weight:600}
+.chart{position:relative; width:100%}
+svg.plot{display:block; width:100%; height:auto; overflow:visible}
+.grid{stroke:var(--hair); stroke-width:1}
+.axis{fill:var(--faint); font-family:"IBM Plex Mono",monospace; font-size:11px}
+.ytick{fill:var(--faint); font-family:"IBM Plex Mono",monospace; font-size:10.5px}
+.area-gold{fill:var(--gold-fill)} .line-gold{fill:none; stroke:var(--gold); stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round}
+.area-teal{fill:var(--teal-fill)} .line-teal{fill:none; stroke:var(--teal); stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round}
+.end-gold{fill:var(--gold)} .end-teal{fill:var(--teal)}
+.ring{fill:var(--surface)}
+.mile{stroke:var(--faint); stroke-width:1; stroke-dasharray:3 3}
+.mile-t{fill:var(--muted); font-family:"IBM Plex Mono",monospace; font-size:10px}
+.cross{stroke:var(--muted); stroke-width:1; opacity:0; pointer-events:none}
+.hdot{opacity:0; pointer-events:none}
+.tip{
+  position:absolute; pointer-events:none; opacity:0; transform:translate(-50%,-124%);
+  background:var(--ink); color:var(--bg); border-radius:8px; padding:7px 10px;
+  font-size:12px; line-height:1.3; white-space:nowrap; box-shadow:var(--shadow);
+  transition:opacity .09s; z-index:5;
+}
+.tip b{font-family:"Archivo",sans-serif; font-size:14px; font-variant-numeric:tabular-nums}
+.tip .d{font-family:"IBM Plex Mono",monospace; color:var(--faint); font-size:10.5px}
+
+/* ---- drivers ---- */
+.drivers{margin-top:26px}
+.drivers h2{font-family:"Archivo",sans-serif; font-weight:700; font-size:19px; margin:0 0 4px; letter-spacing:-.01em}
+.drivers .cap{color:var(--muted); font-size:13.5px; margin:0 0 16px}
+.bar-row{display:grid; grid-template-columns:minmax(150px,1.4fr) 1fr auto; gap:14px; align-items:center; padding:11px 0; border-top:1px solid var(--hair)}
+.bar-row:first-of-type{border-top:0}
+.bar-row .nm{font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--ink); word-break:break-all}
+.bar-track{height:9px; background:var(--surface-2); border-radius:999px; overflow:hidden}
+.bar-fill{height:100%; width:0; background:var(--gold); border-radius:999px; transition:width .8s cubic-bezier(.2,.7,.2,1)}
+.bar-row .val{font-family:"Archivo",sans-serif; font-weight:700; font-size:16px; font-variant-numeric:tabular-nums; text-align:right; min-width:52px}
+.bar-row .val small{display:block; font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:10.5px; color:var(--faint)}
+
+/* ---- footer ---- */
+footer{margin-top:34px; padding-top:18px; border-top:1px solid var(--line); color:var(--faint);
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; line-height:1.7; letter-spacing:.01em}
+footer b{color:var(--muted); font-weight:600}
+
+@media (max-width:720px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .bar-row{grid-template-columns:1fr auto; }
+  .bar-row .bar-track{grid-column:1 / -1; order:3}
+}
+@media (prefers-reduced-motion:reduce){ *{transition:none!important} .bar-fill{animation:none!important} }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow"><span class="dot"></span>Organic Search · Google Search Console<span class="rng">28 июн — 26 авг 2026</span></div>
+    <h1>Органика выросла<br>в <em>5.6&nbsp;раза</em></h1>
+    <p class="lede">Клики из органического поиска Google, 28-дневная скользящая сумма. За два месяца сайт вырос со 116 до 649 кликов в окне — почти без бэклинков, на контенте и технической чистке.</p>
+  </header>
+
+  <section class="stats" aria-label="Ключевые метрики">
+    <div class="tile">
+      <div class="k">Клики / 28 дн</div>
+      <div class="v tnum"><span class="from">116</span><span class="arw">→</span>649</div>
+      <div class="sub"><span class="chip">▲ ×5.6</span></div>
+    </div>
+    <div class="tile">
+      <div class="k">Показы / 28 дн</div>
+      <div class="v tnum"><span class="from">1.2K</span><span class="arw">→</span>6.2K</div>
+      <div class="sub"><span class="chip">▲ ×5.3</span></div>
+    </div>
+    <div class="tile">
+      <div class="k">Ср. позиция</div>
+      <div class="v tnum"><span class="from">11.5</span><span class="arw">→</span>10.2</div>
+      <div class="sub"><span class="chip">▲ 1.3 выше</span></div>
+    </div>
+    <div class="tile pg">
+      <div class="k">Топ-страница</div>
+      <div class="v">/pt-br/modelo-online/</div>
+      <div class="sub">517 кликов — ~85% органики</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-h">
+      <div class="t">Клики из органического поиска</div>
+      <div class="now">сейчас <b class="tnum">649</b> / 28 дн</div>
+    </div>
+    <div class="chart" id="c-clicks"><div class="tip" id="tip-clicks"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-h">
+      <div class="t">Показы в поиске</div>
+      <div class="now">сейчас <b class="tnum">6&nbsp;197</b> / 28 дн</div>
+    </div>
+    <div class="chart" id="c-impr"><div class="tip" id="tip-impr"></div></div>
+  </section>
+
+  <section class="drivers">
+    <h2>Что тянет рост</h2>
+    <p class="cap">Клики за последние 28 дней по страницам. Один PT-BR лендинг «Modelo Online» даёт основную массу.</p>
+    <div id="drivers"></div>
+  </section>
+
+  <footer>
+    Источник: <b>Google Search Console</b> · метрика: 28-дневная скользящая сумма органических кликов/показов ·
+    последние 3 дня отброшены (лаг отчётности GSC) · вертикальный пунктир — деплой hreflang-фикса 17 июл (без заявки на причинность) ·
+    сформировано 1 сентября 2026.
+  </footer>
+</div>
+
+<script>
+const ROLL = [["2026-06-28",116,1166,11.5],["2026-06-29",130,1284,11.3],["2026-06-30",142,1397,11.0],["2026-07-01",159,1525,11.1],["2026-07-02",177,1689,11.1],["2026-07-03",188,1792,11.1],["2026-07-04",198,1906,11.0],["2026-07-05",205,2013,10.9],["2026-07-06",224,2191,10.9],["2026-07-07",225,2253,11.0],["2026-07-08",227,2318,11.0],["2026-07-09",231,2380,11.0],["2026-07-10",238,2461,10.9],["2026-07-11",249,2531,10.9],["2026-07-12",259,2587,10.7],["2026-07-13",268,2647,10.8],["2026-07-14",277,2710,10.6],["2026-07-15",282,2761,10.5],["2026-07-16",281,2799,10.3],["2026-07-17",286,2858,10.2],["2026-07-18",295,2922,10.1],["2026-07-19",297,2960,10.1],["2026-07-20",303,2994,10.2],["2026-07-21",313,3052,10.1],["2026-07-22",313,3035,10.1],["2026-07-23",307,3059,10.2],["2026-07-24",302,3083,10.3],["2026-07-25",302,3057,10.0],["2026-07-26",299,3028,10.1],["2026-07-27",290,3000,10.3],["2026-07-28",279,2944,10.6],["2026-07-29",265,2872,10.6],["2026-07-30",259,2810,10.5],["2026-07-31",252,2787,10.6],["2026-08-01",244,2757,10.7],["2026-08-02",247,2742,10.9],["2026-08-03",245,2731,10.8],["2026-08-04",284,3147,10.4],["2026-08-05",317,3464,10.2],["2026-08-06",356,3750,10.1],["2026-08-07",389,3987,10.2],["2026-08-08",401,4138,10.0],["2026-08-09",412,4297,10.0],["2026-08-10",456,4673,9.8],["2026-08-11",500,5004,9.6],["2026-08-12",543,5332,9.6],["2026-08-13",590,5622,9.7],["2026-08-14",626,5875,9.6],["2026-08-15",634,5996,9.7],["2026-08-16",646,6124,9.7],["2026-08-17",668,6378,9.7],["2026-08-18",667,6347,9.7],["2026-08-19",673,6368,9.8],["2026-08-20",670,6353,9.8],["2026-08-21",667,6317,9.9],["2026-08-22",668,6304,9.9],["2026-08-23",664,6295,10.0],["2026-08-24",655,6230,10.1],["2026-08-25",650,6200,10.1],["2026-08-26",649,6197,10.2]];
+const DRIVERS = [["/pt-br/modelo-online/",517],["/pt-br/operador/",193],["/HomeModel/",38],["/moderator/",32],["/ (homepage)",10]];
+const MILESTONE = "2026-07-17";
+const SVGNS="http://www.w3.org/2000/svg";
+const MON=["янв","фев","мар","апр","мая","июн","июл","авг","сен","окт","ноя","дек"];
+const fmt=n=>n.toLocaleString("ru-RU").replace(/,/g," ");
+const el=(n,a={})=>{const e=document.createElementNS(SVGNS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+
+function niceMax(v){const p=Math.pow(10,Math.floor(Math.log10(v)));const s=v/p;
+  const steps=[1,1.5,2,2.5,3,4,5,6,8,10]; const n=steps.find(x=>x>=s)||10; return n*p;}
+
+function draw(hostId, tipId, idx, cls){
+  const host=document.getElementById(hostId), tip=document.getElementById(tipId);
+  const W=760, H=248, padT=18, padB=26, padL=44, padR=14;
+  const plotW=W-padL-padR, plotH=H-padT-padB;
+  const n=ROLL.length, vals=ROLL.map(r=>r[idx]), max=niceMax(Math.max(...vals));
+  const X=i=>padL+ i/(n-1)*plotW, Y=v=>padT+(1-v/max)*plotH;
+  const svg=el("svg",{class:"plot",viewBox:`0 0 ${W} ${H}`,preserveAspectRatio:"none",role:"img"});
+  svg.setAttribute("aria-label",`График: ${cls==='gold'?'клики':'показы'}, рост со ${vals[0]} до ${vals[n-1]}`);
+
+  // y grid + ticks
+  const ticks=4;
+  for(let t=0;t<=ticks;t++){
+    const v=max*t/ticks, y=Y(v);
+    svg.appendChild(el("line",{class:"grid",x1:padL,x2:W-padR,y1:y,y2:y}));
+    const tx=el("text",{class:"ytick",x:padL-8,y:y+3.5,"text-anchor":"end"});
+    tx.textContent=v>=1000?(v/1000)+"K":v; svg.appendChild(tx);
+  }
+  // milestone
+  const mi=ROLL.findIndex(r=>r[0]===MILESTONE);
+  if(mi>=0){const mx=X(mi);
+    svg.appendChild(el("line",{class:"mile",x1:mx,x2:mx,y1:padT,y2:padT+plotH}));
+    if(cls==="gold"){const mt=el("text",{class:"mile-t",x:mx+4,y:padT+10});mt.textContent="hreflang 17.07";svg.appendChild(mt);}
+  }
+  // x labels (month starts)
+  ROLL.forEach((r,i)=>{ if(r[0].slice(-2)==="01"||i===0){ const d=r[0].split("-");
+    const t=el("text",{class:"axis",x:X(i),y:H-8,"text-anchor":i===0?"start":"middle"});
+    t.textContent=(i===0?"28 ":"1 ")+MON[+d[1]-1]; svg.appendChild(t);} });
+
+  // area + line
+  let line="M"+X(0)+","+Y(vals[0]);
+  for(let i=1;i<n;i++) line+=" L"+X(i)+","+Y(vals[i]);
+  const area=line+` L${X(n-1)},${padT+plotH} L${X(0)},${padT+plotH} Z`;
+  svg.appendChild(el("path",{class:"area-"+cls,d:area}));
+  svg.appendChild(el("path",{class:"line-"+cls,d:line,"vector-effect":"non-scaling-stroke"}));
+  // endpoint
+  svg.appendChild(el("circle",{class:"ring",cx:X(n-1),cy:Y(vals[n-1]),r:5.5}));
+  svg.appendChild(el("circle",{class:"end-"+cls,cx:X(n-1),cy:Y(vals[n-1]),r:3.4}));
+  // hover layer
+  const cross=el("line",{class:"cross",y1:padT,y2:padT+plotH});
+  const hring=el("circle",{class:"ring hdot",r:5.5});
+  const hdot=el("circle",{class:"end-"+cls+" hdot",r:3.4});
+  svg.appendChild(cross); svg.appendChild(hring); svg.appendChild(hdot);
+  const hit=el("rect",{x:0,y:0,width:W,height:H,fill:"transparent"});
+  svg.appendChild(hit);
+  host.appendChild(svg);
+
+  function move(ev){
+    const rect=svg.getBoundingClientRect();
+    const px=(ev.touches?ev.touches[0].clientX:ev.clientX)-rect.left;
+    const rel=px/rect.width*W;
+    let i=Math.round((rel-padL)/plotW*(n-1)); i=Math.max(0,Math.min(n-1,i));
+    const gx=X(i),gy=Y(vals[i]);
+    cross.setAttribute("x1",gx);cross.setAttribute("x2",gx);cross.style.opacity=.45;
+    hring.setAttribute("cx",gx);hring.setAttribute("cy",gy);hring.style.opacity=1;
+    hdot.setAttribute("cx",gx);hdot.setAttribute("cy",gy);hdot.style.opacity=1;
+    const d=ROLL[i][0].split("-");
+    tip.innerHTML=`<b>${fmt(vals[i])}</b><div class="d">${(+d[2])} ${MON[+d[1]-1]} · 28-дн</div>`;
+    tip.style.left=(gx/W*100)+"%"; tip.style.top=(gy/H*100)+"%"; tip.style.opacity=1;
+  }
+  function leave(){cross.style.opacity=0;hring.style.opacity=0;hdot.style.opacity=0;tip.style.opacity=0;}
+  hit.addEventListener("mousemove",move); hit.addEventListener("mouseleave",leave);
+  hit.addEventListener("touchstart",move,{passive:true}); hit.addEventListener("touchmove",move,{passive:true}); hit.addEventListener("touchend",leave);
+}
+
+draw("c-clicks","tip-clicks",1,"gold");
+draw("c-impr","tip-impr",2,"teal");
+
+// drivers bars
+const dh=document.getElementById("drivers");
+const dmax=Math.max(...DRIVERS.map(d=>d[1]));
+DRIVERS.forEach(([nm,v])=>{
+  const row=document.createElement("div"); row.className="bar-row";
+  row.innerHTML=`<div class="nm">${nm}</div><div class="bar-track"><div class="bar-fill"></div></div><div class="val tnum">${v}<small>кликов</small></div>`;
+  dh.appendChild(row);
+  row.querySelector(".bar-fill").style.width = (v/dmax*100).toFixed(1)+"%";
+});
+</script>

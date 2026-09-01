@@ -25,3 +25,13 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Local SEO credentials and reports
+/info/scripts/credentials.json
+/info/scripts/token.json
+/info/scripts/service_account.json
+/info/scripts/.sa_token_cache.json
+/info/scripts/seo-settings.local.json
+/info/scripts/__pycache__/
+/info/scripts/tests/__pycache__/
+/storage/app/private/seo-reports/
