@@ -106,13 +106,21 @@ class SeoTest extends TestCase
             $response->assertOk()
                 ->assertSee('<link rel="canonical" href="https://magiarnd.ru/'.$slug.'">', false)
                 ->assertSee($page['heading'])
+                ->assertSee('class="service_header service_header_desktop"', false)
+                ->assertSee('class="mobile_header service_mobile_header"', false)
+                ->assertSee('id="mobile-service-menu"', false)
+                ->assertSee('data-mobile-menu-toggle', false)
                 ->assertSee('data-hero-stack', false)
                 ->assertSee('data-service-planner', false)
                 ->assertSee('data-service-checklist', false)
                 ->assertSee($experience['planner_heading'])
                 ->assertSee($experience['stages_heading'])
+                ->assertSee($page['unit_prices_heading'])
                 ->assertSee('data-lead-form', false)
                 ->assertSee('tel:'.config('seo.phone'), false);
+            foreach ($page['unit_prices'] as [$label, $price]) {
+                $response->assertSee($label)->assertSee($price);
+            }
             foreach ($experience['hero_slides'] as $slide) {
                 $this->assertStringStartsWith('images/Portf/', $slide['image']);
                 $this->assertFileExists(public_path($slide['image']));

@@ -56,7 +56,7 @@
     @include('partials.metrika')
 </head>
 <body class="service-page">
-    <header class="service_header">
+    <header class="service_header service_header_desktop">
         <a href="{{ route('home', [], false) }}" aria-label="Магия — главная"><img src="{{ asset('images/logo.svg') }}" width="189" height="46" alt="Магия" class="logo"></a>
         <nav aria-label="Основная навигация">
             <a href="#planner">Ваш сценарий</a>
@@ -65,6 +65,39 @@
             <a href="#contacts">Контакты</a>
         </nav>
         <a href="tel:{{ config('seo.phone') }}">{{ config('seo.phone_display') }}</a>
+    </header>
+    <header class="mobile_header service_mobile_header" data-mobile-header>
+        <div class="mobile_header_bar">
+            <a href="{{ route('home', [], false) }}" aria-label="Магия — главная">
+                <img src="{{ asset('images/logo.svg') }}" width="189" height="46" alt="Магия — ремонт квартир в Ростове-на-Дону" class="mobile_header_logo">
+            </a>
+            <div class="mobile_header_quick" aria-label="Быстрые контакты">
+                <a class="mobile_header_social" href="https://t.me/SergeyWright" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram">
+                    <img src="{{ asset('images/Icon/Telegram.svg') }}" width="24" height="24" alt="">
+                </a>
+                <a class="mobile_header_social" href="https://max.ru/u/f9LHodD0cOLsSlygVBBUbU_rAlEqsEcBA1bKp0CmWJsn8wMz3aiuwcm9lss" target="_blank" rel="noopener noreferrer" aria-label="Написать в Max">
+                    <img src="{{ asset('images/Icon/Max.svg') }}" width="22" height="22" alt="">
+                </a>
+                <button class="mobile_header_toggle" type="button" aria-expanded="false" aria-controls="mobile-service-menu" aria-label="Открыть меню" data-mobile-menu-toggle>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile_header_panel" id="mobile-service-menu" aria-hidden="true" data-mobile-menu>
+            <div class="mobile_header_panel_inner">
+                <nav aria-label="Мобильная навигация">
+                    <a href="#planner">Ваш сценарий</a>
+                    <a href="#works">Состав работ</a>
+                    <a href="#prices">Стоимость</a>
+                    <a href="#contacts">Контакты</a>
+                </nav>
+                <div class="mobile_header_contact">
+                    <span>Обсудить ремонт</span>
+                    <a href="tel:{{ config('seo.phone') }}">{{ config('seo.phone_display') }}</a>
+                </div>
+            </div>
+        </div>
     </header>
     <main class="service_detail">
         <nav class="service_breadcrumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><span aria-hidden="true">/</span><span aria-current="page">{{ $page['name'] }}</span></nav>
@@ -227,7 +260,20 @@
             </div>
         </section>
         <section class="service_cost" id="prices">
-            <div><p class="service_eyebrow">Стоимость</p><h2>Смета под вашу задачу</h2><p>{{ $page['price_note'] }}</p></div>
+            <div>
+                <p class="service_eyebrow">Стоимость</p>
+                <h2>Смета под вашу задачу</h2>
+                <p>{{ $page['price_note'] }}</p>
+                <div class="service_unit_prices">
+                    <h3>{{ $page['unit_prices_heading'] }}</h3>
+                    <dl>
+                        @foreach ($page['unit_prices'] as [$label, $price])
+                            <div><dt>{{ $label }}</dt><dd>{{ $price }}</dd></div>
+                        @endforeach
+                    </dl>
+                    <p>Цены относятся к отдельным работам и служат ориентиром. Объём и итоговую стоимость фиксируем в смете после замера.</p>
+                </div>
+            </div>
             <div>
                 @if ($page['prices'])
                     <dl class="service_price_list">
