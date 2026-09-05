@@ -158,9 +158,22 @@ async function handleTelegramWebhook(request, env) {
   const message = callback?.message ?? update?.message;
   const userId = Number(callback?.from?.id ?? message?.from?.id);
   const chatId = Number(message?.chat?.id);
+  const messageThreadId = normalizeThreadId(String(message?.message_thread_id ?? ''));
+
+  // On-demand SEO reports are allowed from two places: a private DM with an
+  // allow-listed user, or the dedicated "SEO - Live" topic inside the SEO
+  // group -- so the team can pull a fresh report right where the automated
+  // daily/weekly ones land, without needing to DM the bot.
   const allowedUsers = parseAllowedUsers(env.TELEGRAM_ALLOWED_USERS ?? '');
-  if (!Number.isInteger(userId) || !allowedUsers.has(userId)
-      || !Number.isInteger(chatId) || message?.chat?.type !== 'private') {
+  const isPrivateAllowed = message?.chat?.type === 'private'
+    && Number.isInteger(userId) && allowedUsers.has(userId);
+  const groupChatId = normalizeIdentifier(env.TELEGRAM_GROUP_CHAT_ID);
+  const liveThreadId = normalizeThreadId(env.TELEGRAM_SEO_LIVE_THREAD_ID);
+  const isLiveGroupThread = Boolean(groupChatId) && Boolean(liveThreadId)
+    && Number.isInteger(chatId) && String(chatId) === groupChatId
+    && messageThreadId === liveThreadId;
+
+  if (!Number.isInteger(chatId) || (!isPrivateAllowed && !isLiveGroupThread)) {
     if (callback?.id) {
       await telegramMethod(env, 'answerCallbackQuery', {
         callback_query_id: callback.id,
@@ -175,7 +188,7 @@ async function handleTelegramWebhook(request, env) {
     : 'menu';
   const text = normalizeField(message?.text, 100);
   const action = callback ? rawAction : (
-    /^\/(start|seo)(?:\s+seo)?$/i.test(text) || text === '🔎 Позиции' ? 'menu' : 'menu'
+    /^\/(start|seo)(?:@\w+)?(?:\s+seo)?$/i.test(text) || text === '🔎 Позиции' ? 'menu' : 'menu'
   );
 
   if (callback?.id) {
@@ -242,8 +255,14 @@ async function handleTelegramWebhook(request, env) {
     ? payload.photos.filter((photo) => photo && typeof photo.base64 === 'string' && photo.base64)
     : [];
 
+  // Needed whenever a *new* message gets sent -- which includes callback
+  // replies when the source message was a photo (Telegram can't edit a
+  // photo message into another photo, so that path also sends fresh).
+  // editMessageText below doesn't take a thread id, so this is a no-op there.
+  const replyThreadId = messageThreadId || undefined;
+
   if (photos.length > 0) {
-    await sendPhotosMessage(env, { chatId, photos, caption: payload.text, replyMarkup });
+    await sendPhotosMessage(env, { chatId, threadId: replyThreadId, photos, caption: payload.text, replyMarkup });
     if (placeholderShown) {
       // The placeholder was a text message; it can't become a photo message,
       // so drop it now that the real (photo) report has been delivered.
@@ -258,7 +277,7 @@ async function handleTelegramWebhook(request, env) {
       ...(replyMarkup ? { reply_markup: replyMarkup } : {}),
     });
   } else {
-    await sendTextMessage(env, { chatId, text: payload.text, replyMarkup });
+    await sendTextMessage(env, { chatId, threadId: replyThreadId, text: payload.text, replyMarkup });
   }
   return jsonResponse({ message: 'Telegram SEO action accepted.' }, 200);
 }
