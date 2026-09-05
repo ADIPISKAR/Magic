@@ -1,5 +1,43 @@
 {
   "site_url": "https://magiarnd.ru",
   "gsc_property": "sc-domain:magiarnd.ru",
-  "reporting_lag_days": 3
+  "reporting_lag_days": 3,
+  "positions": {
+    "database_path": "storage/app/private/seo-analytics/positions.sqlite3",
+    "keywords_path": "info/scripts/seo-keywords.json",
+    "bootstrap_path": "info/scripts/topvisor-bootstrap-2026-09-02.json",
+    "region": "Ростов-на-Дону",
+    "region_id": 39,
+    "topvisor_region_index": 76,
+    "topvisor_project_id": 32438229,
+    "topvisor_volume_field": "volume:39:0:1",
+    "device": "desktop",
+    "search_depth": 100,
+    "source": "topvisor",
+    "big_move_threshold": 5,
+    "comparison_tolerance_days": {"3": 2, "7": 3, "30": 5},
+    "yandex_search_api": {
+      "enabled": false,
+      "api_page_size": 100,
+      "source": "yandex_search_api_v2"
+    }
+  },
+  "analytics": {
+    "enabled_env": "SEO_ANALYTICS_ENABLED",
+    "timezone": "Europe/Moscow",
+    "dashboard_path": "storage/app/private/seo-analytics/dashboard.json",
+    "charts_path": "storage/app/private/seo-analytics/charts",
+    "topvisor_history_days": 365,
+    "webmaster_lag_days": 3,
+    "metrika_lag_days": 1,
+    "webmaster": {
+      "device": "ALL",
+      "limit": 500
+    },
+    "metrika": {
+      "counter_id": 111942996,
+      "accuracy": "full",
+      "filter": "ym:s:trafficSource=='organic' AND ym:s:isRobot=='No'"
+    }
+  }
 }

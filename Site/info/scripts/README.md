@@ -88,5 +88,142 @@ Sitemap формируется в `resources/views/sitemap.blade.php` по `conf
 - `fix_hreflang_clusters.py` ничего не изменяет: переводов на сайте сейчас нет.
 - `seo_daily.py` готов для ручного запуска или планировщика; системное расписание не устанавливает.
 
+## Telegram: группа «Магия SEO», тема «SEO»
+
+Все Python-уведомления проходят через `seo_telegram.py`. Транспорт требует три
+явные переменные и всегда передаёт одновременно `chat_id` и `message_thread_id`:
+
+```dotenv
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_GROUP_CHAT_ID=
+TELEGRAM_SEO_THREAD_ID=
+TELEGRAM_ALLOWED_USERS=
+SEO_TELEGRAM_ENABLED=false
+```
+
+Шаблон находится в `seo-telegram.env.example`. Старый `TELEGRAM_CHAT_ID` не
+поддерживается как fallback, поэтому при неполной настройке сообщение не сможет
+случайно уйти в прежнюю группу. `TELEGRAM_ALLOWED_USERS` — список числовых ID
+через запятую; он проверяется для уведомлений, инициированных ручной командой.
+
+Ежедневный и еженедельный прогоны:
+
+```powershell
+python -X utf8 info/scripts/seo_daily.py --with-gsc --telegram
+python -X utf8 info/scripts/seo_daily.py --with-gsc --telegram --notification-kind weekly
+```
+
+Для планировщика можно вместо `--telegram` задать `SEO_TELEGRAM_ENABLED=true`.
+Ошибка аудита или SEO-сервиса отправляется как `service_error`. Другие источники
+(изменение позиций, вход/выход из TOP-10, Метрика и Wordstat) вызывают единый CLI:
+
+```powershell
+python -X utf8 info/scripts/seo_telegram.py position_change "Запрос: позиция 12 → 7"
+python -X utf8 info/scripts/seo_telegram.py metrika "Сводка Метрики"
+python -X utf8 info/scripts/seo_telegram.py manual_check "Проверка завершена" --requested-by 123456789
+```
+
+Безопасная проверка конфигурации без сообщения:
+
+```powershell
+python -X utf8 info/scripts/seo_telegram.py test --dry-run
+```
+
+Если production-хостинг не может обращаться к `api.telegram.org`, используйте
+уже развёрнутый Cloudflare Worker как шлюз вместо копирования токена на сервер:
+
+```dotenv
+TELEGRAM_GATEWAY_URL=https://magia-telegram-leads.example.workers.dev
+TELEGRAM_GATEWAY_SECRET=
+TELEGRAM_ALLOWED_USERS=
+SEO_TELEGRAM_ENABLED=true
+```
+
+Шлюз принимает только известные типы SEO-событий и сам подставляет сохранённые
+`TELEGRAM_GROUP_CHAT_ID`/`TELEGRAM_SEO_THREAD_ID`; клиент не может переопределить
+destination. Для endpoint используется отдельный `SEO_API_SECRET`.
+
+Production unit-файлы находятся в `info/systemd/`: ежедневный timer запускается
+в 08:00, еженедельный — по понедельникам в 09:00; в обоих случаях календарная
+зона явно задана как `Europe/Moscow`. Секреты читаются из закрытого файла
+`/etc/magia/seo-telegram.env`, а отчёты записываются в существующий приватный
+каталог Laravel. Timer-файлы используют `Persistent=true`, поэтому пропущенный
+запуск выполняется после перезагрузки сервера.
+
 Результаты проверок не публикуют изменения сайта. Для обновления действующего
 Laravel-сайта требуется обычный процесс развёртывания проекта.
+
+## SEO Analytics: Topvisor + Webmaster + Metrika
+
+Канонический набор находится в `info/scripts/seo-keywords.json`: 32 запроса
+production-проекта Magic, проверенные в Topvisor 02.09.2026. В файле сохранены
+пять кластеров и регион Ростов-на-Дону. Это не демонстрационная семантика.
+
+Контрольные позиции, история и доступная частотность поступают из Topvisor,
+проект `Magic #32438229`. Внутренний индекс региона Topvisor — `76`, георегион
+Яндекса — `39`, глубина — TOP-100. Подтверждённый экспорт 01–02.09.2026 и
+частотность сохранены в `topvisor-bootstrap-2026-09-02.json`.
+
+`seo_sources.py` разделяет источники:
+
+- Topvisor — только 32 целевых запроса, позиции, URL и частотность;
+- Yandex Webmaster — фактические запросы, показы, клики, CTR,
+  `AVG_SHOW_POSITION`, `AVG_CLICK_POSITION` и новые запросы;
+- Yandex Metrika — органические визиты, пользователи, landing pages и цели.
+
+Связка выполняется по нормализованному тексту запроса там, где Webmaster вернул
+целевой запрос, и по landing page через релевантный URL Topvisor. Достижения
+целей не приписываются конкретному запросу: в объединённом dashboard они всегда
+помечены уровнем атрибуции `landing_page`.
+
+История хранится отдельно от Laravel DB в приватном SQLite-файле
+`storage/app/private/seo-analytics/positions.sqlite3`:
+
+- `seo_keywords` — активное каноническое ядро и категории;
+- `seo_position_checks` — append-only измерения; UPDATE/DELETE запрещены триггерами;
+- `seo_events` — вход/выход из TOP и большие изменения;
+- `seo_settings` — зарезервировано для runtime-настроек следующих этапов.
+- `seo_source_runs` — статус каждой загрузки источника;
+- `seo_webmaster_queries` — append-only фактическая поисковая аналитика;
+- `seo_metrika_landings` и `seo_metrika_goals` — append-only органика и цели.
+
+`not_found` означает значение `--` в контрольном замере Topvisor. Отсутствующие
+показатели Webmaster/Metrika сохраняются как `NULL`, а не как ноль. Ошибки
+источников записываются в `seo_source_runs` и не создают аналитические строки.
+
+Read-only credentials задаются только в закрытом окружении:
+
+```dotenv
+SEO_ANALYTICS_ENABLED=1
+TOPVISOR_USER_ID=
+TOPVISOR_API_KEY=
+YANDEX_WEBMASTER_TOKEN=
+YANDEX_METRIKA_TOKEN=
+YANDEX_METRIKA_GOAL_IDS=
+```
+
+Команды из каталога `Site`:
+
+```powershell
+python -X utf8 info/scripts/seo_sources.py init
+python -X utf8 info/scripts/seo_sources.py bootstrap-topvisor
+python -X utf8 info/scripts/seo_sources.py sync-all
+python -X utf8 info/scripts/seo_dashboard.py build
+python -X utf8 info/scripts/seo_dashboard.py report --days 7
+python -X utf8 info/scripts/seo_positions.py keyword "ремонт квартир ростов-на-дону"
+```
+
+`init` безопасно создаёт отдельную БД и синхронизирует 32 запроса. Bootstrap
+идемпотентен. Каждый новый замер добавляет строку; существующая история не
+изменяется. Dashboard и PNG-графики находятся в
+`storage/app/private/seo-analytics/`.
+Периоды 3/7/30 дней используют ближайшее предыдущее достоверное измерение в
+настраиваемом окне 2/3/5 дней. Знак изменения SEO: `18 → 9 = +9`.
+
+Yandex Search API сохранён в `seo_positions.py` как резерв. Он выключен через
+`positions.yandex_search_api.enabled=false` и не вызывается `sync-all`, daily,
+weekly или Telegram.
+
+При `SEO_ANALYTICS_ENABLED=1` существующий `seo_daily.py` сначала обновляет три
+источника, атомарно собирает dashboard и только затем добавляет краткий
+technical audit. Сами daily/weekly timers и Telegram routing не меняются.

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SeoDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/sitemap.xml', function () {
@@ -17,6 +18,16 @@ Route::get('/', function () {
 
 Route::view('/privacy', 'legal.privacy')->name('privacy');
 Route::view('/personal-data-consent', 'legal.consent')->name('personal-data-consent');
+
+Route::get('/seo-dashboard', [SeoDashboardController::class, 'index'])
+    ->name('seo.dashboard');
+Route::get('/seo-dashboard/access', [SeoDashboardController::class, 'access'])
+    ->middleware('signed')
+    ->name('seo.dashboard.access');
+Route::get('/seo-dashboard/data', [SeoDashboardController::class, 'data'])
+    ->name('seo.dashboard.data');
+Route::post('/seo-dashboard/logout', [SeoDashboardController::class, 'logout'])
+    ->name('seo.dashboard.logout');
 
 Route::get('/{service}', function (string $service) {
     $page = config("seo_pages.{$service}");

@@ -42,7 +42,8 @@ if (!is_array($payload)) {
 try {
     $controller = new LeadController(new TelegramApiService(
         (string) ($_ENV['TELEGRAM_BOT_TOKEN'] ?? ''),
-        (string) ($_ENV['TELEGRAM_CHAT_ID'] ?? ''),
+        (string) ($_ENV['TELEGRAM_GROUP_CHAT_ID'] ?? ''),
+        (string) ($_ENV['TELEGRAM_LEADS_THREAD_ID'] ?? ''),
     ));
     $result = $controller->handle($payload);
 } catch (Throwable $exception) {

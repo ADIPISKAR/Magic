@@ -40,4 +40,20 @@ return [
         'secret' => env('BOT_API_SECRET'),
     ],
 
+    'seo_backend' => [
+        'secret' => env('SEO_BACKEND_SECRET'),
+        'dashboard_path' => env(
+            'SEO_DASHBOARD_PATH',
+            storage_path('app/private/seo-analytics/dashboard.json'),
+        ),
+    ],
+
+    'seo_dashboard' => [
+        'audit_path' => env(
+            'SEO_TECHNICAL_AUDIT_PATH',
+            storage_path('app/private/seo-reports/audit.json'),
+        ),
+        'signed_link_minutes' => (int) env('SEO_DASHBOARD_SIGNED_LINK_MINUTES', 60),
+    ],
+
 ];

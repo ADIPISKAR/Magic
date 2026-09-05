@@ -1,0 +1,18 @@
+[Unit]
+Description=Magic weekly SEO audit and Telegram report
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/magia/Site
+EnvironmentFile=/etc/magia/seo-telegram.env
+ExecStart=/usr/bin/python3 -X utf8 /var/www/magia/Site/info/scripts/seo_daily.py --telegram --notification-kind weekly
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/www/magia/Site/storage/app/private/seo-reports /var/www/magia/Site/storage/app/private/seo-analytics

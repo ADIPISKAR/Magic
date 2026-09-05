@@ -10,10 +10,15 @@ final class TelegramApiService
 {
     public function __construct(
         private readonly string $token,
-        private readonly string $chatId,
+        private readonly string $groupChatId,
+        private readonly string $leadsThreadId,
     ) {
-        if ($this->token === '' || $this->chatId === '') {
-            throw new RuntimeException('TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID must be configured.');
+        if ($this->token === '' || !preg_match('/^-?\d+$/', $this->groupChatId)) {
+            throw new RuntimeException('TELEGRAM_BOT_TOKEN and TELEGRAM_GROUP_CHAT_ID must be configured.');
+        }
+
+        if (!ctype_digit($this->leadsThreadId) || (int) $this->leadsThreadId < 1) {
+            throw new RuntimeException('TELEGRAM_LEADS_THREAD_ID must be a positive integer.');
         }
     }
 
@@ -34,7 +39,8 @@ final class TelegramApiService
         }
 
         $this->request('sendMessage', [
-            'chat_id' => $this->chatId,
+            'chat_id' => $this->groupChatId,
+            'message_thread_id' => $this->leadsThreadId,
             'text' => implode("\n", $lines),
             'parse_mode' => 'HTML',
         ]);

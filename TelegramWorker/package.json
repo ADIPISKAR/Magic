@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "check": "wrangler deploy --dry-run"
+    "check": "npx --yes wrangler deploy --dry-run",
+    "test": "node --test"
   },
   "devDependencies": {
     "wrangler": "latest"

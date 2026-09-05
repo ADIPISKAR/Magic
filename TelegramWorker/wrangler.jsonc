@@ -4,6 +4,10 @@
   "main": "src/index.js",
   "compatibility_date": "2026-08-25",
   "workers_dev": true,
+  "vars": {
+    "TELEGRAM_BOT_USERNAME": "lovestachatbot",
+    "SEO_DASHBOARD_PUBLIC_URL": "https://magiarnd.ru/seo-dashboard"
+  },
   "observability": {
     "enabled": true,
     "logs": {

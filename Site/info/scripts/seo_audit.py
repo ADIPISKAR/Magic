@@ -78,7 +78,17 @@ def inspect_page(url, body, headers):
             errors.append('Invalid JSON-LD')
     if len(page.title) > 70:
         warnings.append('Long title; review the snippet (not an indexing error)')
-    return {'url': url, 'title': page.title, 'description': page.description[0] if page.description else '', 'errors': errors, 'warnings': warnings}
+    return {
+        'url': url,
+        'title': page.title,
+        'description': page.description[0] if page.description else '',
+        'h1_count': page.h1,
+        'canonical': page.canonicals[0] if len(page.canonicals) == 1 else None,
+        'robots': robots or None,
+        'schema_count': len(page.schemas),
+        'errors': errors,
+        'warnings': warnings,
+    }
 
 
 def audit(fetch_base=None):
@@ -90,10 +100,23 @@ def audit(fetch_base=None):
             target = fetch_url(url, origin, fetch_base)
             status, body, headers, final_url = fetch(target)
             row = inspect_page(url, body, headers)
+            row.update({
+                'http_status': status,
+                'final_url': final_url,
+                'sitemap_included': True,
+            })
             if status != 200 or final_url != target:
                 row['errors'].append(f'Expected direct HTTP 200; received {status}, final URL {final_url}')
+            row['indexable'] = status == 200 and final_url == target and not any(
+                marker in (row.get('robots') or '') for marker in ('noindex', 'none')
+            )
         except SeoError as error:
-            row = {'url': url, 'title': '', 'description': '', 'errors': [str(error)], 'warnings': []}
+            row = {
+                'url': url, 'title': '', 'description': '', 'h1_count': None,
+                'canonical': None, 'robots': None, 'schema_count': None,
+                'http_status': None, 'final_url': None, 'sitemap_included': True,
+                'indexable': None, 'errors': [str(error)], 'warnings': [],
+            }
         rows.append(row)
     for field in ('title', 'description'):
         groups = defaultdict(list)

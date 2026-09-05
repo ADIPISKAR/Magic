@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Magic daily SEO report at 08:00 Europe/Moscow
+
+[Timer]
+OnCalendar=*-*-* 08:00:00 Europe/Moscow
+Persistent=true
+RandomizedDelaySec=5m
+Unit=magia-seo-daily.service
+
+[Install]
+WantedBy=timers.target
