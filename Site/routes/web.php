@@ -29,18 +29,6 @@ Route::get('/seo-dashboard/data', [SeoDashboardController::class, 'data'])
 Route::post('/seo-dashboard/logout', [SeoDashboardController::class, 'logout'])
     ->name('seo.dashboard.logout');
 
-Route::get('/portfolio', function () {
-    return view('portfolio', ['projects' => config('portfolio')]);
-})->name('portfolio');
-
-Route::get('/portfolio/{project}', function (string $project) {
-    $data = config("portfolio.{$project}");
-    abort_unless(is_array($data), 404);
-
-    return view('project', ['project' => $data, 'slug' => $project]);
-})->where('project', implode('|', array_map(fn ($slug) => preg_quote($slug, '/'), array_keys(config('portfolio')))))
-    ->name('project');
-
 Route::get('/{service}', function (string $service) {
     $page = config("seo_pages.{$service}");
     abort_unless(is_array($page), 404);
