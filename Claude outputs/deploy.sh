@@ -139,8 +139,20 @@ tar xzf "$REMOTE_TMP/bundle.tar.gz" -C "$REMOTE_ROOT"
 echo "--- fixing ownership (Site/ runs as www-data per the systemd units) ---"
 chown -R www-data:www-data "$REMOTE_ROOT/Site" 2>&1 || echo "  (chown skipped -- run manually if needed)"
 
-echo "--- Laravel cache clears ---"
 cd "$REMOTE_ROOT/Site"
+
+# Blade resolves @vite() through public/build/manifest.json, which ships
+# with the bundle only if it was rebuilt. Deploying CSS/JS sources without
+# rebuilding leaves the manifest missing those entries and every page that
+# uses them throws a 500 -- that is how the SEO dashboard broke.
+echo "--- rebuilding frontend assets ---"
+if npm run build 2>&1 | tail -3; then
+    chown -R www-data:www-data public/build
+else
+    echo "  npm run build FAILED -- pages using @vite will 500 until this is fixed" >&2
+fi
+
+echo "--- Laravel cache clears ---"
 php artisan config:clear 2>&1 || true
 php artisan route:clear 2>&1 || true
 php artisan cache:clear 2>&1 || true
