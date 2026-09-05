@@ -10,4 +10,14 @@
         <lastmod>{{ $page['updated_at'] }}</lastmod>
     </url>
     @endforeach
+    <url>
+        <loc>{{ config('seo.canonical_url') }}/portfolio</loc>
+        <lastmod>{{ collect(config('portfolio'))->max('updated_at') }}</lastmod>
+    </url>
+    @foreach (config('portfolio') as $slug => $project)
+    <url>
+        <loc>{{ config('seo.canonical_url') }}/portfolio/{{ $slug }}</loc>
+        <lastmod>{{ $project['updated_at'] }}</lastmod>
+    </url>
+    @endforeach
 </urlset>

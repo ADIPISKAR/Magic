@@ -2645,6 +2645,23 @@ tr > td:last-child{
 
 
 
+
+/* Портфолио проектов */
+.project_gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
+.project_gallery_item { width: 100%; height: auto; border-radius: 10px; display: block; background: #f2f2f2; }
+.project_grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 28px; }
+.project_card { display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: inherit; }
+.project_card:hover .project_gallery_item { opacity: .9; }
+.project_card_title { font-weight: 700; font-size: 18px; }
+.project_card_text { color: #555; line-height: 1.7; font-size: 15px; }
+@media (max-width: 900px) {
+    .project_gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .project_grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+    .project_gallery { grid-template-columns: 1fr; }
+}
+
 /* Медиа запросы */
 
 @media(max-width: 1440px){
