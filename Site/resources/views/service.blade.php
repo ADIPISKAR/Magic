@@ -57,7 +57,7 @@
 </head>
 <body class="service-page">
     <header class="service_header service_header_desktop">
-        <a href="{{ route('home', [], false) }}" aria-label="Магия — главная"><img src="{{ asset('images/logo.svg') }}" width="189" height="46" alt="Магия" class="logo"></a>
+        <a href="{{ route('home', [], false) }}" aria-label="Магия — главная"><img src="{{ asset('images/logo-mark.png') }}" width="222" height="104" alt="Магия" class="logo"></a>
         <nav aria-label="Основная навигация">
             <a href="#planner">Ваш сценарий</a>
             <a href="#works">Состав работ</a>
@@ -69,7 +69,7 @@
     <header class="mobile_header service_mobile_header" data-mobile-header>
         <div class="mobile_header_bar">
             <a href="{{ route('home', [], false) }}" aria-label="Магия — главная">
-                <img src="{{ asset('images/logo.svg') }}" width="189" height="46" alt="Магия — ремонт квартир в Ростове-на-Дону" class="mobile_header_logo">
+                <img src="{{ asset('images/logo-mark.png') }}" width="222" height="104" alt="Магия — ремонт квартир в Ростове-на-Дону" class="mobile_header_logo">
             </a>
             <div class="mobile_header_quick" aria-label="Быстрые контакты">
                 <a class="mobile_header_social" href="https://t.me/SergeyWright" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram">

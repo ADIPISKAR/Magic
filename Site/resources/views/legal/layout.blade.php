@@ -14,7 +14,7 @@
 <body class="legal-page">
     <header class="legal_header">
         <a href="{{ route('home', [], false) }}" aria-label="Магия — главная">
-            <img src="{{ asset('images/logo.svg') }}" width="189" height="46" alt="Магия" class="logo">
+            <img src="{{ asset('images/logo-mark.png') }}" width="222" height="104" alt="Магия" class="logo">
         </a>
         <a href="{{ route('home', [], false) }}">Вернуться на сайт ←</a>
     </header>

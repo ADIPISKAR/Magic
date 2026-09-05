@@ -32,7 +32,7 @@
                 "addressCountry": "RU"
             },
             "url": "{{ config('seo.canonical_url') }}/",
-            "logo": "{{ config('seo.canonical_url') }}/images/logo.svg",
+            "logo": "{{ config('seo.canonical_url') }}/images/logo-mark.png",
             "image": "{{ config('seo.canonical_url') }}/images/WelcomePhoto/Wel_Photo_1.webp",
             "description": "Ремонт квартир под ключ в Ростове-на-Дону: бесплатный замер, фиксированная смета, поэтапная оплата, ремонт новостроек и вторичного жилья.",
             "priceRange": "от 5 000 ₽/м²",
@@ -92,7 +92,7 @@
         <!-- Хейдер -->
         <header class="service_header home_header">
             <a href="#top" aria-label="Магия — главная">
-                <img src="{{ asset('images/logo.svg') }}" width="189" height="46" alt="Магия — ремонт квартир в Ростове-на-Дону" class="logo">
+                <img src="{{ asset('images/logo-mark.png') }}" width="222" height="104" alt="Магия — ремонт квартир в Ростове-на-Дону" class="logo">
             </a>
             <nav aria-label="Разделы сайта">
                 <a href="#portfolio">Портфолио</a>
@@ -115,7 +115,7 @@
         <header class="mobile_header" data-mobile-header>
             <div class="mobile_header_bar">
                 <a href="#top" aria-label="Магия — главная">
-                    <img src="{{ asset('images/logo.svg') }}" width="189" height="46" alt="Магия — ремонт квартир в Ростове-на-Дону" class="mobile_header_logo">
+                    <img src="{{ asset('images/logo-mark.png') }}" width="222" height="104" alt="Магия — ремонт квартир в Ростове-на-Дону" class="mobile_header_logo">
                 </a>
                 <div class="mobile_header_quick" aria-label="Быстрые контакты">
                     <a class="mobile_header_social" href="https://t.me/SergeyWright" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram">

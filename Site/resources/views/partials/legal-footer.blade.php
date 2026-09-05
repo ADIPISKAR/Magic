@@ -1,7 +1,7 @@
 <footer class="site_legal_footer">
     <div class="site_legal_footer_top">
         <a href="{{ route('home', [], false) }}" aria-label="Магия — главная">
-            <img src="{{ asset('images/logo.svg') }}" width="189" height="46" loading="lazy" decoding="async" alt="Магия — ремонт квартир в Ростове-на-Дону" class="site_legal_footer_logo">
+            <img src="{{ asset('images/logo-mark.png') }}" width="222" height="104" loading="lazy" decoding="async" alt="Магия — ремонт квартир в Ростове-на-Дону" class="site_legal_footer_logo">
         </a>
         <div class="site_legal_footer_requisites">
             <span>Исполнитель</span>
