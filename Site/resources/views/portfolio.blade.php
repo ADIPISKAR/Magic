@@ -59,8 +59,12 @@
             <div class="project_grid">
                 @foreach ($projects as $slug => $project)
                     <a class="project_card" href="{{ route('project', ['project' => $slug], false) }}">
-                        <img src="{{ asset('images/projects/'.$slug.'/1.jpg') }}" width="600" height="800" loading="lazy" decoding="async" alt="{{ $project['heading'] }}" class="project_gallery_item">
+                        <span class="project_sheet">
+                            <img src="{{ asset('images/projects/'.$slug.'/'.($project['cover'] ?? 1).'.jpg') }}" width="600" height="800" loading="lazy" decoding="async" alt="{{ $project['heading'] }}">
+                            <span class="project_sheet_badge">{{ $project['photos'] }} листов</span>
+                        </span>
                         <span class="project_card_title">{{ $project['name'] }}</span>
+                        <span class="project_card_meta">{{ $project['rooms'] }} · {{ $project['kind'] }}</span>
                         <span class="project_card_text">{{ $project['lead'] }}</span>
                     </a>
                 @endforeach

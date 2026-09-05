@@ -1,6 +1,6 @@
 @php
     $canonical = config('seo.canonical_url').'/portfolio/'.$slug;
-    $cover = 'images/projects/'.$slug.'/1.jpg';
+    $cover = 'images/projects/'.$slug.'/'.($project['cover'] ?? 1).'.jpg';
     $business = [
         '@type' => 'HomeAndConstructionBusiness', '@id' => config('seo.canonical_url').'/#business',
         'name' => 'Магия', 'url' => config('seo.canonical_url').'/',
@@ -61,7 +61,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @include('partials.metrika')
 </head>
-<body class="service-page">
+<body class="service-page project-page">
     <header class="service_header service_header_desktop">
         <a href="{{ route('home', [], false) }}" aria-label="Магия — главная"><img src="{{ asset('images/logo.svg') }}" width="189" height="46" alt="Магия" class="logo"></a>
         <nav aria-label="Основная навигация">
@@ -118,13 +118,12 @@
             </div>
             <figure>
                 <img src="{{ asset($cover) }}" width="600" height="800" fetchpriority="high" decoding="async" alt="{{ $project['heading'] }} — {{ $project['complex'] }}">
-                <figcaption>{{ $project['complex'] }} · {{ $project['area'] }}</figcaption>
             </figure>
         </section>
 
         <section class="service_work_section" id="specs">
             <h2>Об объекте</h2>
-            <dl class="service_price_list">
+            <dl class="project_specs">
                 @foreach ($specs as $label => $value)
                     <div><dt>{{ $label }}</dt><dd>{{ $value }}</dd></div>
                 @endforeach
@@ -134,14 +133,19 @@
 
         <section class="service_work_section" id="gallery" aria-labelledby="gallery-title">
             <h2 id="gallery-title">Материалы проекта</h2>
+            <p>Комплект из {{ $project['photos'] }} листов: планировка, развёртки, расстановка мебели и оборудования.</p>
             <div class="project_gallery">
                 @for ($i = 1; $i <= $project['photos']; $i++)
-                    <img
-                        src="{{ asset('images/projects/'.$slug.'/'.$i.'.jpg') }}"
-                        width="600" height="800" loading="lazy" decoding="async"
-                        alt="{{ $project['heading'] }} — лист {{ $i }}"
-                        class="project_gallery_item"
-                    >
+                    <figure>
+                        <div class="project_sheet">
+                            <img
+                                src="{{ asset('images/projects/'.$slug.'/'.$i.'.jpg') }}"
+                                width="600" height="800" loading="lazy" decoding="async"
+                                alt="{{ $project['heading'] }} — лист {{ $i }}"
+                            >
+                        </div>
+                        <figcaption>Лист {{ $i }} из {{ $project['photos'] }}</figcaption>
+                    </figure>
                 @endfor
             </div>
         </section>
