@@ -34,7 +34,7 @@ def wordstat_chart(keyword: str, points: Sequence[dict], path: Path, *, size=Siz
         xs = list(range(len(points)))
         theme.style_grid(axis)
         line, = axis.plot(xs, [p.get('value') for p in points], color=PALETTE.brand, linewidth=2.6,
-                           marker='o', markersize=6, markerfacecolor='white',
+                           marker='o', markersize=6, markerfacecolor=PALETTE.marker_face,
                            markeredgecolor=PALETTE.brand, markeredgewidth=1.6, zorder=3)
         axis.fill_between(xs, [p.get('value') or 0 for p in points], min(values),
                            color=PALETTE.brand_soft, alpha=0.35, linewidth=0, zorder=2)

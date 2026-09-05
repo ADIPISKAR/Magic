@@ -41,9 +41,10 @@ def _style_time_axis(axis, dates: Sequence[dt.date]):
 
 def _line_with_fill(axis, dates, values, *, color, fill_color, invert=False):
     line, = axis.plot(dates, values, color=color, linewidth=2.6, marker='o', markersize=5.5,
-                       markerfacecolor='white', markeredgecolor=color, markeredgewidth=1.6, zorder=3)
+                       markerfacecolor=PALETTE.marker_face, markeredgecolor=color,
+                       markeredgewidth=1.6, zorder=3)
     baseline = min((v for v in values if v == v), default=0)
-    axis.fill_between(dates, values, baseline, color=fill_color, alpha=0.35, linewidth=0, zorder=2)
+    axis.fill_between(dates, values, baseline, color=fill_color, alpha=0.22, linewidth=0, zorder=2)
     return line
 
 

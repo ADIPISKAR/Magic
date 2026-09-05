@@ -47,33 +47,40 @@ from matplotlib.patches import FancyBboxPatch  # noqa: E402
 
 @dataclass(frozen=True)
 class Palette:
-    page_bg: str = '#F4F6FB'        # outer figure background
-    card_bg: str = '#FFFFFF'        # KPI tile / panel background
-    card_border: str = '#E7EAF3'
-    grid: str = '#E9ECF5'
-    axis: str = '#C7CCDC'
+    page_bg: str = '#0E100C'        # outer figure background -- near-black
+    card_bg: str = '#181B16'        # KPI tile / panel background
+    card_border: str = '#272B22'
+    grid: str = '#242820'
+    axis: str = '#3B4034'
+    marker_face: str = '#181B16'    # markers punch a hole in the card they sit on
 
-    text_primary: str = '#111827'
-    text_secondary: str = '#6B7280'
-    text_muted: str = '#9AA2B1'
+    text_primary: str = '#F2F5EC'
+    text_secondary: str = '#9BA192'
+    text_muted: str = '#6C7263'
 
-    brand: str = '#2F6BFF'          # primary accent (lines, highlights)
-    brand_soft: str = '#DCE6FF'     # fill under primary lines
-    brand_dark: str = '#1E4FD6'
+    brand: str = '#D4F84D'          # primary accent (lines, highlights)
+    brand_soft: str = '#3A4A18'     # fill under primary lines (drawn at low alpha)
+    brand_dark: str = '#AFD03B'
 
-    positive: str = '#16A34A'
-    positive_soft: str = '#DCFCE7'
-    negative: str = '#E23744'
-    negative_soft: str = '#FDE2E4'
-    neutral: str = '#6B7280'
+    positive: str = '#C3E85A'
+    positive_soft: str = '#3F4C1D'
+    negative: str = '#FF6B54'
+    negative_soft: str = '#4E241C'
+    neutral: str = '#6C7263'
 
-    series: tuple = ('#2F6BFF', '#16A34A', '#F59E0B', '#A855F7', '#0EA5E9')
+    # Multi-series charts only. Stepped for a dark surface and checked for
+    # lightness band, chroma, colorblind separation and contrast -- do not
+    # hand-tweak a slot without re-running that check.
+    series: tuple = ('#7E9A26', '#2AA5B8', '#E4614A', '#8E7BE0', '#B87D16')
 
-    top3: str = '#1E4FD6'
-    top10: str = '#2F6BFF'
-    top20: str = '#7FA6FF'
-    top50: str = '#C6D7FF'
-    not_found: str = '#E5E8F2'
+    # TOP buckets are ordinal, so they take a single-hue ramp (brightest =
+    # best bucket) rather than categorical hues. "Not found" sits outside
+    # the ramp as inert gray -- it is an absence, not a worse bucket.
+    top3: str = '#D4F84D'
+    top10: str = '#AFD03B'
+    top20: str = '#8AA82D'
+    top50: str = '#66801F'
+    not_found: str = '#4C5243'
 
 
 PALETTE = Palette()
@@ -86,8 +93,8 @@ PALETTE = Palette()
 FONT_FAMILY = 'DejaVu Sans'  # always present headless; no custom font install risk on the VPS
 
 SIZE = {
-    'kpi_value': 30,
-    'kpi_label': 12.5,
+    'kpi_value': 35,
+    'kpi_label': 11.5,
     'kpi_delta': 12.5,
     'chart_title': 17,
     'chart_subtitle': 12,
@@ -108,8 +115,8 @@ def apply_base_style() -> None:
         'text.color': PALETTE.text_primary,
         'axes.edgecolor': PALETTE.axis,
         'axes.labelcolor': PALETTE.text_secondary,
-        'xtick.color': PALETTE.text_secondary,
-        'ytick.color': PALETTE.text_secondary,
+        'xtick.color': PALETTE.text_muted,
+        'ytick.color': PALETTE.text_muted,
         'axes.titleweight': 'bold',
         'figure.facecolor': PALETTE.page_bg,
         'savefig.facecolor': PALETTE.page_bg,
@@ -153,7 +160,7 @@ def rounded_panel(fig, rect, *, facecolor=None, edgecolor=None, pad=0.0, radius=
     box = FancyBboxPatch(
         (x0 + pad, y0 + pad), w - 2 * pad, h - 2 * pad,
         boxstyle=f'round,pad=0,rounding_size={radius}',
-        linewidth=1.1, edgecolor=edgecolor, facecolor=facecolor,
+        linewidth=0.9, edgecolor=edgecolor, facecolor=facecolor,
         transform=fig.transFigure, zorder=zorder, mutation_aspect=1,
     )
     fig.patches.append(box)

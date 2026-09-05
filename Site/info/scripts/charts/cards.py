@@ -36,12 +36,23 @@ def kpi_tile(
 
     pad_x = w * 0.10
     label_y = y0 + h - h * 0.16
+    # Tiles get much narrower on dense grids (the 30-day board packs seven
+    # into three columns), where a label like "Органический трафик" would
+    # otherwise run past the card's rounded edge.
+    inner_pt = (w - 2 * pad_x) * fig.get_size_inches()[0] * 72
+    label_size = theme.SIZE['kpi_label']
+    estimated_pt = len(label) * label_size * 0.62  # DejaVu Sans mean advance, Cyrillic
+    if estimated_pt > inner_pt:
+        label_size = max(8.5, label_size * inner_pt / estimated_pt)
     fig.text(x0 + pad_x, label_y, label, ha='left', va='center',
-              fontsize=theme.SIZE['kpi_label'], color=PALETTE.text_secondary, fontweight='medium')
+              fontsize=label_size, color=PALETTE.text_secondary, fontweight='medium')
 
-    value_y = y0 + h * 0.42
-    fig.text(x0 + pad_x, value_y, f'{fmt_number(value)}{value_suffix}', ha='left', va='center',
-              fontsize=theme.SIZE['kpi_value'], color=PALETTE.text_primary, fontweight='bold')
+    value_y = y0 + h * 0.46
+    value_text = fmt_number(value) + (value_suffix if value is not None else '')
+    fig.text(x0 + pad_x, value_y, value_text, ha='left', va='center',
+              fontsize=theme.SIZE['kpi_value'],
+              color=PALETTE.text_muted if value is None else PALETTE.text_primary,
+              fontweight='bold')
 
     if delta is not None:
         color = PALETTE.negative if invert_delta_color and delta > 0 else (
@@ -50,14 +61,16 @@ def kpi_tile(
         arrow = delta_arrow(-delta if invert_delta_color else delta)
         suffix = ' п.п.' if delta_is_percent else ''
         delta_text = f'{arrow} {fmt_signed(delta, suffix=suffix)}'
-        delta_y = y0 + h * 0.14
+        delta_y = y0 + h * 0.13
         fig.text(x0 + pad_x, delta_y, delta_text, ha='left', va='center',
                   fontsize=theme.SIZE['kpi_delta'], color=color, fontweight='bold')
 
-    if sparkline and len(sparkline) >= 2:
+    clean = [v for v in (sparkline or []) if v is not None]
+    # A sparkline whose points are all equal draws a flat rule that carries
+    # no information and reads as a stray artifact -- leave the tile clean.
+    if sparkline and len(sparkline) >= 2 and len(set(clean)) > 1:
         spark_ax = fig.add_axes([x0 + w * 0.56, y0 + h * 0.20, w * 0.36, h * 0.26])
         spark_ax.set_zorder(5)
-        clean = [v for v in sparkline if v is not None]
         xs = list(range(len(sparkline)))
         ys = [v if v is not None else math.nan for v in sparkline]
         # "Better" means the line trends the way the KPI's own delta already

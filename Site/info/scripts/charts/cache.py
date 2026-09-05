@@ -16,8 +16,24 @@ from typing import Callable
 from seo_sources import AnalyticsStore
 
 
+_CHARTS_DIR = Path(__file__).resolve().parent
+
+
+def _render_version() -> str:
+    """Hash of the rendering code itself.
+
+    Without this the cache key is data-only, so restyling a chart keeps
+    serving the previously rendered PNGs until new data happens to land.
+    """
+    digest = hashlib.sha1()
+    for source in sorted(_CHARTS_DIR.glob('*.py')):
+        digest.update(source.read_bytes())
+    return digest.hexdigest()[:8]
+
+
 def compute_data_version(store: AnalyticsStore) -> str:
-    """A short hash that changes whenever any analytics table gets new rows."""
+    """A short hash that changes whenever any analytics table gets new rows,
+    or whenever the chart rendering code changes."""
     with store.session() as connection:
         parts = []
         for table, column in (
@@ -33,6 +49,7 @@ def compute_data_version(store: AnalyticsStore) -> str:
             except sqlite3.Error:
                 value = None
             parts.append(f'{table}:{value}')
+    parts.append(f'render:{_render_version()}')
     digest = hashlib.sha1('|'.join(parts).encode('utf-8')).hexdigest()
     return digest[:12]
 

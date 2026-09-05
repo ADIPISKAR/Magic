@@ -249,7 +249,8 @@ def dashboard_30d_part2(context: dict, path: Path, *, size=Size.DASHBOARD) -> Pa
         xs = list(range(len(wordstat_points)))
         theme.style_grid(axis)
         axis.plot(xs, [p.get('value') for p in wordstat_points], color=PALETTE.brand, linewidth=2.4,
-                   marker='o', markersize=5.5, markerfacecolor='white', markeredgecolor=PALETTE.brand, zorder=3)
+                   marker='o', markersize=5.5, markerfacecolor=PALETTE.marker_face,
+                   markeredgecolor=PALETTE.brand, zorder=3)
         axis.fill_between(xs, [p.get('value') or 0 for p in wordstat_points], min(values),
                            color=PALETTE.brand_soft, alpha=0.3, linewidth=0, zorder=2)
         axis.set_xticks(xs)

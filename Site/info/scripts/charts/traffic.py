@@ -40,7 +40,7 @@ def traffic_chart(trend: Sequence[dict], days: int, path: Path, *, size=Size.WID
     handles, labels = [visits_line], ['Визиты (органика)']
     if _has_data(users):
         users_line, = axis.plot(dates, users, color=PALETTE.series[2], linewidth=2.2, marker='o', markersize=4.5,
-                                 markerfacecolor='white', markeredgecolor=PALETTE.series[2], zorder=3)
+                                 markerfacecolor=PALETTE.marker_face, markeredgecolor=PALETTE.series[2], zorder=3)
         handles.append(users_line)
         labels.append('Пользователи')
     axis.set_ylim(bottom=0)
