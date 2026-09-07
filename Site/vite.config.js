@@ -9,6 +9,8 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
+                'resources/css/focus-scroll.css',
+                'resources/js/focus-scroll.js',
                 'resources/css/seo-dashboard.css',
                 'resources/js/seo-dashboard.js',
             ],

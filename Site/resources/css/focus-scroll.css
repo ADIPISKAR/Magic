@@ -1,0 +1,74 @@
+/* Эксперимент: в фокусе остаётся блок у центра экрана, остальные уходят
+   в расфокус. Значение --focus (0 — резко, 1 — максимально размыто)
+   проставляет focus-scroll.js на каждом кадре прокрутки. */
+
+[data-focus-block] {
+    --focus: 0;
+    filter: blur(calc(var(--focus) * var(--focus-blur, 9px)));
+    opacity: calc(1 - var(--focus) * 0.62);
+    transform: scale(calc(1 - var(--focus) * 0.022));
+    transform-origin: center 45%;
+}
+
+/* Пока эффект выключен, блоки не должны нести ни фильтра, ни слоя. */
+html:not(.focus-scroll-on) [data-focus-block] {
+    filter: none;
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+}
+
+.focus-scroll-on [data-focus-block] {
+    will-change: filter, opacity, transform;
+}
+
+.focus-toggle {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 60;
+    appearance: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .92);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 26px rgba(0, 0, 0, .12);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: #111;
+}
+
+.focus-toggle::before {
+    content: '';
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #c9c9c4;
+}
+
+.focus-toggle[aria-pressed="true"] {
+    background: #111;
+    border-color: #111;
+    color: #fff;
+}
+
+.focus-toggle[aria-pressed="true"]::before {
+    background: #c9f24a;
+}
+
+@media (max-width: 640px) {
+    [data-focus-block] { --focus-blur: 5px; }
+    .focus-toggle { right: 12px; bottom: 12px; padding: 9px 13px; font-size: 12px; }
+}
+
+/* Расфокус — чисто декоративный приём, поэтому при запросе на сниженную
+   анимацию отключаем его целиком. */
+@media (prefers-reduced-motion: reduce) {
+    [data-focus-block] { filter: none !important; opacity: 1 !important; transform: none !important; }
+}
