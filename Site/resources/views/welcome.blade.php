@@ -280,6 +280,11 @@
                             data-images="{{ json_encode($cardImages) }}"
                         >
                             <img src="{{ $cardImages[0] }}" width="{{ $portfolioImageDimensions[$cardIndex][0] }}" height="{{ $portfolioImageDimensions[$cardIndex][1] }}" loading="lazy" decoding="async" alt="Фото проекта: {{ $portfolioProjects[$cardIndex]['title'] }}" class="portfolio_card_image">
+                            <span class="portfolio_card_expand" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
                             <div class="portfolio_card_info">
                                 <span class="portfolio_card_number">{{ str_pad($cardIndex, 2, '0', STR_PAD_LEFT) }}</span>
                                 <h3>{{ $portfolioProjects[$cardIndex]['title'] }}</h3>

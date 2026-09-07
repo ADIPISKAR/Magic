@@ -1990,6 +1990,38 @@ body.modal-is-open{
     transform: scale(1.04);
 }
 
+.portfolio_card_expand {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 5;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(17, 17, 17, .12);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .94);
+    color: #111;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .16);
+    pointer-events: none;
+    transition: color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.portfolio_card_expand svg {
+    display: block;
+    width: 18px;
+    height: 18px;
+}
+
+.portfolio_card:hover .portfolio_card_expand,
+.portfolio_card.is-expanded .portfolio_card_expand,
+.portfolio_card.is-mobile-expanded .portfolio_card_expand {
+    background: #111;
+    color: #fff;
+    transform: scale(1.06);
+}
+
 .portfolio_card_info {
     position: absolute;
     inset: auto 0 0;
