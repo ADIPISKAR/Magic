@@ -79,9 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		updateResult();
 	});
 	leadButton.addEventListener('click', () => {
-		const modalText = document.querySelector('[data-lead-context]');
-		const message = document.querySelector('[data-lead-message]');
-		const source = document.querySelector('[data-lead-source]');
+		const requestModal = document.querySelector('.request_modal');
+		const modalText = requestModal?.querySelector('[data-lead-context]');
+		const message = requestModal?.querySelector('input[data-lead-message]');
+		const source = requestModal?.querySelector('input[data-lead-source]');
 		const summary = `${settings.properties[property].label}, ${areaInput.value} м², ${activePlan().name.toLowerCase()}, ориентир ${formatTotal(Number(areaInput.value) * activePlan().rate)}`;
 		if (modalText) {
 			modalText.textContent = `${settings.properties[property].label}, ${areaInput.value} м², ${activePlan().name.toLowerCase()}. Оставьте номер — уточним детали и подготовим точную смету.`;

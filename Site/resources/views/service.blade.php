@@ -2,6 +2,7 @@
     $canonical = config('seo.canonical_url').'/'.$slug;
     $experience = config("service_content.{$slug}");
     $portfolioProof = config("service_portfolio.{$slug}");
+    $plannerCalc = config("service_planner_calc.{$slug}");
     $faqItems = array_merge($page['faq'], $experience['faq'] ?? []);
     $business = [
         '@type' => 'HomeAndConstructionBusiness', '@id' => config('seo.canonical_url').'/#business',
@@ -210,6 +211,29 @@
                     @endforeach
                 </div>
             </div>
+            <div class="service_plan_result" data-service-plan data-plan-config="{{ json_encode($plannerCalc, JSON_UNESCAPED_UNICODE | JSON_HEX_APOS | JSON_HEX_QUOT) }}" data-service-name="{{ $page['name'] }}">
+                <div class="service_plan_result_heading">
+                    <div><span>Ваш предварительный план</span><strong data-plan-scenario>{{ $experience['scenarios'][0]['label'] }}</strong></div>
+                    <p>Настройте параметры — пересчитаем ориентир и соберём выбранный маршрут в один файл.</p>
+                </div>
+                @if ($plannerCalc['mode'] === 'area')
+                    <div class="service_plan_fields">
+                        <label><span>Площадь квартиры</span><strong><output data-plan-area-output>{{ $plannerCalc['area']['default'] }}</output> м²</strong><input type="range" min="{{ $plannerCalc['area']['min'] }}" max="{{ $plannerCalc['area']['max'] }}" value="{{ $plannerCalc['area']['default'] }}" data-plan-area></label>
+                        <label><span>Формат ремонта</span><select data-plan-option>@foreach ($plannerCalc['options'] as $option)<option value="{{ $loop->index }}">{{ $option['label'] }}</option>@endforeach</select></label>
+                    </div>
+                @else
+                    <div class="service_plan_fields service_plan_fields_bathroom">
+                        <label><span>Площадь облицовки</span><strong><output data-plan-tile-output>{{ $plannerCalc['tile_area']['default'] }}</output> м²</strong><input type="range" min="{{ $plannerCalc['tile_area']['min'] }}" max="{{ $plannerCalc['tile_area']['max'] }}" value="{{ $plannerCalc['tile_area']['default'] }}" data-plan-tile-area></label>
+                        <label><span>Выводы воды и канализации</span><strong><output data-plan-outputs-output>{{ $plannerCalc['outputs']['default'] }}</output> шт.</strong><input type="range" min="{{ $plannerCalc['outputs']['min'] }}" max="{{ $plannerCalc['outputs']['max'] }}" value="{{ $plannerCalc['outputs']['default'] }}" data-plan-outputs></label>
+                        <label class="service_plan_toggle"><input type="checkbox" data-plan-demolition><i aria-hidden="true"></i><span>Добавить демонтаж старой плитки</span></label>
+                    </div>
+                @endif
+                <div class="service_plan_total"><span>Ориентир по выбранным работам</span><strong data-plan-total>—</strong><p>{{ $plannerCalc['note'] }}</p></div>
+                <div class="service_plan_actions">
+                    <button type="button" data-plan-download>Скачать план .txt ↓</button>
+                    <button type="button" class="service_plan_attach" data-plan-attach data-modal-open data-lead-context="План уже собран. Оставьте номер — проверим расчёт и уточним смету." data-lead-source="{{ $page['name'] }} — персональный план">Приложить к заявке ↗</button>
+                </div>
+            </div>
         </section>
         <section class="service_work_section" id="works">
             <div class="service_section_intro"><h2>{{ $page['intro_heading'] }}</h2><p>{{ $page['intro'] }}</p></div>
@@ -234,6 +258,7 @@
                 @endforeach
             </div>
         </section>
+        @include('partials.service-depth', ['slug' => $slug])
         <section class="service_stages" id="stages" aria-labelledby="stages-title">
             <div class="service_section_intro">
                 <h2 id="stages-title">{{ $experience['stages_heading'] }}</h2>
@@ -301,7 +326,7 @@
                 @else
                     <p class="service_individual_price">По индивидуальной смете</p>
                 @endif
-                <a class="button but_white" href="{{ asset('СМЕТА ШАБЛОН.pdf') }}" download="Смета-на-ремонт.pdf">Скачать пример сметы ↓</a>
+                <a class="button but_white" href="{{ asset($page['estimate_pdf']) }}" download>Скачать пример сметы ↓</a>
             </div>
         </section>
         <section class="service_faq" aria-labelledby="faq-title">

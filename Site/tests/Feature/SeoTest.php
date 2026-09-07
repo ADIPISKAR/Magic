@@ -137,14 +137,18 @@ class SeoTest extends TestCase
                 ->assertSee('data-mobile-menu-toggle', false)
                 ->assertSee('data-hero-stack', false)
                 ->assertSee('data-service-planner', false)
+                ->assertSee('data-service-plan', false)
+                ->assertSee('data-plan-download', false)
                 ->assertSee('data-service-checklist', false)
                 ->assertSee('class="service_project_proof"', false)
                 ->assertSee('data-service-checklist-share', false)
                 ->assertSee($experience['planner_heading'])
                 ->assertSee($experience['stages_heading'])
                 ->assertSee($page['unit_prices_heading'])
+                ->assertSee($page['estimate_pdf'], false)
                 ->assertSee('data-lead-form', false)
                 ->assertSee('tel:'.config('seo.phone'), false);
+            $this->assertFileExists(public_path($page['estimate_pdf']));
             foreach ($page['unit_prices'] as [$label, $price]) {
                 $response->assertSee($label)->assertSee($price);
             }

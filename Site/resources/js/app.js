@@ -5,6 +5,7 @@ import './mobile-header.js';
 import './exit-intent.js';
 import './cookie-consent.js';
 import './project-gallery.js';
+import './service-plan.js';
 
 document.addEventListener('DOMContentLoaded', () => {
 	const trackGoal = (goal) => {
@@ -24,17 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
 	const leadForm = document.querySelector('[data-lead-form]');
 
 	if (requestModal && modalOpenButtons.length) {
-		const defaultLeadContext = document.querySelector('[data-lead-context]')?.textContent;
+		const modalContext = requestModal.querySelector('[data-lead-context]');
+		const modalMessage = requestModal.querySelector('input[data-lead-message]');
+		const modalSource = requestModal.querySelector('input[data-lead-source]');
+		const defaultLeadContext = modalContext?.textContent;
 		let modalOpener = null;
 		const openModal = (button) => {
 			modalOpener = button;
 			if (!button.matches('[data-calculator-lead]')) {
-				const context = document.querySelector('[data-lead-context]');
-				const message = document.querySelector('[data-lead-message]');
-				const source = document.querySelector('[data-lead-source]');
-				if (context) context.textContent = button.dataset.leadContext || defaultLeadContext;
-				if (message) message.value = button.dataset.leadMessage || '';
-				if (source) source.value = button.dataset.leadSource || 'Форма сайта';
+				if (modalContext) modalContext.textContent = button.dataset.leadContext || defaultLeadContext;
+				if (modalMessage) modalMessage.value = button.dataset.leadMessage || '';
+				if (modalSource) modalSource.value = button.dataset.leadSource || 'Форма сайта';
 			}
 			requestModal.classList.add('is-open');
 			requestModal.setAttribute('aria-hidden', 'false');
