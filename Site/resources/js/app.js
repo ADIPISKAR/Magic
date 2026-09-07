@@ -4,6 +4,7 @@ import './service-experience.js';
 import './mobile-header.js';
 import './exit-intent.js';
 import './cookie-consent.js';
+import './project-gallery.js';
 
 document.addEventListener('DOMContentLoaded', () => {
 	const trackGoal = (goal) => {

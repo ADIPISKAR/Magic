@@ -22,6 +22,7 @@
         {
             "@@context": "https://schema.org",
             "@@type": "HomeAndConstructionBusiness",
+            "@@id": "{{ config('seo.canonical_url') }}/#business",
             "name": "Магия",
             "telephone": "{{ config('seo.phone') }}",
             "address": {
@@ -287,6 +288,7 @@
                         </article>
                     @endfor
                 </div>
+                <a class="home_portfolio_archive" href="{{ route('portfolio', [], false) }}">Открыть проекты с планировками и чертежами <span aria-hidden="true">↗</span></a>
             </section>
         </div>
 

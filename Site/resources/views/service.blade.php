@@ -1,6 +1,7 @@
 @php
     $canonical = config('seo.canonical_url').'/'.$slug;
     $experience = config("service_content.{$slug}");
+    $portfolioProof = config("service_portfolio.{$slug}");
     $faqItems = array_merge($page['faq'], $experience['faq'] ?? []);
     $business = [
         '@type' => 'HomeAndConstructionBusiness', '@id' => config('seo.canonical_url').'/#business',
@@ -218,6 +219,21 @@
                 @endforeach
             </div>
         </section>
+        <section class="service_project_proof" aria-labelledby="service-projects-title">
+            <div class="service_section_intro">
+                <div><p class="service_eyebrow">Реальные материалы</p><h2 id="service-projects-title">{{ $portfolioProof['heading'] }}</h2></div>
+                <p>{{ $portfolioProof['intro'] }}</p>
+            </div>
+            <div class="service_project_proof_grid">
+                @foreach ($portfolioProof['projects'] as $projectSlug)
+                    @php($proofProject = config("portfolio.{$projectSlug}"))
+                    <a href="{{ route('project', $projectSlug, false) }}">
+                        <span class="service_project_proof_image"><img src="{{ asset('images/projects/'.$projectSlug.'/1.jpg') }}" width="{{ $projectSlug === 'donskoy-arbat-65' ? 600 : 566 }}" height="800" loading="lazy" decoding="async" alt="Лист проекта: {{ $proofProject['name'] }}"></span>
+                        <span class="service_project_proof_copy"><small>{{ $proofProject['rooms'] }}</small><strong>{{ $proofProject['short_name'] }}</strong><em>{{ $proofProject['area'] }} · открыть ↗</em></span>
+                    </a>
+                @endforeach
+            </div>
+        </section>
         <section class="service_stages" id="stages" aria-labelledby="stages-title">
             <div class="service_section_intro">
                 <h2 id="stages-title">{{ $experience['stages_heading'] }}</h2>
@@ -257,6 +273,7 @@
                     @endforeach
                 </fieldset>
                 <p class="service_checklist_hint" aria-live="polite" data-service-checklist-hint>Начните с любого пункта — всё остальное обсудим на замере.</p>
+                <button type="button" class="service_checklist_share" data-service-checklist-share data-modal-open data-lead-context="Передайте отмеченные пункты — обсудим оставшиеся решения и подготовим замер." data-lead-source="{{ $page['name'] }} — чек-лист">Передать список специалисту ↗</button>
             </div>
         </section>
         <section class="service_cost" id="prices">

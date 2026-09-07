@@ -20,8 +20,19 @@ class RedirectToCanonicalHost
         $canonicalUrl = config('seo.canonical_url');
         $canonicalHost = parse_url($canonicalUrl, PHP_URL_HOST);
 
-        if ($canonicalHost && strcasecmp($request->getHost(), $canonicalHost) !== 0) {
-            return redirect()->away($canonicalUrl.$request->getRequestUri(), 301);
+        $requestUri = (string) $request->server('REQUEST_URI', $request->getRequestUri());
+        $path = parse_url($requestUri, PHP_URL_PATH) ?: '/';
+        $hasTrailingSlash = $path !== '/' && str_ends_with($path, '/');
+        $hasAlternateHost = $canonicalHost && strcasecmp($request->getHost(), $canonicalHost) !== 0;
+
+        if ($hasAlternateHost || $hasTrailingSlash) {
+            $canonicalPath = $hasTrailingSlash ? rtrim($path, '/') : $path;
+            $query = $request->getQueryString();
+
+            return redirect()->away(
+                rtrim($canonicalUrl, '/').$canonicalPath.($query ? '?'.$query : ''),
+                301
+            );
         }
 
         return $next($request);

@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Http\Middleware\RedirectToCanonicalHost;
+use Illuminate\Http\Request;
 use Tests\TestCase;
 
 class SeoTest extends TestCase
@@ -21,6 +23,29 @@ class SeoTest extends TestCase
         $this->app->detectEnvironment(fn () => 'production');
 
         $this->get('https://magiarnd.ru/')->assertOk();
+    }
+
+    public function test_production_trailing_slashes_redirect_to_canonical_paths(): void
+    {
+        $this->app->detectEnvironment(fn () => 'production');
+
+        $serviceRequest = Request::create('https://magiarnd.ru/remont-novostroek/?source=test', 'GET', server: [
+            'HTTP_HOST' => 'magiarnd.ru',
+            'HTTPS' => 'on',
+            'REQUEST_URI' => '/remont-novostroek/?source=test',
+        ]);
+        $serviceResponse = (new RedirectToCanonicalHost)->handle($serviceRequest, fn () => response('ok'));
+        $this->assertSame(301, $serviceResponse->getStatusCode());
+        $this->assertSame('https://magiarnd.ru/remont-novostroek?source=test', $serviceResponse->headers->get('Location'));
+
+        $projectRequest = Request::create('https://magiarnd.ru/portfolio/gorizont-38/', 'GET', server: [
+            'HTTP_HOST' => 'magiarnd.ru',
+            'HTTPS' => 'on',
+            'REQUEST_URI' => '/portfolio/gorizont-38/',
+        ]);
+        $projectResponse = (new RedirectToCanonicalHost)->handle($projectRequest, fn () => response('ok'));
+        $this->assertSame(301, $projectResponse->getStatusCode());
+        $this->assertSame('https://magiarnd.ru/portfolio/gorizont-38', $projectResponse->headers->get('Location'));
     }
 
     public function test_homepage_uses_stable_canonical_metadata(): void
@@ -113,6 +138,8 @@ class SeoTest extends TestCase
                 ->assertSee('data-hero-stack', false)
                 ->assertSee('data-service-planner', false)
                 ->assertSee('data-service-checklist', false)
+                ->assertSee('class="service_project_proof"', false)
+                ->assertSee('data-service-checklist-share', false)
                 ->assertSee($experience['planner_heading'])
                 ->assertSee($experience['stages_heading'])
                 ->assertSee($page['unit_prices_heading'])
@@ -152,6 +179,47 @@ class SeoTest extends TestCase
                 ->assertSee('<lastmod>'.$page['updated_at'].'</lastmod>', false);
         }
         $this->get('/not-a-service')->assertNotFound();
+    }
+
+    public function test_portfolio_catalog_and_projects_are_indexable_and_linked(): void
+    {
+        $catalog = $this->get('/portfolio');
+        $sitemap = $this->get('/sitemap.xml');
+
+        $catalog->assertOk()
+            ->assertSee('<link rel="canonical" href="https://magiarnd.ru/portfolio">', false)
+            ->assertSee('Ремонт начинается с')
+            ->assertSee('data-modal-open', false);
+        $this->assertSame(1, preg_match_all('/<h1[ >]/', $catalog->getContent()));
+        $this->get('/')->assertSee('href="/portfolio"', false);
+        $sitemap->assertSee('<loc>https://magiarnd.ru/portfolio</loc>', false);
+
+        foreach (config('portfolio') as $slug => $project) {
+            $catalog->assertSee('href="/portfolio/'.$slug.'"', false);
+            $sitemap->assertSee('<loc>https://magiarnd.ru/portfolio/'.$slug.'</loc>', false)
+                ->assertSee('<lastmod>'.$project['updated_at'].'</lastmod>', false);
+
+            $response = $this->get('/portfolio/'.$slug.'?utm_source=test');
+            $response->assertOk()
+                ->assertSee('<link rel="canonical" href="https://magiarnd.ru/portfolio/'.$slug.'">', false)
+                ->assertSee($project['heading'])
+                ->assertSee('data-project-gallery', false)
+                ->assertSee('data-gallery-main', false)
+                ->assertSee('class="mobile_header service_mobile_header"', false);
+            $this->assertSame(1, preg_match_all('/<h1[ >]/', $response->getContent()));
+            for ($image = 1; $image <= $project['photos']; $image++) {
+                $this->assertFileExists(public_path('images/projects/'.$slug.'/'.$image.'.jpg'));
+            }
+        }
+
+        $this->get('/portfolio/not-a-project')->assertNotFound();
+    }
+
+    public function test_home_business_schema_exposes_the_shared_business_identifier(): void
+    {
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('"@id": "https://magiarnd.ru/#business"', false);
     }
 
     public function test_sitemap_dates_do_not_change_without_a_content_update(): void

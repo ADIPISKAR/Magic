@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const bar = checklist.querySelector('[data-service-checklist-bar]');
 		const hint = checklist.querySelector('[data-service-checklist-hint]');
 		const reset = checklist.querySelector('[data-service-checklist-reset]');
+		const share = checklist.querySelector('[data-service-checklist-share]');
 
 		if (!items.length || !status || !bar || !hint) return;
 
@@ -139,6 +140,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		};
 
 		items.forEach((item) => item.addEventListener('change', render));
+		share?.addEventListener('click', () => {
+			const selected = items
+				.filter((item) => item.checked)
+				.map((item) => item.closest('label')?.querySelector('em')?.textContent.trim())
+				.filter(Boolean);
+			share.dataset.leadMessage = selected.length
+				? `К замеру уже подготовлено:\n— ${selected.join('\n— ')}`
+				: 'Нужна помощь с подготовкой к первому замеру.';
+		});
 		reset?.addEventListener('click', () => {
 			items.forEach((item) => { item.checked = false; });
 			render();
