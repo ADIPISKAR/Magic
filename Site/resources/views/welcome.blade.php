@@ -288,7 +288,31 @@
                         </article>
                     @endfor
                 </div>
-                <a class="home_portfolio_archive" href="{{ route('portfolio', [], false) }}">Открыть проекты с планировками и чертежами <span aria-hidden="true">↗</span></a>
+                @php($drawingProjects = config('portfolio'))
+                <section class="home_project_showcase" aria-labelledby="home-projects-title">
+                    <div class="portfolio_section_heading">
+                        <p class="service_eyebrow">Планировки и чертежи</p>
+                        <h2 id="home-projects-title"><a href="{{ route('portfolio', [], false) }}">Выберите квартиру</a></h2>
+                        <p>Откройте близкую по площади квартиру и посмотрите планировку, расстановку мебели, электрику и сантехнику.</p>
+                    </div>
+                    <div class="portfolio_project_grid">
+                        @foreach ($drawingProjects as $slug => $project)
+                            <a class="portfolio_project_item" href="{{ route('project', $slug, false) }}">
+                                <span class="portfolio_project_index">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                                <span class="portfolio_project_sheet">
+                                    <img src="{{ asset('images/projects/'.$slug.'/1.jpg') }}" width="{{ $slug === 'donskoy-arbat-65' ? 600 : 566 }}" height="800" loading="lazy" decoding="async" alt="Планировки и чертежи: {{ $project['name'] }}">
+                                    <span class="portfolio_project_sheet_badge">{{ $project['photos'] }} {{ $project['photos'] === 3 ? 'листа' : ($project['photos'] === 4 ? 'листа' : 'листов') }}</span>
+                                </span>
+                                <span class="portfolio_project_body">
+                                    <span class="portfolio_project_meta">{{ $project['rooms'] }} · {{ $project['area'] }}</span>
+                                    <strong>{{ $project['short_name'] }}</strong>
+                                    <span>{{ $project['lead'] }}</span>
+                                    <em>Планировки и чертежи <b aria-hidden="true">↗</b></em>
+                                </span>
+                            </a>
+                        @endforeach
+                    </div>
+                </section>
             </section>
         </div>
 
