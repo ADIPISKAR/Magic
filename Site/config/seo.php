@@ -2,7 +2,7 @@
 
 return [
     // Change only after a substantive update; never use today's date at request time.
-    'home_lastmod' => '2026-09-01',
+    'home_lastmod' => '2026-09-07',
     'canonical_url' => rtrim(
         env('SEO_CANONICAL_URL', 'https://magiarnd.ru'),
         '/',
