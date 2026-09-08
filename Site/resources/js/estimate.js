@@ -242,28 +242,72 @@ const estimateCategories = [
 	},
 ];
 
-const renderEstimate = (activeCategory = estimateCategories[0].title) => {
+const renderEstimate = () => {
 	const catalog = document.querySelector('.estimate_catalog');
+	const tableWrapper = document.querySelector('.table_wrapper');
 	const tableBody = document.querySelector('.estimate_table tbody');
-	const activeData = estimateCategories.find((category) => category.title === activeCategory) || estimateCategories[0];
 
-	catalog.innerHTML = estimateCategories.map((category) => `
-		<button class="bord_block${category.title === activeData.title ? ' bord_block_active' : ''}" type="button" data-estimate-category="${category.title}">
-			${category.title}
-		</button>
-	`).join('');
+	catalog.innerHTML = `
+		<div class="estimate_catalog_desktop">
+			${estimateCategories.map((category, index) => `
+				<button class="bord_block${index === 0 ? ' bord_block_active' : ''}" type="button" data-estimate-category="${category.title}">
+					${category.title}
+				</button>
+			`).join('')}
+		</div>
+		<div class="estimate_mobile_picker">
+			<label for="estimate-mobile-select">Выберите раздел сметы</label>
+			<div class="estimate_mobile_select_wrap">
+				<select id="estimate-mobile-select" data-estimate-mobile-select>
+					${estimateCategories.map((category) => `<option value="${category.title}">${category.title}</option>`).join('')}
+				</select>
+				<span aria-hidden="true">↓</span>
+			</div>
+			<p class="estimate_mobile_result" aria-live="polite">
+				<span>Сейчас показан раздел</span>
+				<strong data-estimate-mobile-current></strong>
+				<small data-estimate-mobile-count></small>
+			</p>
+		</div>
+	`;
 
-	tableBody.innerHTML = activeData.items.map(([name, unit, price], index) => `
-		<tr${index === 0 ? ' class="active_column"' : ''}>
-			<td>${name}</td>
-			<td>${unit}</td>
-			<td>${price}</td>
-		</tr>
-	`).join('');
+	const mobileSelect = catalog.querySelector('[data-estimate-mobile-select]');
+	const mobileCurrent = catalog.querySelector('[data-estimate-mobile-current]');
+	const mobileCount = catalog.querySelector('[data-estimate-mobile-count]');
+
+	const setActiveCategory = (categoryTitle, shouldReveal = false) => {
+		const activeData = estimateCategories.find((category) => category.title === categoryTitle) || estimateCategories[0];
+
+		catalog.querySelectorAll('[data-estimate-category]').forEach((button) => {
+			button.classList.toggle('bord_block_active', button.dataset.estimateCategory === activeData.title);
+		});
+		mobileSelect.value = activeData.title;
+		mobileCurrent.textContent = activeData.title;
+		mobileCount.textContent = `${activeData.items.length} ${activeData.items.length % 10 === 1 && activeData.items.length % 100 !== 11 ? 'позиция' : activeData.items.length % 10 >= 2 && activeData.items.length % 10 <= 4 && (activeData.items.length % 100 < 10 || activeData.items.length % 100 >= 20) ? 'позиции' : 'позиций'}`;
+
+		tableBody.innerHTML = activeData.items.map(([name, unit, price], index) => `
+			<tr${index === 0 ? ' class="active_column"' : ''}>
+				<td>${name}</td>
+				<td>${unit}</td>
+				<td>${price}</td>
+			</tr>
+		`).join('');
+		tableWrapper.scrollTop = 0;
+
+		if (shouldReveal && window.matchMedia('(max-width: 768px)').matches) {
+			const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			window.requestAnimationFrame(() => {
+				const tableTop = tableWrapper.getBoundingClientRect().top + window.scrollY - 84;
+				window.scrollTo({ top: tableTop, behavior: reducedMotion ? 'auto' : 'smooth' });
+			});
+		}
+	};
 
 	catalog.querySelectorAll('[data-estimate-category]').forEach((button) => {
-		button.addEventListener('click', () => renderEstimate(button.dataset.estimateCategory));
+		button.addEventListener('click', () => setActiveCategory(button.dataset.estimateCategory));
 	});
+	mobileSelect.addEventListener('change', () => setActiveCategory(mobileSelect.value, true));
+	setActiveCategory(estimateCategories[0].title);
 };
 
 document.addEventListener('DOMContentLoaded', () => {

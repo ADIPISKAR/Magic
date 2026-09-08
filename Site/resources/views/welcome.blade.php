@@ -343,19 +343,62 @@
                         </div>
                     </div>
 
+                    <?php
+                        $serviceWorkGroups = [
+                            'new' => [
+                                [
+                                    ['label' => 'Основания', 'items' => ['Грунтование и установка маяков', 'Штукатурка стен по плоскости', 'Устройство стяжки пола', 'Подготовка проёмов и откосов']],
+                                    ['label' => 'Черновая инженерия', 'items' => ['Разметка розеток и освещения', 'Штробление и прокладка кабеля', 'Разводка воды и канализации', 'Подготовка трасс под кондиционеры']],
+                                ],
+                                [
+                                    ['label' => 'Чистовая отделка', 'items' => ['Финишная шпаклёвка стен', 'Поклейка обоев или окраска', 'Укладка ламината', 'Монтаж напольного плинтуса']],
+                                    ['label' => 'Базовая комплектация', 'items' => ['Монтаж розеток и выключателей', 'Установка светильников', 'Подключение сантехники', 'Установка межкомнатных дверей']],
+                                ],
+                                [
+                                    ['label' => 'Покрытия', 'items' => ['Выравнивание стен под окраску', 'Малярные работы', 'Укладка керамогранита', 'Монтаж ламината или инженерной доски']],
+                                    ['label' => 'Инженерные системы', 'items' => ['Сборка электрического щита', 'Коллекторная разводка воды', 'Монтаж тёплого пола', 'Подготовка кондиционирования']],
+                                ],
+                                [
+                                    ['label' => 'Проектные решения', 'items' => ['Разметка по рабочим чертежам', 'Световые сценарии', 'Раскладки плитки и покрытий', 'Проработка сложных примыканий']],
+                                    ['label' => 'Авторская отделка', 'items' => ['Декоративные покрытия', 'Монтаж стеновых панелей', 'Установка скрытых дверей', 'Теневые профили и встроенный свет']],
+                                ],
+                            ],
+                            'secondary' => [
+                                [
+                                    ['label' => 'Обновление поверхностей', 'items' => ['Снятие старых обоев', 'Локальная шпаклёвка дефектов', 'Окраска или поклейка обоев', 'Замена напольного плинтуса']],
+                                    ['label' => 'Локальные замены', 'items' => ['Замена розеток и выключателей', 'Обновление светильников', 'Замена ламината', 'Герметизация сантехнических узлов']],
+                                ],
+                                [
+                                    ['label' => 'Демонтаж и основания', 'items' => ['Демонтаж старых покрытий', 'Разбор согласованных перегородок', 'Новая стяжка пола', 'Выравнивание стен и потолков']],
+                                    ['label' => 'Новые коммуникации', 'items' => ['Замена электропроводки', 'Разводка воды и канализации', 'Обновление отопления', 'Подготовка вентиляции и кондиционеров']],
+                                ],
+                                [
+                                    ['label' => 'Чистовая отделка', 'items' => ['Многоэтапная подготовка под окраску', 'Укладка плитки и керамогранита', 'Монтаж напольных покрытий', 'Установка дверей и плинтусов']],
+                                    ['label' => 'Инженерное обновление', 'items' => ['Новый электрический щит', 'Замена сантехнических линий', 'Монтаж тёплых полов', 'Установка чистовой электрики']],
+                                ],
+                                [
+                                    ['label' => 'Реализация проекта', 'items' => ['Перенос решений проекта на объект', 'Разметка перегородок и мебели', 'Контроль высот и привязок', 'Сверка результата с чертежами']],
+                                    ['label' => 'Сложные узлы', 'items' => ['Скрытые двери и плинтусы', 'Декоративные панели', 'Встроенные световые линии', 'Нестандартные примыкания материалов']],
+                                ],
+                            ],
+                        ];
+                        $workJsonFlags = JSON_UNESCAPED_UNICODE | JSON_HEX_APOS | JSON_HEX_QUOT;
+                    ?>
+
                     <div class="service_price">
                         <div class="container">
                             <div class="row">
 
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
-                                    <div class="Service_Price" data-secondary-title="Косметический" data-secondary-description="Косметический ремонт вторичной квартиры без перепланировки: обновили поверхности, освещение и напольное покрытие." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽10,000">
+                                    <div class="Service_Price" data-secondary-title="Косметический" data-secondary-description="Косметический ремонт вторичной квартиры без перепланировки: обновили поверхности, освещение и напольное покрытие." data-secondary-price="₽10,000" data-secondary-work-groups="{{ json_encode($serviceWorkGroups['secondary'][0], $workJsonFlags) }}">
                                         <div class="d-flex flex-column gap-3">
                                             <h3>Черновой</h3>
 
                                             <div class="service_card_tags d-flex flex-column gap-2">
                                                 <p>Базовая отделка квартиры в новостройке с подготовкой стен, пола и инженерных систем к чистовым работам.</p>
-                                                <div class="bord_block">Штукатурные работы</div>
-                                                <div class="bord_block">Малярные работы</div>
+                                                @foreach ($serviceWorkGroups['new'][0] as $group)
+                                                    <button type="button" class="bord_block" data-service-work-group data-work-items="{{ json_encode($group['items'], $workJsonFlags) }}"><span data-service-work-label>{{ $group['label'] }}</span><b aria-hidden="true">↗</b></button>
+                                                @endforeach
                                             </div>
                                         </div>
 
@@ -370,14 +413,15 @@
                                 </div>
 
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
-                                    <div class="Service_Price" data-secondary-title="Капитальный" data-secondary-description="Капитально обновляем вторичное жильё: меняем коммуникации, выравниваем стены и выполняем чистовую отделку." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽14,000">
+                                    <div class="Service_Price" data-secondary-title="Капитальный" data-secondary-description="Капитально обновляем вторичное жильё: меняем коммуникации, выравниваем стены и выполняем чистовую отделку." data-secondary-price="₽14,000" data-secondary-work-groups="{{ json_encode($serviceWorkGroups['secondary'][1], $workJsonFlags) }}">
                                         <div class="d-flex flex-column gap-3">
                                             <h3>Эконом</h3>
 
                                             <div class="service_card_tags d-flex flex-column gap-2">
                                                 <p>Рациональный ремонт квартиры с подготовкой поверхностей и практичной чистовой отделкой без лишних расходов.</p>
-                                                <div class="bord_block">Штукатурные работы</div>
-                                                <div class="bord_block">Малярные работы</div>
+                                                @foreach ($serviceWorkGroups['new'][1] as $group)
+                                                    <button type="button" class="bord_block" data-service-work-group data-work-items="{{ json_encode($group['items'], $workJsonFlags) }}"><span data-service-work-label>{{ $group['label'] }}</span><b aria-hidden="true">↗</b></button>
+                                                @endforeach
                                             </div>
                                         </div>
 
@@ -392,14 +436,15 @@
                                 </div>
 
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
-                                    <div class="Service_Price" data-secondary-title="Евроремонт" data-secondary-description="Ремонт вторичной квартиры под ключ с обновлением электрики, подготовкой стен и качественной чистовой отделкой." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽18,000">
+                                    <div class="Service_Price" data-secondary-title="Евроремонт" data-secondary-description="Ремонт вторичной квартиры под ключ с обновлением электрики, подготовкой стен и качественной чистовой отделкой." data-secondary-price="₽18,000" data-secondary-work-groups="{{ json_encode($serviceWorkGroups['secondary'][2], $workJsonFlags) }}">
                                         <div class="d-flex flex-column gap-3">
                                             <h3>Евроремонт</h3>
 
                                             <div class="service_card_tags d-flex flex-column gap-2">
                                                 <p>Комплексный ремонт квартиры под ключ с обновлением инженерных систем и качественной отделкой помещений.</p>
-                                                <div class="bord_block">Штукатурные работы</div>
-                                                <div class="bord_block">Малярные работы</div>
+                                                @foreach ($serviceWorkGroups['new'][2] as $group)
+                                                    <button type="button" class="bord_block" data-service-work-group data-work-items="{{ json_encode($group['items'], $workJsonFlags) }}"><span data-service-work-label>{{ $group['label'] }}</span><b aria-hidden="true">↗</b></button>
+                                                @endforeach
                                             </div>
                                         </div>
 
@@ -414,14 +459,15 @@
                                 </div>
 
                                 <div class="col-xl-3 col-xxl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 col-12">
-                                    <div class="Service_Price" data-secondary-title="Дизайнерский" data-secondary-description="Создаем индивидуальный интерьер вторичной квартиры с дизайн-проектом, продуманным светом и выразительной отделкой." data-secondary-tags="Штукатурные работы|Отопительные работы|Малярные работы" data-secondary-price="₽22,000">
+                                    <div class="Service_Price" data-secondary-title="Дизайнерский" data-secondary-description="Создаем индивидуальный интерьер вторичной квартиры с дизайн-проектом, продуманным светом и выразительной отделкой." data-secondary-price="₽22,000" data-secondary-work-groups="{{ json_encode($serviceWorkGroups['secondary'][3], $workJsonFlags) }}">
                                         <div class="d-flex flex-column gap-3">
                                             <h3>Дизайнерский</h3>
 
                                             <div class="service_card_tags d-flex flex-column gap-2">
                                                 <p>Индивидуальный ремонт с учетом планировки, дизайн-проекта, выбранных материалов и требований к интерьеру.</p>
-                                                <div class="bord_block">Штукатурные работы</div>
-                                                <div class="bord_block">Малярные работы</div>
+                                                @foreach ($serviceWorkGroups['new'][3] as $group)
+                                                    <button type="button" class="bord_block" data-service-work-group data-work-items="{{ json_encode($group['items'], $workJsonFlags) }}"><span data-service-work-label>{{ $group['label'] }}</span><b aria-hidden="true">↗</b></button>
+                                                @endforeach
                                             </div>
                                         </div>
 
@@ -437,6 +483,17 @@
                             </div>
                         </div>
                     </div>
+
+                    <dialog class="service_work_modal" data-service-work-modal aria-labelledby="service-work-modal-title">
+                        <div class="service_work_modal_inner">
+                            <button type="button" class="service_work_modal_close" data-service-work-modal-close aria-label="Закрыть состав работ">×</button>
+                            <p class="service_eyebrow" data-service-work-modal-context>Состав тарифа</p>
+                            <h3 id="service-work-modal-title" data-service-work-modal-title>Виды работ</h3>
+                            <ul data-service-work-modal-list></ul>
+                            <p class="service_work_modal_note">Точный объём определяем после замера и фиксируем отдельными позициями в смете.</p>
+                            <button type="button" class="button but_black service_work_modal_cta" data-modal-open data-service-work-modal-lead>Получить смету</button>
+                        </div>
+                    </dialog>
                 </div>
             </section>
         </div>
@@ -533,7 +590,7 @@
         </div>
         
         <!-- Смета -->
-        <div class="estimate">
+        <div class="estimate" id="estimate">
             <section class="estimate_container">
                 <div class="container_main_text">
                     <div class="Main_text_left">

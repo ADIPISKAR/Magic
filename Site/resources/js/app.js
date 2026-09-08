@@ -179,7 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		const newServiceContent = servicePriceCards.map((card) => ({
 			title: card.querySelector('h3').textContent,
 			description: card.querySelector('.service_card_tags > p').textContent,
-			tags: [...card.querySelectorAll('.service_card_tags .bord_block')].map((tag) => tag.textContent),
+			workGroups: [...card.querySelectorAll('[data-service-work-group]')].map((button) => ({
+				label: button.querySelector('[data-service-work-label]').textContent,
+				items: JSON.parse(button.dataset.workItems),
+			})),
 			price: card.querySelector('.price p').textContent,
 		}));
 
@@ -191,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					? {
 						title: card.dataset.secondaryTitle,
 						description: card.dataset.secondaryDescription,
-						tags: card.dataset.secondaryTags.split('|'),
+						workGroups: JSON.parse(card.dataset.secondaryWorkGroups),
 						price: card.dataset.secondaryPrice,
 					}
 					: newServiceContent[index];
@@ -199,8 +202,10 @@ document.addEventListener('DOMContentLoaded', () => {
 				card.querySelector('h3').textContent = content.title;
 				card.querySelector('.service_card_tags > p').textContent = content.description;
 				card.querySelector('.price p').textContent = content.price;
-				card.querySelectorAll('.service_card_tags .bord_block').forEach((tag, index) => {
-					tag.textContent = content.tags[index];
+				card.querySelectorAll('[data-service-work-group]').forEach((button, groupIndex) => {
+					const group = content.workGroups[groupIndex];
+					button.querySelector('[data-service-work-label]').textContent = group.label;
+					button.dataset.workItems = JSON.stringify(group.items);
 				});
 			});
 
@@ -222,6 +227,53 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 			});
 		});
+
+		const workModal = document.querySelector('[data-service-work-modal]');
+		if (workModal) {
+			const modalContext = workModal.querySelector('[data-service-work-modal-context]');
+			const modalTitle = workModal.querySelector('[data-service-work-modal-title]');
+			const modalList = workModal.querySelector('[data-service-work-modal-list]');
+			const modalLead = workModal.querySelector('[data-service-work-modal-lead]');
+			let workModalOpener = null;
+
+			const closeWorkModal = () => {
+				workModal.close();
+				workModalOpener?.focus();
+			};
+
+			servicePrice.addEventListener('click', (event) => {
+				const button = event.target.closest('[data-service-work-group]');
+				if (!button) return;
+
+				const card = button.closest('.Service_Price');
+				const packageTitle = card.querySelector('h3').textContent;
+				const groupTitle = button.querySelector('[data-service-work-label]').textContent;
+				const modeTitle = selectedSwitch.querySelector('p').textContent;
+				const workItems = JSON.parse(button.dataset.workItems);
+
+				workModalOpener = button;
+				modalContext.textContent = `${modeTitle} · ${packageTitle}`;
+				modalTitle.textContent = groupTitle;
+				modalList.replaceChildren(...workItems.map((item, itemIndex) => {
+					const listItem = document.createElement('li');
+					const number = document.createElement('span');
+					const text = document.createElement('strong');
+					number.textContent = String(itemIndex + 1).padStart(2, '0');
+					text.textContent = item;
+					listItem.append(number, text);
+					return listItem;
+				}));
+				modalLead.dataset.leadContext = `Рассчитаем тариф «${packageTitle}» и уточним состав раздела «${groupTitle}» после замера.`;
+				modalLead.dataset.leadSource = `Главная — ${modeTitle}, ${packageTitle}, ${groupTitle}`;
+				workModal.showModal();
+			});
+
+			workModal.querySelector('[data-service-work-modal-close]').addEventListener('click', closeWorkModal);
+			modalLead.addEventListener('click', () => workModal.close());
+			workModal.addEventListener('click', (event) => {
+				if (event.target === workModal) closeWorkModal();
+			});
+		}
 	}
 
 	const portfolioCards = [...document.querySelectorAll('.portfolio_card')];
