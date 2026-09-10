@@ -1,4 +1,5 @@
 import './calculator.js';
+import './review-gallery.js';
 import './estimate.js';
 import './service-experience.js';
 import './mobile-header.js';

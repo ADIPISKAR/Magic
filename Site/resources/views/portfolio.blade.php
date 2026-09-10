@@ -78,7 +78,7 @@
         <section class="portfolio_projects" id="projects" aria-labelledby="projects-title">
             <div class="portfolio_section_heading">
                 <p class="service_eyebrow">Документация вместо обещаний</p>
-                <h2 id="projects-title">Выберите квартиру</h2>
+                <h2 id="projects-title">Примеры планировок квартир</h2>
                 <p>Внутри каждого кейса — исходная задача, принятые решения и все доступные листы проекта.</p>
             </div>
             <div class="portfolio_project_grid">

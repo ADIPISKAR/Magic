@@ -80,7 +80,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/focus-scroll.css', 'resources/js/focus-scroll.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
@@ -297,7 +297,7 @@
                 <section class="home_project_showcase" aria-labelledby="home-projects-title">
                     <div class="portfolio_section_heading">
                         <p class="service_eyebrow">Планировки и чертежи</p>
-                        <h2 id="home-projects-title"><a href="{{ route('portfolio', [], false) }}">Выберите квартиру</a></h2>
+                        <h2 id="home-projects-title"><a href="{{ route('portfolio', [], false) }}">Примеры планировок квартир</a></h2>
                         <p>Откройте близкую по площади квартиру и посмотрите планировку, расстановку мебели, электрику и сантехнику.</p>
                     </div>
                     <div class="portfolio_project_grid">
@@ -498,96 +498,7 @@
             </section>
         </div>
 
-        <!-- Обратная связь -->
-        <div class="feedback" id="reviews">
-            <section class="feedback_container">
-                <div class="Main_text_center">
-                    <h2 class="seo-section-heading">Наши отзывы</h2>
-                    <p>Стоимость ремонта квартиры зависит от площади, состояния помещений, объема инженерных работ и выбранных материалов. Показываем состав работ в подробной смете.</p>
-                </div>
-
-                <div class="swiper my-slider">
-                    <div class="swiper-wrapper">
-
-                        <div class="swiper-slide">
-                            <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/1w.webp') }}" width="100" height="100" loading="lazy" decoding="async" alt="Ольга, клиентка компании" class="feedback_icon">
-                                <p>Ольга</p>
-                            </div>
-
-                            <p>Заказала комплексный ремонт квартиры в Ростове-на-Дону. Получила понятную смету, аккуратную работу и готовый интерьер точно в согласованные сроки.</p>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/1m.webp') }}" width="96" height="100" loading="lazy" decoding="async" alt="Максим, клиент компании" class="feedback_icon">
-                                <p>Максим</p>
-                            </div>
-
-                            <p>Заказал ремонт кухни-гостиной под ключ: команда помогла с выбором материалов, организовала работы и оставила после себя чистый объект.</p>
-                        </div>
-                        
-                        <div class="swiper-slide">
-                            <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/2w.webp') }}" width="100" height="100" loading="lazy" decoding="async" alt="Екатерина, клиентка компании" class="feedback_icon">
-                                <p>Екатерина</p>
-                            </div>
-
-                            <p>Обратилась за ремонтом ванной комнаты. Специалисты качественно выполнили гидроизоляцию, плиточные и сантехнические работы, я осталась довольна результатом.</p>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/2m.webp') }}" width="96" height="100" loading="lazy" decoding="async" alt="Андрей, клиент компании" class="feedback_icon">
-                                <p>Андрей</p>
-                            </div>
-
-                            <p>Заказал ремонт квартиры в новостройке. Все прошло организованно: от черновой отделки и электрики до финишных покрытий и установки дверей.</p>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/3w.webp') }}" width="96" height="100" loading="lazy" decoding="async" alt="Марина, клиентка компании" class="feedback_icon">
-                                <p>Марина</p>
-                            </div>
-
-                            <p>Мне понравился подход к дизайнерскому ремонту спальни: учли мои пожелания, продумали освещение и помогли подобрать отделочные материалы.</p>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/3m.webp') }}" width="96" height="100" loading="lazy" decoding="async" alt="Дмитрий, клиент компании" class="feedback_icon">
-                                <p>Дмитрий</p>
-                            </div>
-
-                            <p>Заказал капитальный ремонт вторичной квартиры. Все этапы и стоимость заранее обсудили, специалисты поддерживали порядок на объекте.</p>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/4m.webp') }}" width="96" height="100" loading="lazy" decoding="async" alt="Сергей, клиент компании" class="feedback_icon">
-                                <p>Сергей</p>
-                            </div>
-
-                            <p>Бесплатный замер и подробная смета помогли быстро принять решение о ремонте. Работы выполнили последовательно, без неожиданных платежей.</p>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="Main_Swiper_Text">
-                                <img src="{{ asset('images/feedback/5m.webp') }}" width="96" height="100" loading="lazy" decoding="async" alt="Алексей, клиент компании" class="feedback_icon">
-                                <p>Алексей</p>
-                            </div>
-
-                            <p>Заказал ремонт квартиры под ключ в Ростове-на-Дону. Получил профессиональную команду, прозрачные условия и аккуратную чистовую отделку.</p>
-                        </div>
-                    </div>
-                
-                    <!-- Пагинация (точки) -->
-                    <div class="swiper-pagination"></div>
-                </div>
-                
-            </section>
-        </div>
+        @include('partials.review-gallery')
         
         <!-- Смета -->
         <div class="estimate" id="estimate">
@@ -750,33 +661,5 @@
 
         @include('partials.cookie-consent')
 
-        <script>
-            window.addEventListener('DOMContentLoaded', () => {
-                new Swiper('.my-slider', {
-                    slidesPerView: 5,
-                    spaceBetween: 16,
-
-                    breakpoints: {
-                        0: {
-                            slidesPerView: 1,
-                            spaceBetween: 10,
-                        },
-                        576: {
-                            slidesPerView: 2,
-                            spaceBetween: 16,
-                        },
-                        1200: {
-                            slidesPerView: 5,
-                            spaceBetween: 16,
-                        },
-                    },
-
-                    pagination: {
-                        el: '.my-slider .swiper-pagination',
-                        clickable: true,
-                    },
-                });
-            });
-        </script>
     </body>
 </html>
